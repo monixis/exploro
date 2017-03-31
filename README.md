@@ -1,1 +1,1 @@
-# Honors Thesis Repository
+# exploro: An EAD3 search engine
