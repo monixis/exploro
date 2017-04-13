@@ -57,6 +57,54 @@
 					}
 			}?><br/>
 			
+			<p style="font-size: 12pt; margin-bottom: 0px;color: #b31b1b; font-weight: bold;">Format</p>	
+			<?php 	
+				$i = 0;				
+				foreach ($results->facet_counts->facet_fields->format as $row) {
+			?>
+				<a href="#"><?php echo $row . " "; ?></a>
+			<?php
+					$i =  $i + 1;
+					if($i % 2 == 0 )
+					{
+			?><br/>
+			<?php	}else{
+						echo " - ";		
+					}
+			}?><br/>
+			
+			<p style="font-size: 12pt; margin-bottom: 0px;color: #b31b1b; font-weight: bold;">Physical Description</p>	
+			<?php 	
+				$i = 0;				
+				foreach ($results->facet_counts->facet_fields->physdesc as $row) {
+			?>
+				<a href="#"><?php echo $row . " "; ?></a>
+			<?php
+					$i =  $i + 1;
+					if($i % 2 == 0 )
+					{
+			?><br/>
+			<?php	}else{
+						echo " - ";		
+					}
+			}?><br/>
+			
+			<p style="font-size: 12pt; margin-bottom: 0px;color: #b31b1b; font-weight: bold;">Location</p>	
+			<?php 	
+				$i = 0;				
+				foreach ($results->facet_counts->facet_fields->location as $row) {
+			?>
+				<a href="#"><?php echo $row . " "; ?></a>
+			<?php
+					$i =  $i + 1;
+					if($i % 2 == 0 )
+					{
+			?><br/>
+			<?php	}else{
+						echo " - ";		
+					}
+			}?><br/>
+			
 			<p style="font-size: 12pt; margin-bottom: 0px;color: #b31b1b; font-weight: bold;">Subjects</p>
 			<?php
 				foreach($dplaResults -> facets as $row) {
@@ -83,9 +131,9 @@
   	<ol id="list">
 			<?php
 				foreach ($results->response->docs as $row) {
-					$title = (isset($row -> title[0]) ? $row -> title[0] : FALSE);	
+					$title = (isset($row -> unittitle[0]) ? $row -> unittitle[0] : FALSE);	
 					//$title = $row -> title[0];
-					$date = (isset($row -> date[0]) ? $row -> date[0] : FALSE) ;
+					$date = (isset($row -> unitdate[0]) ? $row -> unitdate[0] : FALSE) ;
 					$level = $row -> category[0];
 					if ($level == 'files'){
 						$box = $row -> container[0];	
@@ -93,9 +141,10 @@
 					$collectionLink = (isset($row -> collectionLink[0]) ? $row -> collectionLink[0]: FALSE) ;
 					$collection = $row -> collection;
 					$id = $row -> unitid;
+					$link = $row -> link[0]; 
 			?>
 				<li class="results" style="height: auto; padding: 10px;">
-					<img src="http://dev.library.marist.edu/images/doc.png" style="width: 125px; height: auto; float: left; "/>
+					<img src="<?php echo $link ?>" style="width: 135px; height: 115px; float: left; margin-right: 10px;"/>
 					<div style="margin-left: 120px; padding: 5px; height: auto;">
 						<a href="<?php echo base_url("?c=exploro&m=fileInfo&id=".$id)?>" target="_blank"><?php echo $title ?></a></br>
 						<p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>

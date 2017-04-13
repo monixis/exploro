@@ -47,12 +47,16 @@
     <?php
 	foreach ($results->response->docs as $row) {
 		$id = $row -> unitid;
-		$title = $row -> title[0];
-		$box = $row -> container[0];
-		$date = $row -> date[0];
-		$collection = $row -> collection;
-		$category = $row -> category[0];
-		$url = "http://library.marist.edu/archives/LTP/digitizedContents/JPEG_1265/JPEG_1265%20B%20Scans/2.1.1.2.1.1.1265.1.jpg";
+		$title = (isset($row -> unittitle[0]) ? $row -> unittitle[0] : FALSE);
+		$box = (isset($row -> container[0]) ? $row -> container[0] : FALSE);
+		$date = (isset($row -> unitdate[0]) ? $row -> unitdate[0] : FALSE);
+		$collection = (isset($row -> collection) ? $row -> collection : FALSE);
+		$category = (isset($row -> category[0]) ? $row -> category[0] : FALSE);
+		$url = (isset($row -> link[0]) ? $row -> link[0] : FALSE);
+		$findingaid = (isset($row -> collectionLink[0]) ? $row -> collectionLink[0] : FALSE);
+		$rightsstatement = (isset($row -> userestrict[0]) ? $row -> userestrict[0] : FALSE);
+		$format = (isset($row -> format[0]) ? $row -> format[0] : FALSE);
+		$physdesc = (isset($row -> physdesc) ? $row -> physdesc : FALSE);
 		}
     ?>
 </head>
@@ -91,15 +95,26 @@
             								<tr>
                 								<td class ="col-md-2">Box:</td><td> <?php echo $box ?></td>
             								</tr>
-            								
             								<tr>
                 								<td class ="col-md-2" >Date:</td> <td><?php echo $date ?></td>
+            								</tr>
+            								<tr>
+                								<td class ="col-md-2" >Format:</td> <td><?php echo $format ?></td>
+            								</tr>
+            								<tr>
+                								<td class ="col-md-2" >Physical Description:</td> <td><?php echo $physdesc ?></td>
             								</tr>
             								<tr>
                 								<td class ="col-md-2" >Collection:</td> <td><?php echo $collection ?></td>
             								</tr>
             								<tr>
                 								<td class ="col-md-2" >Category:</td> <td><?php echo $category ?></td>
+            								</tr>
+            								<tr>
+                								<td class ="col-md-2" >Finding aid:</td> <td><a href='<?php echo $findingaid ?>' target="_blank"><?php echo $findingaid ?></a></td>
+            								</tr>
+            								<tr>
+                								<td class ="col-md-2" >Rights Statement:</td> <td><?php echo $rightsstatement ?></td>
             								</tr>
             								<!--tr>
                 								<td class ="col-md-2"> Associated Tags:</td>
@@ -110,7 +125,7 @@
                     						</tr-->
             							</tbody>
             						</table>
-            						<div style="width: 100%; height: 400px; margin-top: 50px;">
+            						<div style="width: 100%; height: auto; margin-top: 50px;">
             							<img src="<?php echo $url ?>" style="margin-left: auto; margin-right: auto; display: block;"/>
             						</div>
             							<!--iframe src="<?php echo $url ?>" style="width:100%; height:400px;"></iframe-->
