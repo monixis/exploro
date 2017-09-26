@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type='text/xsl' href='./styles/boxbuilder.xsl'?>
+<ead>
+	<!-- EAD3 required element -->
+	<control countryencoding="iso3166-1" dateencoding="iso8601" langencoding="iso639-2b" repositoryencoding="iso15511" scriptencoding="iso15924">
+		<!-- EAD3 required element -->
+		<recordid instanceurl=" ">2.1.1.1.1</recordid><!-- EAD3 required element -->
+		<filedesc>
+			<!-- EAD3 required element -->
+			<titlestmt>
+				<!-- EAD3 required element -->
+				<titleproper>Austria</titleproper><!-- Required element within titlestmt -->
+			</titlestmt>
+			<publicationstmt>
+				<publisher>Marist College</publisher>
+				<date>2009 October 30</date>
+				<address>
+					<addressline>3399 North Road, Poughkeepsie, New York 12601</addressline>
+				</address>
+				<p>
+					<ref href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</ref>
+				</p>
+			</publicationstmt>
+			<notestmt>
+				<controlnote>
+					<p>Lowell Thomas Papers - Graphic Materials - Photographs - Glass Plate Negatives - Frank R. Roberson - Austria</p>
+				</controlnote>
+			</notestmt>
+		</filedesc>
+	</control>
+	<archdesc level="collection">
+		<!-- EAD3 required element -->
+		<did>
+			<!-- EAD3 required element -->
+			<repository>
+				<corpname source="DBP" identifier="http://dbpedia.org/page/Marist_College">
+					<part>Marist Archives and Special Collections</part>
+				</corpname>
+				<address>
+					<addressline>3399 North Road, Poughkeepsie, New York 12601</addressline>
+				</address>
+			</repository>
+			<origination source="DBP" identifier="http://dbpedia.org/page/Lowell_Thomas">
+				<!-- Optional EAD3 element, added to comply with DACS requirement for 'Name of Creator(s) Element'. The new <relations> element can satisfy this and expand on it, but as <relations> is experimental, use of <origination> is recommended for now -->
+				<persname>
+					<part>Lowell Thomas</part>
+				</persname>
+			</origination>
+			<unittitle>Austria</unittitle><!-- Optional EAD3 element, added to comply with DACS requirement for 'Title Element' -->
+			<unitid>2.1.1.1.1</unitid><!-- Optional EAD3 element, added to comply with 'Reference Code Element' of DACS requirement -->
+			<unitdatestructured unitdatetype="bulk">
+				<daterange>
+					<fromdate>1789</fromdate>
+					<todate>1984</todate>
+				</daterange>
+			</unitdatestructured>
+			<physdescstructured physdescstructuredtype="spaceoccupied whole" coverage="">
+				<quantity>1203</quantity>
+				<unittype>linear feet</unittype>
+			</physdescstructured>
+			<langmaterial/>
+		</did>
+		<accessrestrict>
+			<!-- Optional EAD3 element, added to comply with DACS requirement for 'Conditions Governing Access Element' -->
+			<p>Items in this collection do not circulate and may be used in-house only.</p>
+		</accessrestrict>
+		<userestrict>
+			<!-- Optional EAD3 element, added to comply with DACS requirement for 'Conditions Governing Access Element' -->
+			<p>Individuals requesting reproductions expressly assume the responsibility for compliance with all pertinent provisions of the Copyright Act, 17 U.S.C. ss101 et seq. Patrons further agree to indemnify and hold harmless the Marist College Archives &amp; Special Collections and its staff in connection with any disputes arising from the Copyright Act, over the reproduction of material at the request of patrons. For more information please visit the following website: http://www.loc.gov/copyright/title17/.</p>
+		</userestrict>
+		<controlaccess>
+			<geogname source="DBP" identifier="http://dbpedia.org/page/Austria">
+				<part>Austria</part>
+			</geogname>
+		</controlaccess>
+		<dsc>
+			<c01 level="collection">
+				<did>
+					<unittitle>
+						Lowell Thomas Papers
+						<ptr href="http://library.marist.edu/archives/LTP/LTP.xml"/>
+					</unittitle>
+				</did>
+				<c02 level="series">
+					<did>
+						<unitid>2</unitid>
+						<unittitle>Graphic Materials</unittitle>
+					</did>
+					<c03 level="subseries">
+						<did>
+							<unitid>2.1</unitid>
+							<unittitle>Photographs</unittitle>
+						</did>
+						<c04 level="subseries">
+							<did>
+								<unitid>2.1.1</unitid>
+								<unittitle>Glass Plate Negatives</unittitle>
+							</did>
+							<c05 level="subseries">
+								<did>
+									<unitid>2.1.1.1</unitid>
+									<unittitle>Frank R. Roberson</unittitle>
+								</did>
+								<c06 level="subseries">
+									<did>
+										<unitid>2.1.1.1.1</unitid>
+										<unittitle>Austria</unittitle>
+									</did>
+									<c07 level="recordgrp">
+										<did>
+											<container localtype="box">1173</container>
+											<c08 level="item">
+												<did>
+													<unitid>1</unitid>
+													<unittitle>The old fortress, Kufstein, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.1.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>2</unitid>
+													<unittitle>Old fortress on a rock, Kufstein, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.2.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>3</unitid>
+													<unittitle>The valley of the Inn, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.3.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>4</unitid>
+													<unittitle>Narrow street, Hall, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.4.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>5</unitid>
+													<unittitle>Street in Hall, Ehn Valley, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.5.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>6</unitid>
+													<unittitle>Marie-Thereseien Strasse, looking toward the Anna Saule, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.6.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>7</unitid>
+													<unittitle>Marie-Theresein Strasse showing style of architecture, Innsbruck, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.7.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>8</unitid>
+													<unittitle>Looking down Marie-Theresien Strasse toward the mountain, Innsbruck, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.8.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>9</unitid>
+													<unittitle>Looking down Herzog-Friedrich Strasse, Innsbruck, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.9.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>10</unitid>
+													<unittitle>Golden Adler Hotel in the Herzog-Friedrich Strasse, Innsbruck, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.10.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>11</unitid>
+													<unittitle>Golden Adler Hotel, Innsbruck, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.11.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>12</unitid>
+													<unittitle>Balin Strasse[?] near the railway station, Innsbruck, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.12.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>13</unitid>
+													<unittitle>Old castle just outside of Innsbruck, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.13.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>14</unitid>
+													<unittitle>Armor of King Theodorich, Innsbruck</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.14.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>15</unitid>
+													<unittitle>Innsbruck von Berg Isel, Austrian Tyrol, copy</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.15.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>16</unitid>
+													<unittitle>Innsbruck von der Weiherburg, copy</unittitle>
+													<unitdatestructured>
+														<datesingle>7/1/1910</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.16.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>17</unitid>
+													<unittitle>Modern castle in the Bremer Pass, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.17.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>18</unitid>
+													<unittitle>View on road just south of Innsbruck, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.18.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>19</unitid>
+													<unittitle>In the Val Ampezzo, Dolomites, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.19.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>20</unitid>
+													<unittitle>Frank R. Roberson and Mrs. Jessie W. Roberson in automobile in Ampezzo Valley, Dolomites, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.20.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>21</unitid>
+													<unittitle>The Campanile, Cortina d' Ampezzo, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.21.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>22</unitid>
+													<unittitle>Fields of flowers, mountains</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.22.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>23</unitid>
+													<unittitle>Garden</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.23.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>24</unitid>
+													<unittitle>House, many pictures on wall, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.24.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>25</unitid>
+													<unittitle>Street scene, Innsbruck, Austrian Tyrol</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.25.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>26</unitid>
+													<unittitle>Men climbing, Schneerinne, copy</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.26.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>27</unitid>
+													<unittitle>Mittenwald, copy</unittitle>
+													<unitdatestructured>
+														<datesingle>7/1/1910</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.27.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>28</unitid>
+													<unittitle>Dolomitenst, copy</unittitle>
+													<unitdatestructured>
+														<datesingle>7/1/1910</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.28.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>29</unitid>
+													<unittitle>Lermoos, mountains in distance, copy</unittitle>
+													<unitdatestructured>
+														<datesingle>7/1/1910</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.29.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>30</unitid>
+													<unittitle>Town and mountains, Lofer, Copy</unittitle>
+													<unitdatestructured>
+														<datesingle>7/1/1910</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.30.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>31</unitid>
+													<unittitle>Ornate building, Austria, Copy</unittitle>
+													<unitdatestructured>
+														<datesingle>before 1916</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.31.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>32</unitid>
+													<unittitle>Man, Austrian Tyrol, Copy</unittitle>
+													<unitdatestructured>
+														<datesingle>7/1/1910</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.32.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>33</unitid>
+													<unittitle>Woman, Austrian Tyrol, Copy</unittitle>
+													<unitdatestructured>
+														<datesingle>7/1/1910</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.33.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>34</unitid>
+													<unittitle>Andreas Hofer, Copy</unittitle>
+													<unitdatestructured>
+														<datesingle>7/1/1910</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.34.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>35</unitid>
+													<unittitle>Hans Makart, Copy</unittitle>
+													<unitdatestructured>
+														<datesingle>7/1/1910</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1173/1173.35.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+										</did>
+									</c07>
+								</c06>
+							</c05>
+						</c04>
+					</c03>
+				</c02>
+			</c01>
+		</dsc>
+	</archdesc>
+</ead>

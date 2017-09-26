@@ -1,125 +1,42 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://library.marist.edu/crrs/js/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script>
   $(function(){
-    $( "#tabs" ).tabs();
+    $("#tabs").tabs();
+  
   });
+  
 </script>	
-<style>
-	ul.ui-tabs-nav{
-		height: 50px;
-		background: #ffffff;
-		border: none;
-	}
-	
-	div#tabs{
-		border-top: none;
-		border-left: none;
-		border-right: none;
-		border-bottom: none;
-	}
-</style>	
-
 <link rel="stylesheet" type="text/css" href="./styles/main.css" />
+	<div id="selectedFacet">
+	</div>
 	<h2>Results:</h2>
-		<div id="facets" style="border-right: 1px solid #ccc; width: auto; height: auto; float: left; margin-left: -200px; padding-right: 20px; ">
+		<div id="facets" style="width: 240px; height: auto; float: left; margin-left: -240px;">
 			<h4>Filter By:</h4>	
-			<p style="font-size: 12pt; margin-bottom: 0px;color: #b31b1b; font-weight: bold;">Collections</p>	
 			<?php 
-				$i = 0;
-				foreach ($results->facet_counts->facet_fields->collection as $row) {
+				$facets = (array) $results->facet_counts->facet_fields;
+				foreach ($facets as $key => $value){
 			?>
-				<a href="#"><?php echo $row . " "; ?></a>
-			<?php			
-					$i =  $i + 1;
-					if($i % 2 == 0 )
-					{
-			?><br/>
-			<?php	}else{
-						echo " - ";		
-					}
-			}?><br/>
-			
-			<p style="font-size: 12pt; margin-bottom: 0px;color: #b31b1b; font-weight: bold;">Type</p>	
-			<?php 	
-				$i = 0;				
-				foreach ($results->facet_counts->facet_fields->category as $row) {
-			?>
-				<a href="#"><?php echo $row . " "; ?></a>
+					<button class="accordion"><?php echo $key ; ?></button>
+					<div class="panel" id="<?php echo $key ; ?>">
+					<?php 
+						$facetList = " ";
+						$i = 0;
+						foreach ($value as $row) {	
+							if ($i % 2 == 0){
+								$facetList = $row;	
+							}else{
+								$facetList = $facetList . " - " . $row ;
+					?><a href="#" class='tags'><?php echo $facetList ; ?></a><br/><?php
+							}
+							$i += 1;
+						}	 
+					?>
+					</div>		
 			<?php
-					$i =  $i + 1;
-					if($i % 2 == 0 )
-					{
-			?><br/>
-			<?php	}else{
-						echo " - ";		
-					}
-			}?><br/>
-			
-			<p style="font-size: 12pt; margin-bottom: 0px;color: #b31b1b; font-weight: bold;">Format</p>	
-			<?php 	
-				$i = 0;				
-				foreach ($results->facet_counts->facet_fields->format as $row) {
-			?>
-				<a href="#"><?php echo $row . " "; ?></a>
-			<?php
-					$i =  $i + 1;
-					if($i % 2 == 0 )
-					{
-			?><br/>
-			<?php	}else{
-						echo " - ";		
-					}
-			}?><br/>
-			
-			<p style="font-size: 12pt; margin-bottom: 0px;color: #b31b1b; font-weight: bold;">Physical Description</p>	
-			<?php 	
-				$i = 0;				
-				foreach ($results->facet_counts->facet_fields->physdesc as $row) {
-			?>
-				<a href="#"><?php echo $row . " "; ?></a>
-			<?php
-					$i =  $i + 1;
-					if($i % 2 == 0 )
-					{
-			?><br/>
-			<?php	}else{
-						echo " - ";		
-					}
-			}?><br/>
-			
-			<p style="font-size: 12pt; margin-bottom: 0px;color: #b31b1b; font-weight: bold;">Location</p>	
-			<?php 	
-				$i = 0;				
-				foreach ($results->facet_counts->facet_fields->location as $row) {
-			?>
-				<a href="#"><?php echo $row . " "; ?></a>
-			<?php
-					$i =  $i + 1;
-					if($i % 2 == 0 )
-					{
-			?><br/>
-			<?php	}else{
-						echo " - ";		
-					}
-			}?><br/>
-			
-			<p style="font-size: 12pt; margin-bottom: 0px;color: #b31b1b; font-weight: bold;">Subjects</p>
-			<?php
-				foreach($dplaResults -> facets as $row) {
-					for ($i = 0 ; $i< 10; $i++){
-						$subject = $row -> terms[$i] -> term;
-						$count = $row -> terms[$i] -> count;
-						$subjectcombined = $subject ." - " . $count ;
-						?>
-					<a href="#" id="<?php echo $subject; ?>" class="subjects"><?php echo chunk_split($subjectcombined, 24, "<br/>"); ?></a>
-			<?php	
-					}
 				}
 			?>
 		</div>
-		
 		
 <div id="tabs">
  <ul>
@@ -223,14 +140,42 @@
   </div>
 </div>		
 <script type="text/javascript">
-		$('a.subjects').click(function(){
+	/*('a.subjects').click(function(){
 			var subject = $(this).attr('id');
 			$('input#searchBox').val(subject);
 			var searchTerm = $('input#searchBox').val();
 			var searchTerm = searchTerm.replace(/ /g,"%20");
-			var resultUrl = "<?php echo base_url("?c=exploro&m=searchSubjects&q=")?>"+ searchTerm;
+			var resultUrl = "<!--?php echo base_url("?c=exploro&m=searchSubjects&q=")?>"+ searchTerm;
 			$('#searchResults').load(resultUrl);
 			
-		});
+		});*/
+		
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+
+		for (i = 0; i < acc.length; i++) 
+		{
+    		acc[i].onclick = function()
+    		{
+        		this.classList.toggle("active");
+        		var panel = this.nextElementSibling;
+        		if (panel.style.display === "block") {
+            		panel.style.display = "none";
+        		} else {
+            		panel.style.display = "block";
+        		}
+    		}
+		}
+		
+		$('a.tags').click(function(){
+			var selectedTag = ($(this).parents('div.panel').attr('id')) + ' > ' + ($(this).text().substr(0, $(this).text().indexOf('-')));
+			$('#selectedFacet').append('<button class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px;">'+ selectedTag +'<a href="#" class="remove" style="margin-left:10px;"> X </a></button>');
+                  
+		});	
+		
+		$('#selectedFacet').on('click', '.remove', function() {
+    	    $(this).closest('button.taglist').remove();
+	    });
+	
 </script>
 			  

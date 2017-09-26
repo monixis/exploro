@@ -8,17 +8,13 @@ body {font-family: Helvetica,Arial;}
 	<body>
 		<h1>Acknowledgements</h1>
 		<p>
-			User Agreement system was developed by the Library Digital Development team.
+			eXploro was developed by the Library Digital Development team.
 		</p>
 
 		<ul>
 			<li>
 				Project Manager: Monish Singh
 			</li>
-			<li>
-				Lead Developer: Dheeraj Karnati
-			</li>
-			
 		</ul>
 	</body>
 </html>
