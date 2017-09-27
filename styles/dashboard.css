@@ -1,19 +1,9 @@
 .center-textbox {
   margin:auto;
-  text-align: center;
+  text-align: left;
   width: 90%;
 }
 
-.flex-box {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.flex-box-100 {
-  flex-basis: 100%;
-}
-
 .form-spacing {
-  margin-top: 10px;
+  margin-top: 20px;
 }

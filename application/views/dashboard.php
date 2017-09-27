@@ -139,7 +139,7 @@
 <div id="menu">
     <div id="menuItems"></div>
 </div>
-<div id="miniMenu" style="width: 100%;border: 1px solid black; border-bottom: none;">
+<div id="miniMenu" style="width: 75%;border: 1px solid black; border-bottom: none;">
 
 </div>
 <div class="container">
@@ -166,16 +166,25 @@
                         Before clicking update: Please make sure that you copied EAD3 folder generated from
                         boxbuilder into "ead_uploads" directory.
                     </p>
-                    <div class="center-textbox flex-box">
+                    <div class="center-textbox">
                     <form>
-                      <select class="form-spacing flex-box-100">
-                        <option selected value="0">Please select a collection to upload.</option>
-                      </select>
+                      <div class="form-spacing">
+                        <select>
+                          <option selected value="0">Please select a collection to upload.</option>
+                        </select>
+                      </div>
 
-                      <input type="radio" class="form-spacing flex-box-100" name="uploadType" value="1">EAD XML</input>
-                      <input type="radio" class="form-spacing flex-box-100" name="uploadType" value="2">EAD XML with PDFs</input>
+                      <div class="form-spacing">
+                        <input type="radio" name="uploadType" value="1">EAD XML</input>
+                      </div>
 
-                      <input id="upload" name="update" class="btn btn-primary form-spacing flex-box-100" type="button" onclick="updateEads()" style="background:#333;" value="Upload" />
+                      <div class="form-spacing">
+                        <input type="radio" class="form-spacing" name="uploadType" value="2">EAD XML with PDFs</input>
+                      </div>
+
+                      <div class="form-spacing">
+                        <input id="upload" name="update" class="btn btn-primary" type="button" onclick="updateEads()" style="background:#333;" value="Upload" />
+                      </div>
                     </form>
                   </div>
                 </div>
