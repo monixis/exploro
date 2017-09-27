@@ -26,6 +26,7 @@
 		<script type="text/javascript" src="http://library.marist.edu/crrs/js/jquery-ui.js"></script>
 		<link rel="stylesheet" href="http://library.marist.edu/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="../styles/dashboard.css" />
 
     <script>
           function publishToSolr() {
@@ -120,7 +121,7 @@
 			opacity:0.5;
 			cursor: pointer;
 		}
-		
+
 		.panel-heading{
 			height: 55px;
 		}
@@ -151,96 +152,36 @@
     </br>
 
     <div align="center" class="col-md-12">
-
         <div class="panel-group">
             <div class="panel panel-default">
-                <!--                <i class="fa fa-updating  fa-5x"></i>
-                -->
                 <div class="panel-heading">
-                    <h3>1. Update EADs</h3>
+                    <h3>Upload EAD Collection into Solr</h3>
                 </div>
                 <div class="panel-body">
-
-                    <li>
-                        This update will add the collection url and component url for each of the collection EAD files
-                        in the directory.
-                    </li>
                     <p>
+                        This process will convert EAD3 files of the specified collection into Solr XML. The Solr XML files will then be indexed into Exploro.
+                    </p>
                     <h4>Note:</h4>
-                    <li>
+                    <p>
                         Before clicking update: Please make sure that you copied EAD3 folder generated from
                         boxbuilder into "ead_uploads" directory.
-                    </li>
-
                     </p>
-                    <button id="update" name="update" class="btn btn-primary" type="button" onclick="updateEads()"
-                            style="background:#333;">Update
-                    </button>
-                </div>
-            </div>
-        </div>
+                    <div class="center-textbox flex-box">
+                    <form>
+                      <select class="form-spacing flex-box-100">
+                        <option selected value="0">Please select a collection to upload.</option>
+                      </select>
 
-    </div>
+                      <input type="radio" class="form-spacing flex-box-100" name="uploadType" value="1">EAD XML</input>
+                      <input type="radio" class="form-spacing flex-box-100" name="uploadType" value="2">EAD XML with PDFs</input>
 
-    <div align="center" class="col-md-12">
-        <div class="panel-group">
-
-            <!--                <i class="fa fa-converting fa-5x"></i>
-            -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-
-                    <h3>2. Convert Updated EAD3s into Solr XMLs</h3>
-                </div>
-
-                <div class="panel-body">
-
-                    <li>
-                        A process to transform EAD3s into Solr formatted XMLs.
-                    </li>
-                    <p>
-                     <li>
-                        Convered Files will be saved into "solr_xmls" directory.
-                    </li>
-                    </p>
-                    </br>
-                    <button id="convert" name="convert" class="btn btn-primary" type="button" onclick="convertEads()"
-                            style="background:#333;">Convert
-                    </button>
+                      <input id="upload" name="update" class="btn btn-primary form-spacing flex-box-100" type="button" onclick="updateEads()" style="background:#333;" value="Upload" />
+                    </form>
+                  </div>
                 </div>
             </div>
         </div>
     </div>
-    <div align="center" class="col-md-12">
-        <!--                <i class="fa fa-publish fa-5x"></i>
-        -->
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-
-
-                    <h3>3. Publish To Solr</h3>
-                </div>
-                <div class="panel-body">
-
-                    <li>A process to ingest the converted SOLR xmls into solr core to index and search purposes.
-                    </li>
-                    <p>
-                    <h4>Note:</h4>
-                    <li>
-                     Before clicking publish: Please make sure that converted SOLR xmls are copied into solr directory (apache_solr/files/solrdocs) in AWS EC2.
-                    </li>
-                    </p>
-                    <button id="publish" name="publish" class="btn btn-primary" type="button" onclick="publishToSolr()"
-                            style="background:#333;">Publish
-                    </button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    </br></br>
 
 </div>
 </br>
@@ -262,4 +203,3 @@
 </body>
 
 </html>
-

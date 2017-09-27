@@ -26,7 +26,7 @@ li.results a {
   -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
   transition: font-size 0.3s ease, background-color 0.3s ease;
 }
- 
+
 li.results a:hover {
   /*font-size: 25px;*/
   color: #b31b1b;
@@ -35,18 +35,18 @@ li.results a:hover {
 
 
 /* Zebra striping */
-tr:nth-of-type(odd) { 
-  background: #eee; 
+tr:nth-of-type(odd) {
+  background: #eee;
 }
-th { 
-  background: #333; 
-  color: white; 
-  font-weight: bold; 
+th {
+  background: #333;
+  color: white;
+  font-weight: bold;
 }
-td, th { 
-  padding: 6px; 
-  border: 1px solid #ccc; 
-  text-align: left; 
+td, th {
+  padding: 6px;
+  border: 1px solid #ccc;
+  text-align: left;
 }
 
 
@@ -67,14 +67,14 @@ ul.ui-tabs-nav{
 		background: #ffffff;
 		border: none;
 	}
-	
+
 	div#tabs{
 		border-top: none;
 		border-left: none;
 		border-right: none;
 		border-bottom: none;
 	}
-	
+
 	button.accordion {
     background-color: #eee;
     color: #444;
@@ -92,7 +92,7 @@ ul.ui-tabs-nav{
 	}
 
 button.accordion.active, button.accordion:hover {
-    background-color: #ddd; 
+    background-color: #ddd;
 }
 
 div.panel {
@@ -113,11 +113,9 @@ button.accordion:after {
 
 button.accordion.active:after {
     content: "\2796"; /* Unicode character for "minus" sign (-) */
-}		
-
-#selectedFacet{
-	width: auto;
-	height: auto;
-
 }
 
+#selectedFacet {
+	width: auto;
+	height: auto;
+}
