@@ -7,3 +7,9 @@
 .form-spacing {
   margin-top: 20px;
 }
+
+.error-message {
+  color: red;
+  display: none;
+  text-align: center;
+}

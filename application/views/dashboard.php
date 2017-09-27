@@ -30,16 +30,25 @@
 
     <script>
           $(document).ready(function(){
-            $.get('/helpers/collection_lister.php', function(response){
-              alert("FLAG " + response);
-              // $("#selectCollection").append(response);
+            $.get('../application/helpers/collection_lister.php', function(response){
+              //alert("FLAG " + response);
+              $("#selectCollection").append(response);
             });
 
-            $.get("listfiles.php", {"dir":dir}, function(response){
-           //Show the files
-           $("#files").html(response);
-       });
+            $("#collectionForm").submit(function(event){
+              event.preventDefault();
+              if ($("#selectCollection").val() == 0){
+                $("#error-panel").show();
+                $("#error-message").html("You must select a valid collection.");
+                return 0;
+              }
+              $("#error-panel").hide();
+              $("#error-message").hide();
+              alert("Flag! Succesfull submit");
+            });
+
           });
+
 
 
 
@@ -70,64 +79,6 @@
 
                 });
             }
-        }
-
-
-        function convertEads() {
-
-            var r = confirm("Are you sure you want to convert?");
-            if (r == true) {
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url("?c=explr&m=converteads")?>",
-                    data: "",
-                    contentType: false,
-                    processData: false,
-                    success: function (message) {
-                        if (message > 0) {
-                            $('#requestStatus').empty();
-
-                            $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s)").delay(3000).fadeOut();
-                            // $('#requestStatus').empty();
-
-                            //var convertedFileCount = '<!--?php echo $convertedFileCount;?>'';
-                            //   alert("Success:Total number of documents converted :" message);
-                        } else {
-                            $('#requestStatus').empty();
-                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert").delay(3000).fadeOut();
-                            // $('#requestStatus').empty();
-
-                        }
-                    }
-
-                });
-            }
-        }
-
-        function updateEads() {
-
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url("?c=explr&m=formatEads")?>",
-                data: "",
-                contentType: false,
-                processData: false,
-                success: function (message) {
-                    if (message > 0) {
-                        $('#requestStatus').empty();
-                        $('#requestStatus').show().css('background', '#66cc00').append("Successfully updated - " + message + " files").delay(3000).fadeOut();
-
-
-                    } else {
-                        $('#requestStatus').empty();
-                        $('#requestStatus').show().css('background', '#b31b1b').append("Failed to update").delay(3000).fadeOut().empty().delay(4000);
-                        // $('#requestStatus').empty();
-
-                    }
-                }
-            });
-
-
         }
     </script>
     <style>
@@ -181,7 +132,8 @@
                         boxbuilder into "ead_uploads" directory.
                     </p>
                     <div class="center-textbox">
-                    <form>
+
+                    <form id="collectionForm">
                       <div class="form-spacing">
                         <select id="selectCollection">
                           <option selected value="0">Please select a collection to upload.</option>
@@ -189,22 +141,33 @@
                       </div>
 
                       <div class="form-spacing">
-                        <input type="radio" name="uploadType" value="1" required>EAD XML</input>
+                        <input type="radio" name="uploadType" value="1" required> EAD XML</input>
                       </div>
 
                       <div class="form-spacing">
-                        <input type="radio" class="form-spacing" name="uploadType" value="2" required>EAD XML with PDFs</input>
+                        <input type="radio" class="form-spacing" name="uploadType" value="2" required> EAD XML with PDFs</input>
                       </div>
 
                       <div class="form-spacing">
-                        <input id="upload" name="update" class="btn btn-primary" type="button" onclick="updateEads()" style="background:#333;" value="Upload" />
+                        <input id="upload" name="update" class="btn btn-primary" type="submit" style="background:#333;" value="Upload" />
                       </div>
                     </form>
                   </div>
                 </div>
             </div>
+            <div id="error-panel" class="panel panel-default error-message">
+              <div class="panel-body">
+                <div class="center-textbox">
+                  <div id="error-message">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
         </div>
     </div>
+
 
 </div>
 </br>
