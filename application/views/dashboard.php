@@ -29,6 +29,20 @@
     <link rel="stylesheet" href="../styles/dashboard.css" />
 
     <script>
+          $(document).ready(function(){
+            $.get('/helpers/collection_lister.php', function(response){
+              alert("FLAG " + response);
+              // $("#selectCollection").append(response);
+            });
+
+            $.get("listfiles.php", {"dir":dir}, function(response){
+           //Show the files
+           $("#files").html(response);
+       });
+          });
+
+
+
           function publishToSolr() {
 
             var r = confirm("Are you sure you want to publish?");
@@ -169,17 +183,17 @@
                     <div class="center-textbox">
                     <form>
                       <div class="form-spacing">
-                        <select>
+                        <select id="selectCollection">
                           <option selected value="0">Please select a collection to upload.</option>
                         </select>
                       </div>
 
                       <div class="form-spacing">
-                        <input type="radio" name="uploadType" value="1">EAD XML</input>
+                        <input type="radio" name="uploadType" value="1" required>EAD XML</input>
                       </div>
 
                       <div class="form-spacing">
-                        <input type="radio" class="form-spacing" name="uploadType" value="2">EAD XML with PDFs</input>
+                        <input type="radio" class="form-spacing" name="uploadType" value="2" required>EAD XML with PDFs</input>
                       </div>
 
                       <div class="form-spacing">
