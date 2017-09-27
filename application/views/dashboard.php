@@ -49,7 +49,34 @@
               }
               $("#error-panel").hide();
               $("#error-message").hide();
-              alert("Flag! Succesfull submit");
+              alert("Flag! Successful submit");
+
+              // Get the specific directory to be converted
+              var collection = $("#selectCollection").val();
+
+              var postData = {
+                collection: collection
+              };
+
+              $.ajax({
+                  type: "POST",
+                  url: "<?php echo base_url("?c=explr&m=converteads")?>",
+                  data: JSON.stringify(postData),
+                  contentType: "application/json",
+                  success: function (message) {
+                      if (message > 0) {
+                          $('#requestStatus').empty();
+                          $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s)").delay(3000).fadeOut();
+                          // $('#requestStatus').empty();
+                          //var convertedFileCount = '<!--?php echo $convertedFileCount;?>'';
+                          //   alert("Success:Total number of documents converted :" message);
+                      } else {
+                          $('#requestStatus').empty();
+                          $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert").delay(3000).fadeOut();
+                          // $('#requestStatus').empty();
+                      }
+                  }
+              });
             });
 
           });
@@ -165,7 +192,7 @@
                     <form id="collectionForm">
                       <div class="form-spacing">
                         <select id="selectCollection">
-                          <option selected value="0">Please select a collection to upload.</option>
+                          <option selected value="0">Please select a collection to upload</option>
                         </select>
                       </div>
 

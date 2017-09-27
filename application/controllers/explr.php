@@ -13,56 +13,59 @@ class explr extends CI_Controller
 // Transform XML into other XML format using XSLT
     public function converteads()
     {
-        $dir =  "eads";
-        $folders = array_diff(scandir($dir), array('..', '.'));
-        $folderCount = sizeof($folders);
-        //  $files = glob("/ead_uploads/*xml");
-        $numFiles = 0;
-        foreach($folders as $folder) {
-            $newDir = $dir."/".$folder;
-            $files = glob($newDir."/*xml");
-            $filecount = sizeof($files);
-            if (is_array($files)) {
-
-                foreach ($files as $filename) {
-                    $file = basename($filename);
-
-                    /*               $ead_doc = new DOMDocument();
-                                   $ead_doc->load($filename);
-                                   $newString = str_replace("xmlns=\"http://ead3.archivists.org/schema/\"", "", $ead_doc->saveXML());
-                                   file_put_contents("application/solr_xmls/$file", $newString);*/
-                    if($file !="index.xml") {
-                        //print_r($filename);
-
-                        $new_ead_doc = new DOMDocument();
-                        $new_ead_doc->load($filename);
-                        $xsl_doc = new DOMDocument();
-                        $xsl_doc->load("application/xslt/ead_3_solr.xsl");
-                        $proc = new XSLTProcessor();
-                        $proc->importStylesheet($xsl_doc);
-                        $newdom = $proc->transformToDoc($new_ead_doc);
-                        $newdom->save("solr_xmls/" . $file) or die("Error");
-                        $numFiles ++;
-
-                    }
-                }
-
-                // echo $convertedFileCount;
-                // $this->load->view('Home', $data);
-
-            }
-
-        }
-        $convertedFiles = glob("solr_xmls/*xml");
-        $convertedFileCount = sizeof($convertedFiles);
-        if($convertedFileCount == $numFiles){
-
-            echo $convertedFileCount;
-        }else{
-
-            echo 0;
-
-        }
+        // $dir =  "eads";
+        echo "FLAG" . var_dump($_POST);
+        $collection = $_POST["collection"];
+        $dir = "eads/" . $collection;
+        // $folders = array_diff(scandir($dir), array('..', '.'));
+        // $folderCount = sizeof($folders);
+        // //  $files = glob("/ead_uploads/*xml");
+        // $numFiles = 0;
+        // foreach($folders as $folder) {
+        //     $newDir = $dir."/".$folder;
+        //     $files = glob($newDir."/*xml");
+        //     $filecount = sizeof($files);
+        //     if (is_array($files)) {
+        //
+        //         foreach ($files as $filename) {
+        //             $file = basename($filename);
+        //
+        //             /*               $ead_doc = new DOMDocument();
+        //                            $ead_doc->load($filename);
+        //                            $newString = str_replace("xmlns=\"http://ead3.archivists.org/schema/\"", "", $ead_doc->saveXML());
+        //                            file_put_contents("application/solr_xmls/$file", $newString);*/
+        //             if($file !="index.xml") {
+        //                 //print_r($filename);
+        //
+        //                 $new_ead_doc = new DOMDocument();
+        //                 $new_ead_doc->load($filename);
+        //                 $xsl_doc = new DOMDocument();
+        //                 $xsl_doc->load("application/xslt/ead_3_solr.xsl");
+        //                 $proc = new XSLTProcessor();
+        //                 $proc->importStylesheet($xsl_doc);
+        //                 $newdom = $proc->transformToDoc($new_ead_doc);
+        //                 $newdom->save("solr_xmls/" . $file) or die("Error");
+        //                 $numFiles ++;
+        //
+        //             }
+        //         }
+        //
+        //         // echo $convertedFileCount;
+        //         // $this->load->view('Home', $data);
+        //
+        //     }
+        //
+        // }
+        // $convertedFiles = glob("solr_xmls/*xml");
+        // $convertedFileCount = sizeof($convertedFiles);
+        // if($convertedFileCount == $numFiles){
+        //
+        //     echo $convertedFileCount;
+        // }else{
+        //
+        //     echo 0;
+        //
+        // }
 
     }
 
