@@ -30,6 +30,7 @@
 
     <script>
           $(document).ready(function(){
+            // Dynamically creates a drop down consisting of folders of collections
             $.get('../application/helpers/collection_lister.php', function(response){
               //alert("FLAG " + response);
               $("#selectCollection").append(response);
@@ -37,6 +38,10 @@
 
             $("#collectionForm").submit(function(event){
               event.preventDefault();
+              if(!confirm("Are you sure you would like to upload this collection to Exploro?")){
+                return 0;
+              }
+
               if ($("#selectCollection").val() == 0){
                 $("#error-panel").show();
                 $("#error-message").html("You must select a valid collection.");
@@ -50,7 +55,31 @@
           });
 
 
-
+          function convertEads() {
+            var r = confirm("Are you sure you want to convert?");
+            if (r == true) {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url("?c=explr&m=converteads")?>",
+                    data: "",
+                    contentType: false,
+                    processData: false,
+                    success: function (message) {
+                        if (message > 0) {
+                            $('#requestStatus').empty();
+                            $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s)").delay(3000).fadeOut();
+                            // $('#requestStatus').empty();
+                            //var convertedFileCount = '<!--?php echo $convertedFileCount;?>'';
+                            //   alert("Success:Total number of documents converted :" message);
+                        } else {
+                            $('#requestStatus').empty();
+                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert").delay(3000).fadeOut();
+                            // $('#requestStatus').empty();
+                        }
+                    }
+                });
+            }
+        }
 
           function publishToSolr() {
 
