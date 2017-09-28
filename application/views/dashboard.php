@@ -31,7 +31,7 @@
     <script>
           $(document).ready(function(){
             // Dynamically creates a drop down consisting of folders of collections
-            $.get('../application/helpers/collection_lister.php', function(response){
+            $.get("<?php echo base_url("?c=explr&m=getCollections")?>", function(response){
               //alert("FLAG " + response);
               $("#selectCollection").append(response);
             });
@@ -49,7 +49,7 @@
               }
               $("#error-panel").hide();
               $("#error-message").hide();
-              alert("Flag! Successful submit");
+              // alert("Flag! Successful form submit");
 
               // Get the specific directory to be converted
               var collection = $("#selectCollection").val();
@@ -61,8 +61,8 @@
               $.ajax({
                   type: "POST",
                   url: "<?php echo base_url("?c=explr&m=converteads")?>",
-                  data: JSON.stringify(postData),
-                  contentType: "application/json",
+                  data: postData,
+                  dataType: "json",
                   success: function (message) {
                       if (message > 0) {
                           $('#requestStatus').empty();

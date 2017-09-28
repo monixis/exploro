@@ -7,14 +7,13 @@ class explr extends CI_Controller
         session_start();
     }
 // Transform XML into other XML format using XSLT
-    public function index(){
+    public function index()
+    {
          $this ->load ->view("dashboard");
     }
 // Transform XML into other XML format using XSLT
     public function converteads()
     {
-        // $dir =  "eads";
-        echo "FLAG" . var_dump($_POST);
         $collection = $_POST["collection"];
         $dir = "eads/" . $collection;
         // $folders = array_diff(scandir($dir), array('..', '.'));
@@ -102,7 +101,25 @@ class explr extends CI_Controller
 
     }*/
 
-    public function formatEads(){
+    public function getCollections()
+    {
+      // Need to directly link to the directory of EADs *Very important
+     $folders = scandir("C:/xampp/htdocs/exploro/eads");
+     //echo "FLAG " . var_dump($files);
+
+     foreach ($folders as $folder) {
+       if (($folder == ".") || ($folder == "..")){
+         // We do not want to add . or .. into the drop down
+       }
+       else {
+           echo "<option value = " . $folder . ">$folder</option>";
+       }
+     }
+    }
+
+
+    public function formatEads()
+    {
         $dir =  "eads";
 
 //for ($i=1; $i<sizeof($files);$i++){
