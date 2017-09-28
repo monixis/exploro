@@ -36,17 +36,18 @@ class explr extends CI_Controller
                     $proc = new XSLTProcessor();
                     $proc->importStylesheet($xsl_doc);
                     $newdom = $proc->transformToDoc($new_ead_doc);
-                    $newdom->save("solr_xmls/" . $file) or die("Error");
+                    $newdom->save("solr_xmls/$collection/" . $file) or die("Error");
                     $numFiles ++;
-
+                    // echo "FLAG NUM FILES " . $numFiles;
                 }
             }
 
         }
 
 
-        $convertedFiles = glob("solr_xmls/*xml");
+        $convertedFiles = glob("solr_xmls/$collection/*xml");
         $convertedFileCount = sizeof($convertedFiles);
+        // echo "FLAG CONVERTED FILES COUNT " . $convertedFileCount;
         if($convertedFileCount == $numFiles){
 
             echo $convertedFileCount;
