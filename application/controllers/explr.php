@@ -11,7 +11,8 @@ class explr extends CI_Controller
     {
          $this ->load ->view("dashboard");
     }
-// Transform XML into other XML format using XSLT
+
+    // Transform EAD3 XML into SOLR XML format using XSLT
     public function converteads()
     {
         $collection = $_POST["collection"];
@@ -41,9 +42,7 @@ class explr extends CI_Controller
                     // echo "FLAG NUM FILES " . $numFiles;
                 }
             }
-
         }
-
 
         $convertedFiles = glob("solr_xmls/$collection/*xml");
         $convertedFileCount = sizeof($convertedFiles);
@@ -52,11 +51,8 @@ class explr extends CI_Controller
 
             echo $convertedFileCount;
         }else{
-
             echo 0;
-
         }
-
     }
 
     /*public function publishToSolr(){
