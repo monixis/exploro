@@ -192,7 +192,13 @@
                     <form id="collectionForm">
                       <div class="form-spacing">
                         <select id="selectCollection">
-                          <option selected value="0">Please select a collection to upload</option>
+                          <option selected value="0">Please select a collection</option>
+                        </select>
+                      </div>
+
+                      <div class="form-spacing">
+                        <select id="selectSubCollection">
+                          <option selected value="0">Please select a subcollection to upload</option>
                         </select>
                       </div>
 

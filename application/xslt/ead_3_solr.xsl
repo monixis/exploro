@@ -10,19 +10,16 @@
 
      </xsl:template>
     <xsl:template match="ead">
-        <xsl:variable name="collectionLink" select="control/recordid/@instanceurl"/>
+        <xsl:variable name="collectionLink" select="archdesc/dsc/c01/did/ptr/@href"/>
         <xsl:variable name="collection" select="control/filedesc/titlestmt/titleproper"/>
         <xsl:variable name="genreform" select="archdesc/controlaccess/genreform/part"/>
-
+		<xsl:variable name="myUnitID" select="archdesc/did/unitid"/>
+		<xsl:variable name="myCollection" select="archdesc/dsc/c01/did/unittitle"/>
         <doc>
 
-                        <field name="collectionLink">
-                            <xsl:value-of select="control/recordid/@instanceurl"/>
-                        </field>
-
-                        <field name="collection">
-                            <xsl:value-of select="control/filedesc/titlestmt/titleproper"/>
-                        </field>
+				<field name="collectionLink">
+					<xsl:value-of select="archdesc/dsc/c01/did/unittitle/ptr/@href"/>
+				</field>
                 <xsl:if test="control/filedesc/publicationstmt/publisher">
                         <field name="publisher">
                             <xsl:value-of select="control/filedesc/publicationstmt/publisher"/>
@@ -83,11 +80,35 @@
                         <xsl:value-of select="archdesc/did/physdescstructured/quantity"/>(<xsl:value-of select="archdesc/did/physdescstructured/unittype"/>)
                     </field>
                 </xsl:if>
+				
+				
+    <!-- <xsl:template match="/*/*[1]">
+        <xsl:variable name="second" select="local-name(following-sibling::*[1])" />
+        <xsl:element name="{local-name()}And{$second}">
+            <xsl:apply-templates select="node()" />
+            <xsl:text> </xsl:text>
+            <xsl:apply-templates select="following-sibling::*[1]/node()"/>
+        </xsl:element>
+    </xsl:template>-->
+	
+	
+				<!-- <xsl:template match ="/*/*[1]">
+					<xsl:variable name="combinedID" select="unittitle(following-sibling::*[1])" />
+					<xsl:element name="{unittitle()}And{$combinedID}">
+						<xsl:apply-templates select="node()" />
+						<xsl:text> </xsl:text>
+						<xsl:apply-templates select="following-sibling::*[1]/node()"/>
+					</xsl:element>
+				</xsl:template> -->
+				
                 <xsl:if test="archdesc/did/unitid">
                     <field name="unitid">
-                        <xsl:value-of select="archdesc/did/unitid"/>
+                        <xsl:value-of select="concat($myCollection, '.', $myUnitID)"/>
                     </field>
                 </xsl:if>
+				<field name="collection">
+					<xsl:value-of select="control/filedesc/titlestmt/titleproper"/>
+				</field>
                 <xsl:if test="archdesc/accessrestrict">
                     <field name="accessrestrict">
                         <xsl:value-of select="archdesc/accessrestrict"/>
@@ -115,18 +136,19 @@
             <xsl:for-each select=".//*[@level='recordgrp']">
                  <xsl:variable name="container" select="./did/container"/>
                 <xsl:for-each select=".//*[@level='item']">
+					<xsl:variable name="itemUnitID" select="did/unitid"/>
                     <doc>
                           <field name="collectionLink">
                               <xsl:value-of select="$collectionLink" />
                           </field>
                         <field name="collection">
-                            <xsl:value-of select="$collection" />
+                            <xsl:value-of select="$myCollection" />
                         </field>
                         <field name="format">
                             <xsl:value-of select="$genreform" /><xsl:if test="./controlaccess/genreform">,<xsl:value-of select="./controlaccess/genreform"/></xsl:if>
                         </field>
                         <field name="unitid">
-                            <xsl:value-of select="$container" />.<xsl:value-of select="./did/unitid"/>
+                            <xsl:value-of select="concat($myCollection, '.', $container, '.', $itemUnitID)"/>
                         </field>
                         <field name="unittitle">
                             <xsl:value-of select="./did/unittitle"/>
