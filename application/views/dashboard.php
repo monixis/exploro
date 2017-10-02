@@ -75,6 +75,7 @@
               // Get the specific directory to be converted
               var collection = $("#selectCollection").val();
               var subCollection = $("#selectSubCollection").val();
+              // var uploadType = $("input[name=uploadType]:checked").val();
 
               // Validate the collection drop down
               if (collection == 0) {
@@ -84,9 +85,10 @@
               }
 
               // Validate the subcollection drop down
-              if ($(subCollection == 0)) {
+              if (subCollection == 0) {
                 $("#error-panel").show();
                 $("#error-message").html("You must select a valid subcollection.");
+                return 0;
               }
 
               if(!confirm("Are you sure you would like to upload this collection to Exploro?")){
@@ -251,7 +253,7 @@
                       </div>
 
                       <div class="form-spacing">
-                        <input type="radio" class="form-spacing" name="uploadType" value="2" required> EAD XML with PDFs</input>
+                        <input type="radio" name="uploadType" value="2" required> EAD XML with PDFs</input>
                       </div>
 
                       <div class="form-spacing">

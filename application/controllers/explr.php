@@ -39,7 +39,7 @@ class explr extends CI_Controller
                     $proc = new XSLTProcessor();
                     $proc->importStylesheet($xsl_doc);
                     $newdom = $proc->transformToDoc($new_ead_doc);
-                    $newdom->save("solr_xmls/$collection/$subCollection" . $file) or die("Error");
+                    $newdom->save("solr_xmls/$collection/$subCollection/" . $file) or die("Error");
                     $numFiles ++;
                     // echo "FLAG NUM FILES " . $numFiles;
                 }
