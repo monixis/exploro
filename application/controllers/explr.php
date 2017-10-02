@@ -88,6 +88,7 @@ class explr extends CI_Controller
 
     }*/
 
+    /* Returns a list of all of the collections in the /eads folder as a series of options elements for a dropdown */
     public function getCollections()
     {
       // Need to directly link to the directory of EADs *Very important
@@ -97,11 +98,32 @@ class explr extends CI_Controller
      foreach ($folders as $folder) {
        if (($folder == ".") || ($folder == "..")){
          // We do not want to add . or .. into the drop down
+         continue;
        }
        else {
-           echo "<option value = " . $folder . ">$folder</option>";
+           echo "<option value = '" . $folder . "'>$folder</option>";
        }
      }
+    }
+
+    /* Returns a list of subcollections for a given collection in the form of option elements for dropdown
+    Returns the subfolders for a user specified collection*/
+    public function getSubCollections()
+    {
+      $collection = $_GET["collection"];
+
+      // Directly link to the subcollections that we want to fetch
+      $subcollections =  scandir("C:/xampp/htdocs/exploro/eads/$collection");
+
+      foreach ($subcollections as $subcollection) {
+        if (($subcollection == ".") || ($subcollection == "..")){
+          // We do not want to add . or .. into the drop down.. should probably just remove them from array
+          continue;
+        }
+        else {
+          echo "<option value = '" . $subcollection . "'>$subcollection</option>";
+        }
+      }
     }
 
 

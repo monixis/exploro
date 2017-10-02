@@ -29,14 +29,43 @@
     <link rel="stylesheet" href="../styles/dashboard.css" />
 
     <script>
-          $(document).ready(function(){
+          $(document).ready(function() {
             // Dynamically creates a drop down consisting of folders of collections
-            $.get("<?php echo base_url("?c=explr&m=getCollections")?>", function(response){
+            $.get("<?php echo base_url("?c=explr&m=getCollections")?>", function(response) {
               //alert("FLAG " + response);
               $("#selectCollection").append(response);
             });
 
-            $("#collectionForm").submit(function(event){
+            $("#selectCollection").change(function() {
+              var collection = $("#selectCollection").val();
+              if (collection == 0) {
+                return 0; // There are no sub collections of the default please select message
+              }
+
+              var postData = {
+                collection: collection
+              };
+
+              $.ajax({
+                type: "POST",
+                url: "<?php echo base_url("?c=explr&m=getSubCollections") ?>",
+                data: postData,
+                dataType: "text",
+                success: function (message) {
+                    // alert('Flag 1 ' + message.toString());
+                    if (message == 0) {
+                      // There are no files
+                      $("#error-panel").show();
+                      $("#error-message").html("This collection does not have any valid subcollections.");
+                    }
+                    else {
+                      $("#selectSubCollection").append(message);
+                    }
+                },
+              });
+            });
+
+            $("#collectionForm").submit(function(event) {
               event.preventDefault();
               if(!confirm("Are you sure you would like to upload this collection to Exploro?")){
                 return 0;
