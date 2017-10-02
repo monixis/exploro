@@ -16,7 +16,9 @@ class explr extends CI_Controller
     public function converteads()
     {
         $collection = $_POST["collection"];
-        $dir = "eads/" . $collection;
+        $subCollection = $_POST["subCollection"];
+
+        $dir = "eads/" . $collection . "/" . $subCollection;
         $files = array_diff(scandir($dir), array('..', '.'));
 
         $numFiles = 0;
@@ -25,7 +27,7 @@ class explr extends CI_Controller
 
             foreach ($files as $filename) {
                 $file = basename($filename);
-                $filepath = "eads/$collection/$file";
+                $filepath = "eads/$collection/$subCollection/$file";
                 // echo "FLAG " . $filepath;
 
                 if($file !="index.xml") {
@@ -37,14 +39,14 @@ class explr extends CI_Controller
                     $proc = new XSLTProcessor();
                     $proc->importStylesheet($xsl_doc);
                     $newdom = $proc->transformToDoc($new_ead_doc);
-                    $newdom->save("solr_xmls/$collection/" . $file) or die("Error");
+                    $newdom->save("solr_xmls/$collection/$subCollection" . $file) or die("Error");
                     $numFiles ++;
                     // echo "FLAG NUM FILES " . $numFiles;
                 }
             }
         }
 
-        $convertedFiles = glob("solr_xmls/$collection/*xml");
+        $convertedFiles = glob("solr_xmls/$collection/$subCollection/*xml");
         $convertedFileCount = sizeof($convertedFiles);
         // echo "FLAG CONVERTED FILES COUNT " . $convertedFileCount;
         if($convertedFileCount == $numFiles){
@@ -110,7 +112,7 @@ class explr extends CI_Controller
     Returns the subfolders for a user specified collection*/
     public function getSubCollections()
     {
-      $collection = $_GET["collection"];
+      $collection = $_POST["collection"];
 
       // Directly link to the subcollections that we want to fetch
       $subcollections =  scandir("C:/xampp/htdocs/exploro/eads/$collection");

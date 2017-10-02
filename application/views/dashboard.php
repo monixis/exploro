@@ -36,7 +36,11 @@
               $("#selectCollection").append(response);
             });
 
+            /* Dynamically load subcollections based on the collection selected by the user */
             $("#selectCollection").change(function() {
+              // Resets the sub collection dropdown
+              $("#selectSubCollection").html('<option selected value="0">Please select a subcollection to upload</option>');
+
               var collection = $("#selectCollection").val();
               if (collection == 0) {
                 return 0; // There are no sub collections of the default please select message
@@ -67,24 +71,35 @@
 
             $("#collectionForm").submit(function(event) {
               event.preventDefault();
-              if(!confirm("Are you sure you would like to upload this collection to Exploro?")){
-                return 0;
-              }
 
-              if ($("#selectCollection").val() == 0){
+              // Get the specific directory to be converted
+              var collection = $("#selectCollection").val();
+              var subCollection = $("#selectSubCollection").val();
+
+              // Validate the collection drop down
+              if (collection == 0) {
                 $("#error-panel").show();
                 $("#error-message").html("You must select a valid collection.");
                 return 0;
               }
+
+              // Validate the subcollection drop down
+              if ($(subCollection == 0)) {
+                $("#error-panel").show();
+                $("#error-message").html("You must select a valid subcollection.");
+              }
+
+              if(!confirm("Are you sure you would like to upload this collection to Exploro?")){
+                return 0;
+              }
+
               $("#error-panel").hide();
               $("#error-message").hide();
               // alert("Flag! Successful form submit");
 
-              // Get the specific directory to be converted
-              var collection = $("#selectCollection").val();
-
               var postData = {
-                collection: collection
+                collection: collection,
+                subCollection: subCollection
               };
 
               $.ajax({
