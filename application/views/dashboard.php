@@ -244,7 +244,7 @@
 
                       <div class="form-spacing">
                         <select id="selectSubCollection">
-                          <option selected value="0">Please select a subcollection to upload</option>
+                          <option selected value="0">You must select a collection before a subcollection</option>
                         </select>
                       </div>
 

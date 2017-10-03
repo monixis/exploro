@@ -14,6 +14,10 @@
         <xsl:variable name="collection" select="control/filedesc/titlestmt/titleproper"/>
         <xsl:variable name="genreform" select="archdesc/controlaccess/genreform/part"/>
 		<xsl:variable name="myUnitID" select="archdesc/did/unitid"/>
+		<!-- Getting the folder name for the unittitle -->
+		<xsl:variable name="folderName" select="control/recordid/@id"/>
+		
+		<!-- Used to get collection name ex: Lowell Thomas Papers -->
 		<xsl:variable name="myCollection" select="archdesc/dsc/c01/did/unittitle"/>
         <doc>
 
@@ -103,7 +107,7 @@
 				
                 <xsl:if test="archdesc/did/unitid">
                     <field name="unitid">
-                        <xsl:value-of select="concat($myCollection, '.', $myUnitID)"/>
+                        <xsl:value-of select="concat($folderName, '.', $myUnitID)"/>
                     </field>
                 </xsl:if>
 				<field name="collection">
@@ -148,7 +152,7 @@
                             <xsl:value-of select="$genreform" /><xsl:if test="./controlaccess/genreform">,<xsl:value-of select="./controlaccess/genreform"/></xsl:if>
                         </field>
                         <field name="unitid">
-                            <xsl:value-of select="concat($myCollection, '.', $container, '.', $itemUnitID)"/>
+                            <xsl:value-of select="concat($folderName, '.', $container, '.', $itemUnitID)"/>
                         </field>
                         <field name="unittitle">
                             <xsl:value-of select="./did/unittitle"/>
