@@ -25,42 +25,45 @@ class explr extends CI_Controller
 
         if (is_array($files)) {
 
+            $filenameList = array();
             foreach ($files as $filename) {
                 $file = basename($filename);
                 $filepath = "eads/$collection/$subCollection/$file";
-                // echo "FLAG " . $filepath;
+
 
                 if($file !="index.xml") {
+                  // Add each filename to the list of filenames to be sent in the log email to Monish
+                  $filenameList[] = $filename;
 
-                    $new_ead_doc = new DOMDocument();
+                  $new_ead_doc = new DOMDocument();
 
-                    $new_ead_doc->load($filepath);
+                  $new_ead_doc->load($filepath);
 
-                    // Creates an array of all elements called recordid ... in the EAD we know it is only one
-                    $rawRecordIDArray = $new_ead_doc->getElementsByTagName('recordid');
-                    // Selects the first element of the array
-                    $recordID = $rawRecordIDArray[0];
+                  // Creates an array of all elements called recordid ... in the EAD we know it is only one
+                  $rawRecordIDArray = $new_ead_doc->getElementsByTagName('recordid');
+                  // Selects the first element of the array
+                  $recordID = $rawRecordIDArray[0];
 
-                    // Create id attribute to be placed in unittitle of ocllection
-                    $collectionUnittitle = $new_ead_doc->createAttribute('id');
+                  // Create id attribute to be placed in unittitle of ocllection
+                  $collectionUnittitle = $new_ead_doc->createAttribute('id');
 
-                    // Assigns the value of the collection as the value of the attribute
-                    $collectionUnittitle->value = $collection;
+                  // Assigns the value of the collection as the value of the attribute
+                  $collectionUnittitle->value = $collection;
 
-                    // Add attribute to the element
-                    $recordID->appendChild($collectionUnittitle);
+                  // Add attribute to the element
+                  $recordID->appendChild($collectionUnittitle);
 
-                    // Add element back to the document
+                  // Add element back to the document
 
 
-                    $xsl_doc = new DOMDocument();
-                    $xsl_doc->load("application/xslt/ead_3_solr.xsl");
-                    $proc = new XSLTProcessor();
-                    $proc->importStylesheet($xsl_doc);
-                    $newdom = $proc->transformToDoc($new_ead_doc);
-                    $newdom->save("solr_xmls/$collection/$subCollection/" . $file) or die("Error");
-                    $numFiles ++;
-                    // echo "FLAG NUM FILES " . $numFiles;
+                  $xsl_doc = new DOMDocument();
+                  $xsl_doc->load("application/xslt/ead_3_solr.xsl");
+                  $proc = new XSLTProcessor();
+                  $proc->importStylesheet($xsl_doc);
+                  $newdom = $proc->transformToDoc($new_ead_doc);
+                  $newdom->save("solr_xmls/$collection/$subCollection/" . $file) or die("Error");
+                  $numFiles ++;
+                  // echo "FLAG NUM FILES " . $numFiles;
                 }
             }
         }
@@ -69,8 +72,33 @@ class explr extends CI_Controller
         $convertedFileCount = sizeof($convertedFiles);
         // echo "FLAG CONVERTED FILES COUNT " . $convertedFileCount;
         if($convertedFileCount == $numFiles){
-
             echo $convertedFileCount;
+
+            // Success! send an email to Monish loggin what folders have been updated
+            $this->load->library('email');
+    				$config['protocol'] = "smtp";
+                      $config['smtp_host'] = "tls://smtp.googlemail.com";
+                      $config['smtp_port'] = "465";
+                      $config['smtp_user'] = "cannavinolibrary@gmail.com";
+                      $config['smtp_pass'] = "845@jac3419";
+                      $config['charset'] = "utf-8";
+                      $config['mailtype'] = "html";
+                      $config['newline'] = "\r\n";
+                      $this->email->initialize($config);
+    			$this->email->from('cannavinolibrary@gmail.com', 'James A. Cannavino Library (Collaboration Room Reservation System)');
+
+    			$this->email->to("danmopsick@gmail.com");
+    			$this->email->subject('EAD3 files uploaded to Exploro');
+    			$message = "</br><p>Hi Monish, <br/>The following EAD3 files were converted into SOLR XML and are ready to be uploaded to Explro.</p>
+                      <p>Collection: $collection</p>
+                      <p>Subcollection: $subCollection</p><ul>";
+          foreach($filenameList as $thisFileName) {
+            $message .= "<li>$thisFileName</li>";
+          }
+          $message .= "</ul>";
+
+    			$this->email->message($message);
+    			$this->email->send();
         }else{
             echo 0;
         }

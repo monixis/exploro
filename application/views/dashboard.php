@@ -112,7 +112,7 @@
                   success: function (message) {
                       if (message > 0) {
                           $('#requestStatus').empty();
-                          $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s)").delay(3000).fadeOut();
+                          $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s).").delay(3000).fadeOut();
                           // $('#requestStatus').empty();
                           //var convertedFileCount = '<!--?php echo $convertedFileCount;?>'';
                           //   alert("Success:Total number of documents converted :" message);
@@ -226,7 +226,8 @@
                 </div>
                 <div class="panel-body">
                     <p>
-                        This process will convert EAD3 files of the specified collection into Solr XML. The Solr XML files will then be indexed into Exploro.
+                        This process will convert EAD3 files of the specified collection into Solr XML.
+                        Upon succesful conversion the Library Archives staff will be notified and will begin the process of uploading the converted files into Exploro.
                     </p>
                     <h4>Note:</h4>
                     <p>
