@@ -22,7 +22,7 @@
 		<xsl:variable name="myCollection" select="archdesc/dsc/c01/did/unittitle"/>
 		
 		<!-- Links to the finding aids -->
-		<xsl:variable name="collectionLink" select="concat('http://library.marist.edu/exploro/?c=exploro&amp;m=viewEAD&amp;cid=', $folderName, '&amp;id=', $myUnitID)"/>
+		<xsl:variable name="collectionLink">http://library.marist.edu/exploro/?c=exploro<![CDATA[&]]>m=viewEAD<![CDATA[&]]>cid=<xsl:value-of select="$folderName"/><![CDATA[&]]>id=<xsl:value-of select="$myUnitID"/></xsl:variable>
         <doc>
 				<field name="collectionLink">
 					<xsl:value-of select="$collectionLink"/>
