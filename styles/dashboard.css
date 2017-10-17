@@ -4,12 +4,22 @@
   width: 90%;
 }
 
-.form-spacing {
-  margin-top: 20px;
-}
-
 .error-message {
   color: red;
   display: none;
   text-align: center;
+}
+
+.form-spacing {
+  margin-top: 20px;
+}
+
+/* PREEXISTING STYLES */
+button:hover{
+  opacity:0.5;
+  cursor: pointer;
+}
+
+.panel-heading{
+  height: 55px;
 }

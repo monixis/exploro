@@ -123,7 +123,10 @@ class explr extends CI_Controller
     public function getCollections()
     {
       // Need to directly link to the directory of EADs *Very important
-     $folders = scandir("C:/xampp/htdocs/exploro/eads");
+     // $folders = scandir("C:/xampp/htdocs/exploro/eads");
+     $folderLocation = $_GET["folderLocation"];
+     $folders = scandir($folderLocation);
+
      //echo "FLAG " . var_dump($files);
 
      foreach ($folders as $folder) {
@@ -141,10 +144,12 @@ class explr extends CI_Controller
     Returns the subfolders for a user specified collection*/
     public function getSubCollections()
     {
+      $folderLocation = $_POST["folderLocation"];
       $collection = $_POST["collection"];
 
       // Directly link to the subcollections that we want to fetch
-      $subcollections =  scandir("C:/xampp/htdocs/exploro/eads/$collection");
+      //$subcollections =  scandir("C:/xampp/htdocs/exploro/eads/$collection");
+      $subcollections =  scandir("$folderLocation/$collection");
 
       foreach ($subcollections as $subcollection) {
         if (($subcollection == ".") || ($subcollection == "..")){

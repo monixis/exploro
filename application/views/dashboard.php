@@ -29,9 +29,12 @@
     <link rel="stylesheet" href="../styles/dashboard.css" />
 
     <script>
+          // This is the folderlocation for testing on localhost
+          var folderLocation = "C:/xampp/htdocs/exploro/eads";
+
           $(document).ready(function() {
-            // Dynamically creates a drop down consisting of folders of collections
-            $.get("<?php echo base_url("?c=explr&m=getCollections")?>", function(response) {
+            // Dynamically creates a drop down consisting of folders of EAD collections that can be converted into SOLR XML
+            $.get("<?php echo base_url("?c=explr&m=getCollections&folderLocation=")?>" + folderLocation, function(response) {
               //alert("FLAG " + response);
               $("#selectCollection").append(response);
             });
@@ -47,6 +50,7 @@
               }
 
               var postData = {
+                folderLocation: folderLocation,
                 collection: collection
               };
 
@@ -127,10 +131,7 @@
 
           });
 
-
-
           function publishToSolr() {
-
             var r = confirm("Are you sure you want to publish?");
             if (r == true) {
                 $.ajax({
@@ -158,16 +159,6 @@
             }
         }
     </script>
-    <style>
-		button:hover{
-			opacity:0.5;
-			cursor: pointer;
-		}
-
-		.panel-heading{
-			height: 55px;
-		}
-    </style>
 
 </head>
 <body style="background: #ffffff;">
@@ -197,12 +188,12 @@
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3>Convert EAD XML into Solr XML</h3>
+                    <h3>Convert EAD to Solr XML and upload to Exploro.</h3>
                 </div>
                 <div class="panel-body">
                     <p>
                         This process will convert EAD3 files of the specified collection into Solr XML.
-                        Upon succesful conversion the Library Archives staff will be notified and will begin the process of uploading the converted files into Exploro.
+                        Upon succesful conversion the EAD3 files will be indexed into Exploro.
                     </p>
                     <h4>Note:</h4>
                     <p>
@@ -232,49 +223,6 @@
                 </div>
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>Index Solr XML into Exploro</h3>
-                </div>
-                <div class="panel-body">
-                    <p>
-                        The chosen XML file uploaded to the server will be submitted to Exploro for indexing.
-                    </p>
-                    <h4>Note:</h4>
-                    <p>
-                        Before clicking update: Please make sure that you copied EAD3 folder generated from
-                        boxbuilder into "ead_uploads" directory.
-                    </p>
-                    <div class="center-textbox">
-
-                    <form id="collectionForm">
-                      <div class="form-spacing">
-                        <select id="selectCollection">
-                          <option selected value="0">Please select a collection</option>
-                        </select>
-                      </div>
-
-                      <div class="form-spacing">
-                        <select id="selectSubCollection">
-                          <option selected value="0">You must select a collection before a subcollection</option>
-                        </select>
-                      </div>
-
-                      <div class="form-spacing">
-                        <input type="radio" name="uploadType" value="1" required> EAD XML</input>
-                      </div>
-
-                      <div class="form-spacing">
-                        <input type="radio" name="uploadType" value="2" required> EAD XML with PDFs</input>
-                      </div>
-
-                      <div class="form-spacing">
-                        <input id="upload" name="update" class="btn btn-primary" type="submit" style="background:#333;" value="Convert" />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-            </div>
             <div id="error-panel" class="panel panel-default error-message">
               <div class="panel-body">
                 <div class="center-textbox">
