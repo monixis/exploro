@@ -128,31 +128,6 @@
           });
 
 
-          function convertEads() {
-            var r = confirm("Are you sure you want to convert?");
-            if (r == true) {
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url("?c=explr&m=converteads")?>",
-                    data: "",
-                    contentType: false,
-                    processData: false,
-                    success: function (message) {
-                        if (message > 0) {
-                            $('#requestStatus').empty();
-                            $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s)").delay(3000).fadeOut();
-                            // $('#requestStatus').empty();
-                            //var convertedFileCount = '<!--?php echo $convertedFileCount;?>'';
-                            //   alert("Success:Total number of documents converted :" message);
-                        } else {
-                            $('#requestStatus').empty();
-                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert").delay(3000).fadeOut();
-                            // $('#requestStatus').empty();
-                        }
-                    }
-                });
-            }
-        }
 
           function publishToSolr() {
 
@@ -222,12 +197,48 @@
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3>Upload EAD Collection into Solr</h3>
+                    <h3>Convert EAD XML into Solr XML</h3>
                 </div>
                 <div class="panel-body">
                     <p>
                         This process will convert EAD3 files of the specified collection into Solr XML.
                         Upon succesful conversion the Library Archives staff will be notified and will begin the process of uploading the converted files into Exploro.
+                    </p>
+                    <h4>Note:</h4>
+                    <p>
+                        Before clicking update: Please make sure that you copied EAD3 folder generated from
+                        boxbuilder into "ead_uploads" directory.
+                    </p>
+                    <div class="center-textbox">
+
+                    <form id="collectionForm">
+                      <div class="form-spacing">
+                        <select id="selectCollection">
+                          <option selected value="0">Please select a collection</option>
+                        </select>
+                      </div>
+
+                      <div class="form-spacing">
+                        <select id="selectSubCollection">
+                          <option selected value="0">You must select a collection before a subcollection</option>
+                        </select>
+                      </div>
+
+                      <div class="form-spacing">
+                        <input id="upload" name="update" class="btn btn-primary" type="submit" style="background:#333;" value="Convert" />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Index Solr XML into Exploro</h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        The chosen XML file uploaded to the server will be submitted to Exploro for indexing.
                     </p>
                     <h4>Note:</h4>
                     <p>
@@ -258,7 +269,7 @@
                       </div>
 
                       <div class="form-spacing">
-                        <input id="upload" name="update" class="btn btn-primary" type="submit" style="background:#333;" value="Upload" />
+                        <input id="upload" name="update" class="btn btn-primary" type="submit" style="background:#333;" value="Convert" />
                       </div>
                     </form>
                   </div>

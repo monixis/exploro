@@ -188,7 +188,7 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<field name="link">
-									<xsl:value-of select="'C:/xampp/htdocs/exploro/images/folder-icon.jpg'"/>
+									<xsl:value-of select="'../images/folder-icon.png'"/>
 								</field>
 								<field name="category">
 									<xsl:value-of select="'Finding Aid'"/>

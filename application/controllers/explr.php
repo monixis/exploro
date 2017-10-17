@@ -17,6 +17,7 @@ class explr extends CI_Controller
     {
         $collection = $_POST["collection"];
         $subCollection = $_POST["subCollection"];
+        $filenameList = array();
 
         $dir = "eads/" . $collection . "/" . $subCollection;
         $files = array_diff(scandir($dir), array('..', '.'));
@@ -25,11 +26,9 @@ class explr extends CI_Controller
 
         if (is_array($files)) {
 
-            $filenameList = array();
             foreach ($files as $filename) {
                 $file = basename($filename);
                 $filepath = "eads/$collection/$subCollection/$file";
-
 
                 if($file !="index.xml") {
                   // Add each filename to the list of filenames to be sent in the log email to Monish
@@ -38,23 +37,6 @@ class explr extends CI_Controller
                   $new_ead_doc = new DOMDocument();
 
                   $new_ead_doc->load($filepath);
-
-                  // Creates an array of all elements called recordid ... in the EAD we know it is only one
-                  $rawRecordIDArray = $new_ead_doc->getElementsByTagName('recordid');
-                  // Selects the first element of the array
-                  $recordID = $rawRecordIDArray[0];
-
-                  // Create id attribute to be placed in unittitle of ocllection
-                  $collectionUnittitle = $new_ead_doc->createAttribute('id');
-
-                  // Assigns the value of the collection as the value of the attribute
-                  $collectionUnittitle->value = $collection;
-
-                  // Add attribute to the element
-                  $recordID->appendChild($collectionUnittitle);
-
-                  // Add element back to the document
-
 
                   $xsl_doc = new DOMDocument();
                   $xsl_doc->load("application/xslt/ead_3_solr.xsl");
