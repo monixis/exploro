@@ -15,12 +15,16 @@ class explr extends CI_Controller
     // Transform EAD3 XML into SOLR XML format using XSLT
     public function converteads()
     {
+        $folderLocation = $_POST["folderLocation"];
         $collection = $_POST["collection"];
         $subCollection = $_POST["subCollection"];
         $filenameList = array();
 
-        $dir = "eads/" . $collection . "/" . $subCollection;
+        $dir = "$folderLocation/eads/$collection/$subCollection";
+        // OK echo "FLAG DIR " . $dir . "<br>";
         $files = array_diff(scandir($dir), array('..', '.'));
+
+        // OK echo "FLAG FILES VAR DUMP " . var_dump($files) . "<br><br>";
 
         $numFiles = 0;
 
@@ -28,7 +32,10 @@ class explr extends CI_Controller
 
             foreach ($files as $filename) {
                 $file = basename($filename);
-                $filepath = "eads/$collection/$subCollection/$file";
+                // echo "FLAG VALUE " . $file;
+                $filepath = "$folderLocation/eads/$collection/$subCollection/$file";
+
+                // echo "FLAG FILEPATH " . $filepath . "<br>";
 
                 if($file !="index.xml") {
                   // Add each filename to the list of filenames to be sent in the log email to Monish
@@ -38,19 +45,32 @@ class explr extends CI_Controller
 
                   $new_ead_doc->load($filepath);
 
+                  // echo "Flag LOADING FILEPATH " . print_r($new_ead_doc) . "<br>";
+
                   $xsl_doc = new DOMDocument();
-                  $xsl_doc->load("application/xslt/ead_3_solr.xsl");
+                  $xsl_doc->load("$folderLocation/application/xslt/ead_3_solr.xsl");
+
                   $proc = new XSLTProcessor();
+                  // echo "I am sad";
                   $proc->importStylesheet($xsl_doc);
+
                   $newdom = $proc->transformToDoc($new_ead_doc);
-                  $newdom->save("solr_xmls/$collection/$subCollection/" . $file) or die("Error");
+
+                  // echo "FLAG NEW DOM " .  print_r($newdom) . "<br><br>";
+
+                  // echo "Flag trying to save this location $folderLocation/solr_xmls/$collection/$subCollection/$file";
+
+                  $newdom->save("$folderLocation/solr_xmls/$collection/$subCollection/$file") or die("Flag: Error");
+
                   $numFiles ++;
                   // echo "FLAG NUM FILES " . $numFiles;
                 }
             }
         }
 
-        $convertedFiles = glob("solr_xmls/$collection/$subCollection/*xml");
+        // echo "FLAG NUM FILES IN DIRECTORY " . $numFiles . "<br>";
+
+        $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/*xml");
         $convertedFileCount = sizeof($convertedFiles);
         // echo "FLAG CONVERTED FILES COUNT " . $convertedFileCount;
         if($convertedFileCount == $numFiles){
@@ -86,38 +106,10 @@ class explr extends CI_Controller
         }
     }
 
-    /*public function publishToSolr(){
+    public function publishToSolr() 
+    {
 
-        $dir =  "application/ceads";
-        //$files = glob("application/eads/*xml");
-        $files = scandir($dir);
-
-        //$files2 = scandir($dir, 1);
-        if(in_array("index.xml", $files)){
-                $filename = "application/ceads/index.xml";
-                $ead_doc = new DOMDocument();
-                $ead_doc->load($filename);
-                $file = basename($filename);
-                $newString = str_replace("<?xml version='1.0' encoding='UTF-8'?><?xml-model href='schema/ead3.rng' type='application/xml' schematypens='http://relaxng.org/ns/structure/1.0'?>", "<?xml version='1.0' encoding='UTF-8'?><?xml-model href='schema/ead3.rng' type='application/xml' schematypens='http://relaxng.org/ns/structure/1.0'?><?xml-stylesheet type=\"text/xsl\" href=\"boxbuilder.xsl\"?>", $ead_doc->saveXML());
-
-              $newString1 = str_replace("<?xml version='1.0' encoding='UTF-8'?><?xml-model href='schema/ead3.rng' type='application/xml' schematypens='http://relaxng.org/ns/structure/1.0'?>", "<?xml version='1.0' encoding='UTF-8'?><?xml-model href='schema/ead3.rng' type='application/xml' schematypens='http://relaxng.org/ns/structure/1.0'?><?xml-stylesheet type=\"text/xsl\" href=\"boxbuilder.xsl\"?>", $ead_doc->saveXML());
-
-            if (file_put_contents("application/ceads/$file", $newString)) {
-
-                    echo 1;
-                }
-
-        }else{
-
-            echo 0;
-        }
-
-        //print_r($files1);
-       // print_r($files2);
-
-
-
-    }*/
+    }
 
     /* Returns a list of all of the collections in the /eads folder as a series of options elements for a dropdown */
     public function getCollections()
@@ -125,7 +117,8 @@ class explr extends CI_Controller
       // Need to directly link to the directory of EADs *Very important
      // $folders = scandir("C:/xampp/htdocs/exploro/eads");
      $folderLocation = $_GET["folderLocation"];
-     $folders = scandir($folderLocation);
+
+     $folders = scandir("$folderLocation/eads");
 
      //echo "FLAG " . var_dump($files);
 
@@ -149,7 +142,7 @@ class explr extends CI_Controller
 
       // Directly link to the subcollections that we want to fetch
       //$subcollections =  scandir("C:/xampp/htdocs/exploro/eads/$collection");
-      $subcollections =  scandir("$folderLocation/$collection");
+      $subcollections =  scandir("$folderLocation/eads/$collection");
 
       foreach ($subcollections as $subcollection) {
         if (($subcollection == ".") || ($subcollection == "..")){

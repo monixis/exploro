@@ -32,6 +32,9 @@
           // This is the folderlocation for testing on localhost
           var folderLocation = "C:/xampp/htdocs/exploro/eads";
 
+          // This is the folder location for testing on the dev server.. not sure exactly why but dope
+          // var folderLocation = "/data/dev.library/htdocs/exploro";
+
           $(document).ready(function() {
             // Dynamically creates a drop down consisting of folders of EAD collections that can be converted into SOLR XML
             $.get("<?php echo base_url("?c=explr&m=getCollections&folderLocation=")?>" + folderLocation, function(response) {
@@ -104,6 +107,7 @@
               // alert("Flag! Successful form submit");
 
               var postData = {
+                folderLocation: folderLocation,
                 collection: collection,
                 subCollection: subCollection
               };
@@ -112,11 +116,12 @@
                   type: "POST",
                   url: "<?php echo base_url("?c=explr&m=converteads")?>",
                   data: postData,
-                  dataType: "json",
+                  dataType: "text",
                   success: function (message) {
                       if (message > 0) {
                           $('#requestStatus').empty();
                           $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s).").delay(3000).fadeOut();
+                          publishToSolr();
                           // $('#requestStatus').empty();
                           //var convertedFileCount = '<!--?php echo $convertedFileCount;?>'';
                           //   alert("Success:Total number of documents converted :" message);
@@ -132,6 +137,37 @@
           });
 
           function publishToSolr() {
+            // Get the specific directory to be converted
+            var collection = $("#selectCollection").val();
+            var subCollection = $("#selectSubCollection").val();
+
+            var postData = {
+              folderLocation: folderLocation,
+              collection: collection,
+              subCollection: subCollection
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url("?c=explr&m=publishToSolr")?>",
+                data: postData,
+                dataType: "text",
+                success: function (message) {
+                    if (message > 0) {
+                        $('#requestStatus').empty();
+                        $('#requestStatus').show().css('background', '#66cc00').append("Successfully uploaded - " + message + " file(s) to SOLR.").delay(3000).fadeOut();
+
+                    } else {
+                        $('#requestStatus').empty();
+                        $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert").delay(3000).fadeOut();
+
+                    }
+                }
+            });
+
+          }
+
+          function oldPublishToSolr() {
             var r = confirm("Are you sure you want to publish?");
             if (r == true) {
                 $.ajax({
@@ -235,10 +271,8 @@
 
         </div>
     </div>
-
-
 </div>
-</br>
+
 <div class="col-md-12">
     <footer>
         <p class="foot">

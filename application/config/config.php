@@ -14,8 +14,10 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/exploro/';
-
+// For testing on local host 
+// $config['base_url']	= 'http://localhost/exploro/';
+// For testing on the dev server
+$config['base_url'] = 'http://dev.library.marist.edu/exploro';
 
 /*
 |--------------------------------------------------------------------------
