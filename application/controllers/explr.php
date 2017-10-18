@@ -106,9 +106,55 @@ class explr extends CI_Controller
         }
     }
 
-    public function publishToSolr() 
+    public function publishToSolr()
     {
+      // Parse POST variables
+      $folderLocation = $_POST["folderLocation"];
+      $collection = $_POST["collection"];
+      $subCollection = $_POST["subCollection"];
 
+      // Create a variable to hold the list of filenames outside of any loop or conditional
+      $filenameList = array();
+      $numFiles = 0;
+
+      // Get list of files to publish to SOLR
+      $dir = "$folderLocation/eads/$collection/$subCollection";
+
+      $files = array_diff(scandir($dir), array('..', '.'));
+
+      // Publish each of the files one at a time using a for each
+      if (is_array($files)) {
+
+        foreach ($files as $filename) {
+
+          $post = [
+            'command' => 'full-import',
+            'clean' => 'false',
+            'commit' => 'true',
+            'fileName'   => $filename
+          ];
+
+          $ch = curl_init('http://35.162.165.138:8983/solr/Exploro/dataimport');
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+          // execute!
+          $response = curl_exec($ch);
+
+          $numFiles ++;
+        }
+
+        $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/*xml");
+        $convertedFileCount = sizeof($convertedFiles);
+      
+        if($convertedFileCount == $numFiles){
+          echo $convertedFileCount;
+        }
+        else{
+          echo 0;
+        }
+
+      }
     }
 
     /* Returns a list of all of the collections in the /eads folder as a series of options elements for a dropdown */

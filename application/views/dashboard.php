@@ -30,7 +30,7 @@
 
     <script>
           // This is the folderlocation for testing on localhost
-          var folderLocation = "C:/xampp/htdocs/exploro/eads";
+          var folderLocation = "C:/xampp/htdocs/exploro";
 
           // This is the folder location for testing on the dev server.. not sure exactly why but dope
           // var folderLocation = "/data/dev.library/htdocs/exploro";
