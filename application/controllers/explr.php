@@ -15,6 +15,7 @@ class explr extends CI_Controller
     // Transform EAD3 XML into SOLR XML format using XSLT
     public function converteads()
     {
+        echo "FLAG " . print_r($_POST);
         $folderLocation = $_POST["folderLocation"];
         $collection = $_POST["collection"];
         $subCollection = $_POST["subCollection"];
@@ -50,8 +51,9 @@ class explr extends CI_Controller
                   $xsl_doc = new DOMDocument();
                   $xsl_doc->load("$folderLocation/application/xslt/ead_3_solr.xsl");
 
+                  echo "Hello";
                   $proc = new XSLTProcessor();
-                  // echo "I am sad";
+                  echo "Goodbye";
                   $proc->importStylesheet($xsl_doc);
 
                   $newdom = $proc->transformToDoc($new_ead_doc);
@@ -146,7 +148,7 @@ class explr extends CI_Controller
 
         $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/*xml");
         $convertedFileCount = sizeof($convertedFiles);
-      
+
         if($convertedFileCount == $numFiles){
           echo $convertedFileCount;
         }
