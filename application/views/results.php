@@ -58,7 +58,14 @@
 					$collectionLink = (isset($row -> collectionLink[0]) ? $row -> collectionLink[0]: FALSE) ;
 					$collection = $row -> collection;
 					$id = $row -> id;
-					$link = $row -> link[0];
+					$link = $row -> link;
+
+          // Check to see if the file is a .pdf, if so display a placeholder image
+          $linkPath = pathinfo($link);
+          $fileExtension = $linkPath['extension'];
+          if ($fileExtension == "pdf"){
+            $link = "http://148.100.181.189:8090/testing/images/folder-icon.png";
+          }
 			?>
 				<li class="results" style="height: auto; padding: 10px;">
 					<img src="<?php echo $link ?>" style="width: 135px; height: 115px; float: left; margin-right: 10px;"/>

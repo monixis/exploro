@@ -31,7 +31,7 @@ class exploro extends CI_Controller
 	 {
       	$q = $this -> input -> get('q');
 		$q = str_replace(" ","%20", $q);
-		$resultsLink = "http://35.162.165.138:8983/solr/exploro-test/query?q=" . $q."&facet=true&facet.field=collection&facet.field=date&facet.field=category&facet.field=format&facet.field=physdesc&facet.field=location";
+		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=" . $q."&facet=true&facet.field=collection&facet.field=date&facet.field=category&facet.field=format&facet.field=physdesc&facet.field=location";
  		$json = file_get_contents($resultsLink);
      	$data['results'] = json_decode($json);
 
@@ -45,7 +45,7 @@ class exploro extends CI_Controller
 	  public function fileInfo()
 	 {
       	$id = $this -> input -> get('id');
-		$resultsLink = "http://35.162.165.138:8983/solr/exploro-test/query?q=unitid:" . $id ;
+		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=unitid:" . $id ;
  		$json = file_get_contents($resultsLink);
      	$data['results'] = json_decode($json);
 	 	$this->load->view('file_view', $data);
