@@ -65,13 +65,44 @@
                 success: function (message) {
                     // alert('Flag 1 ' + message.toString());
                     if (message == 0) {
-                      // There are no files
+                      // There are no subCollections
                       $("#error-panel").show();
                       $("#error-message").html("This collection does not have any valid subcollections.");
                     }
                     else {
                       $("#selectSubCollection").append(message);
+                      $("#selectFileName").html('<option selected value="0">Please select a file to upload</option>');
                     }
+                },
+              });
+            });
+
+            $("#selectSubCollection").change(function() {
+              $("#selectFileName").html('<option selected value="0">Please select a file to upload</option>');
+
+              var collection = $("#selectCollection");
+              var subCollection = $("selectSubCollection");
+
+              var postData = {
+                folderLocation: folderLocation,
+                collection: collection,
+                subCollection: subCollection
+              };
+
+              $.ajax({
+                type: "POST",
+                url: "<?php echo base_url("?c=explr&m=getFileNames") ?>",
+                data: postData,
+                dataType: "text",
+                success: function (message) {
+                  if (message == 0) {
+                    // There are no files
+                    $("#error-panel").show();
+                    $("#error-message").html("This collection does not have any valid subcollections.");
+                  }
+                  else {
+                    $("#selectFileName").append(message);
+                  }
                 },
               });
             });
@@ -248,6 +279,12 @@
                       <div class="form-spacing">
                         <select id="selectSubCollection">
                           <option selected value="0">You must select a collection before a subcollection</option>
+                        </select>
+                      </div>
+
+                      <div class="form-spacing">
+                        <select id="selectFileName">
+                          <option selected value="0">You must select a subcollection before a file</option>
                         </select>
                       </div>
 

@@ -109,6 +109,44 @@ class explr extends CI_Controller
         }
     }
 
+    public function publishToSolr()
+    {
+      // Parse POST variables
+      $folderLocation = $_POST["folderLocation"];
+      $collection = $_POST["collection"];
+      $subCollection = $_POST["subCollection"];
+      $fileName = $_POST["fileName"];
+
+      $filePath = "$folderLocation/eads/$collection/$subCollection/$fileName";
+
+      $post = [
+        'command' => 'full-import',
+        'clean' => 'false',
+        'commit' => 'true',
+        'fileName'   => $filePath
+      ];
+
+      $ch = curl_init('http://35.162.165.138:8983/solr/Exploro/dataimport');
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+      $response = curl_exec($ch);
+
+      curl_close($ch);
+
+      $numFiles ++;
+
+      $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/$fileName");
+      $convertedFileCount = sizeof($convertedFiles);
+
+      if($convertedFileCount == $numFiles){
+        echo $convertedFileCount;
+      }
+      else{
+        echo 0;
+      }
+    }
+
     public function publishBulkToSolr()
     {
       // Parse POST variables
@@ -212,7 +250,6 @@ class explr extends CI_Controller
       $collection = $_POST["collection"];
 
       // Directly link to the subcollections that we want to fetch
-      //$subcollections =  scandir("C:/xampp/htdocs/exploro/eads/$collection");
       $subcollections =  scandir("$folderLocation/eads/$collection");
 
       foreach ($subcollections as $subcollection) {
@@ -226,6 +263,25 @@ class explr extends CI_Controller
       }
     }
 
+    /* Returns a list of files in the specified subcollection */
+    public function getFileNames()
+    {
+      $folderLocation = $_POST["folderLocation"];
+      $collection = $_POST["collection"];
+      $subCollection = $_POST["subCollection"];
+
+      $files = scandir("$folderLocation/eads/$collection");
+
+      foreach ($files as $file) {
+        if ($file == "index.xml"){
+          // We do not want to add index.xml into the file list
+          continue;
+        }
+        else {
+          echo "<option value = '" . $file . "'>$file</option>";
+        }
+      }
+    }
 
     public function formatEads()
     {
