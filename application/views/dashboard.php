@@ -32,6 +32,9 @@
           // This is the folderlocation for testing on localhost
           var folderLocation = "C:/xampp/htdocs/exploro";
 
+          // Prevents getFileNames from exploding via inifinite calls
+          var lookForSubCollectionChanges = false;
+
           // This is the folder location for testing on the dev server.. not sure exactly why but dope
           //var folderLocation = "/data/dev.library/htdocs/exploro";
 
@@ -71,17 +74,18 @@
                     }
                     else {
                       $("#selectSubCollection").append(message);
-                      $("#selectFileName").html('<option selected value="0">Please select a file to upload</option>');
+                      // $("#selectFileName").html('<option selected value="0">Please select a file to </option>');
+                      lookForSubCollectionChanges = true;
                     }
                 },
               });
             });
 
-            $("#selectSubCollection").change(function() {
-              $("#selectFileName").html('<option selected value="0">Please select a file to upload</option>');
 
-              var collection = $("#selectCollection");
-              var subCollection = $("selectSubCollection");
+            $("#selectSubCollection").change(function() {
+              $("#selectFileName").html('<option selected value="0">Please select a file to </option>');
+              var collection = $("#selectCollection").val();
+              var subCollection = $("#selectSubCollection").val();
 
               var postData = {
                 folderLocation: folderLocation,
@@ -171,11 +175,13 @@
             // Get the specific directory to be converted
             var collection = $("#selectCollection").val();
             var subCollection = $("#selectSubCollection").val();
+            var fileName = $("#selectFileName").val();
 
             var postData = {
               folderLocation: folderLocation,
               collection: collection,
-              subCollection: subCollection
+              subCollection: subCollection,
+              fileName: fileName
             };
 
             $.ajax({
@@ -191,11 +197,9 @@
                     } else {
                         $('#requestStatus').empty();
                         $('#requestStatus').show().css('background', '#b31b1b').append("Failed to upload files.").delay(3000).fadeOut();
-
                     }
                 }
             });
-
           }
 
           function oldPublishToSolr() {

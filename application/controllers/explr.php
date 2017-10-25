@@ -111,6 +111,8 @@ class explr extends CI_Controller
 
     public function publishToSolr()
     {
+      $numFiles = 0;
+
       // Parse POST variables
       $folderLocation = $_POST["folderLocation"];
       $collection = $_POST["collection"];
@@ -270,16 +272,14 @@ class explr extends CI_Controller
       $collection = $_POST["collection"];
       $subCollection = $_POST["subCollection"];
 
-      $files = scandir("$folderLocation/eads/$collection");
+      $rawFiles = scandir("$folderLocation/eads/$collection/$subCollection");
+
+      $files = array_diff($rawFiles, array('index.xml', '..', '.'));
+
+      echo "FLAG " . print_r($files);
 
       foreach ($files as $file) {
-        if ($file == "index.xml"){
-          // We do not want to add index.xml into the file list
-          continue;
-        }
-        else {
-          echo "<option value = '" . $file . "'>$file</option>";
-        }
+        echo "<option value = '" . $file . "'>$file</option>";
       }
     }
 
