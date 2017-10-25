@@ -72,7 +72,7 @@ class explr extends CI_Controller
 
         // echo "FLAG NUM FILES IN DIRECTORY " . $numFiles . "<br>";
 
-        $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/*xml");
+        $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/$fileNamexml");
         $convertedFileCount = sizeof($convertedFiles);
         // echo "FLAG CONVERTED FILES COUNT " . $convertedFileCount;
         if($convertedFileCount == $numFiles) {
@@ -93,20 +93,88 @@ class explr extends CI_Controller
 
     			$this->email->to("danmopsick@gmail.com");
     			$this->email->subject('EAD3 files uploaded to Exploro');
-    			$message = "</br><p>Hi Monish, <br/>The following EAD3 files were converted into SOLR XML and are ready to be uploaded to Explro.</p>
+    			$message = "</br><p>Hi Monish, <br/>The following EAD3 file(s) were converted into SOLR XML and are ready to be uploaded to Explro.</p>
                       <p>Collection: $collection</p>
                       <p>Subcollection: $subCollection</p><ul>";
-          foreach($filenameList as $thisFileName) {
-            $message .= "<li>$thisFileName</li>";
-          }
+                      foreach($filenameList as $file){
+                        echo "<li>$file</li>";
+                      }
+
           $message .= "</ul>";
 
     			$this->email->message($message);
-    			// $this->email->send();
+    			$this->email->send();
         }
         else {
             echo 0;
         }
+    }
+
+    public function convertSingleEAD()
+    {
+      $numFiles = 0;
+      $folderLocation = $_POST["folderLocation"];
+      $collection = $_POST["collection"];
+      $subCollection = $_POST["subCollection"];
+      $fileName = $_POST["fileName"];
+
+      $filepath = "$folderLocation/eads/$collection/$subCollection/$fileName";
+
+      $new_ead_doc = new DOMDocument();
+
+      $new_ead_doc->load($filepath);
+
+      // echo "Flag LOADING FILEPATH " . print_r($new_ead_doc) . "<br>";
+
+      $xsl_doc = new DOMDocument();
+      $xsl_doc->load("$folderLocation/application/xslt/ead_3_solr.xsl");
+
+      // echo "Hello";
+      $proc = new XSLTProcessor();
+      // echo "Goodbye";
+      $proc->importStylesheet($xsl_doc);
+
+      $newdom = $proc->transformToDoc($new_ead_doc);
+
+      // echo "FLAG NEW DOM " .  print_r($newdom) . "<br><br>";
+
+      // echo "Flag trying to save this location $folderLocation/solr_xmls/$collection/$subCollection/$file";
+
+      $newdom->save("$folderLocation/solr_xmls/$collection/$subCollection/$fileName") or die("Flag: Error");
+
+      $numFiles ++;
+
+      if($numFiles == 1) {
+          echo 1;
+
+          // Success! send an email to Monish loggin what folders have been updated
+          $this->load->library('email');
+          $config['protocol'] = "smtp";
+                    $config['smtp_host'] = "tls://smtp.googlemail.com";
+                    $config['smtp_port'] = "465";
+                    $config['smtp_user'] = "cannavinolibrary@gmail.com";
+                    $config['smtp_pass'] = "845@jac3419";
+                    $config['charset'] = "utf-8";
+                    $config['mailtype'] = "html";
+                    $config['newline'] = "\r\n";
+                    $this->email->initialize($config);
+        $this->email->from('cannavinolibrary@gmail.com', 'James A. Cannavino Library (Collaboration Room Reservation System)');
+
+        $this->email->to("danmopsick@gmail.com");
+        $this->email->subject('EAD3 files uploaded to Exploro');
+        $message = "</br><p>Hi Monish, <br/>The following EAD3 file(s) were converted into SOLR XML and are ready to be uploaded to Explro.</p>
+                    <p>Collection: $collection</p>
+                    <p>Subcollection: $subCollection</p><ul>
+                    <li>$fileName</li>";
+
+        $message .= "</ul>";
+
+        $this->email->message($message);
+        // $this->email->send();
+      }
+      else {
+          echo 0;
+      }
     }
 
     public function publishToSolr()

@@ -117,6 +117,7 @@
               // Get the specific directory to be converted
               var collection = $("#selectCollection").val();
               var subCollection = $("#selectSubCollection").val();
+              var fileName = $("#selectFileName").val();
               // var uploadType = $("input[name=uploadType]:checked").val();
 
               // Validate the collection drop down
@@ -144,12 +145,13 @@
               var postData = {
                 folderLocation: folderLocation,
                 collection: collection,
-                subCollection: subCollection
+                subCollection: subCollection,
+                fileName: fileName
               };
 
               $.ajax({
                   type: "POST",
-                  url: "<?php echo base_url("?c=explr&m=converteads")?>",
+                  url: "<?php echo base_url("?c=explr&m=convertSingleEAD")?>",
                   data: postData,
                   dataType: "text",
                   success: function (message) {
