@@ -30,10 +30,10 @@
 
     <script>
           // This is the folderlocation for testing on localhost
-          // var folderLocation = "C:/xampp/htdocs/exploro";
+          var folderLocation = "C:/xampp/htdocs/exploro";
 
           // This is the folder location for testing on the dev server.. not sure exactly why but dope
-          var folderLocation = "/data/dev.library/htdocs/exploro";
+          //var folderLocation = "/data/dev.library/htdocs/exploro";
 
           $(document).ready(function() {
             // Dynamically creates a drop down consisting of folders of EAD collections that can be converted into SOLR XML
@@ -120,8 +120,8 @@
                   success: function (message) {
                       if (message > 0) {
                           $('#requestStatus').empty();
-                          $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s).").delay(3000).fadeOut();
-                          //publishToSolr();
+                          $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s). Please remain on this page until the next message appears.").delay(5000).fadeOut();
+                          publishToSolr();
                           // $('#requestStatus').empty();
                           //var convertedFileCount = '<!--?php echo $convertedFileCount;?>'';
                           //   alert("Success:Total number of documents converted :" message);
@@ -159,7 +159,7 @@
 
                     } else {
                         $('#requestStatus').empty();
-                        $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert").delay(3000).fadeOut();
+                        $('#requestStatus').show().css('background', '#b31b1b').append("Failed to upload files.").delay(3000).fadeOut();
 
                     }
                 }

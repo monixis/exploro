@@ -17,10 +17,10 @@
 		<xsl:variable name="myUnitID" select="archdesc/did/unitid"/>
 		<!-- Getting the folder name for the unittitle, ex LTP -->
 		<xsl:variable name="folderName" select="control/recordid/@id"/>
-		
+
 		<!-- Used to get collection name ex: Lowell Thomas Papers -->
 		<xsl:variable name="myCollection" select="archdesc/dsc/c01/did/unittitle"/>
-		
+
 		<!-- Links to the finding aids -->
 		<xsl:variable name="collectionLink">http://library.marist.edu/exploro/?c=exploro<![CDATA[&]]>m=viewEAD<![CDATA[&]]>cid=<xsl:value-of select="$folderName"/><![CDATA[&]]>id=<xsl:value-of select="$myUnitID"/></xsl:variable>
         <doc1>
@@ -84,12 +84,12 @@
                         </field>
                 </xsl:if>
                 <xsl:if test="archdesc/did/physdescstructured/@physdescstructuredtype">
-                    <field name='physdescstructured'>
+                    <field name='physdesc'>
                         <xsl:value-of select="archdesc/did/physdescstructured/quantity"/>(<xsl:value-of select="archdesc/did/physdescstructured/unittype"/>)
                     </field>
                 </xsl:if>
-				
-				
+
+
     <!-- <xsl:template match="/*/*[1]">
         <xsl:variable name="second" select="local-name(following-sibling::*[1])" />
         <xsl:element name="{local-name()}And{$second}">
@@ -98,8 +98,8 @@
             <xsl:apply-templates select="following-sibling::*[1]/node()"/>
         </xsl:element>
     </xsl:template>-->
-	
-	
+
+
 				<!-- <xsl:template match ="/*/*[1]">
 					<xsl:variable name="combinedID" select="unittitle(following-sibling::*[1])" />
 					<xsl:element name="{unittitle()}And{$combinedID}">
@@ -108,7 +108,7 @@
 						<xsl:apply-templates select="following-sibling::*[1]/node()"/>
 					</xsl:element>
 				</xsl:template> -->
-				
+
                 <xsl:if test="archdesc/did/unitid">
                     <field name="unitid">
                         <xsl:value-of select="concat($folderName, '.', $myUnitID)"/>
@@ -195,7 +195,7 @@
 								</field>
 							</xsl:otherwise>
 						</xsl:choose>
-	
+
                         <!--<xsl:if test="./dao">
                             <field name="link">
                                 <xsl:value-of select="./dao/@href"/>
@@ -413,4 +413,3 @@
     </xsl:template>-->
 
 </xsl:stylesheet>
-

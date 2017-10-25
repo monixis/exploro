@@ -15,7 +15,7 @@ class explr extends CI_Controller
     // Transform EAD3 XML into SOLR XML format using XSLT
     public function converteads()
     {
-        echo "FLAG " . print_r($_POST);
+        // echo "FLAG " . print_r($_POST);
         $folderLocation = $_POST["folderLocation"];
         $collection = $_POST["collection"];
         $subCollection = $_POST["subCollection"];
@@ -51,9 +51,9 @@ class explr extends CI_Controller
                   $xsl_doc = new DOMDocument();
                   $xsl_doc->load("$folderLocation/application/xslt/ead_3_solr.xsl");
 
-                  echo "Hello";
+                  // echo "Hello";
                   $proc = new XSLTProcessor();
-                  echo "Goodbye";
+                  // echo "Goodbye";
                   $proc->importStylesheet($xsl_doc);
 
                   $newdom = $proc->transformToDoc($new_ead_doc);
@@ -75,7 +75,7 @@ class explr extends CI_Controller
         $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/*xml");
         $convertedFileCount = sizeof($convertedFiles);
         // echo "FLAG CONVERTED FILES COUNT " . $convertedFileCount;
-        if($convertedFileCount == $numFiles){
+        if($convertedFileCount == $numFiles) {
             echo $convertedFileCount;
 
             // Success! send an email to Monish loggin what folders have been updated
@@ -102,13 +102,14 @@ class explr extends CI_Controller
           $message .= "</ul>";
 
     			$this->email->message($message);
-    			$this->email->send();
-        }else{
+    			// $this->email->send();
+        }
+        else {
             echo 0;
         }
     }
 
-    public function publishToSolr()
+    public function publishBulkToSolr()
     {
       // Parse POST variables
       $folderLocation = $_POST["folderLocation"];
@@ -122,11 +123,10 @@ class explr extends CI_Controller
       // Get list of files to publish to SOLR
       $dir = "$folderLocation/eads/$collection/$subCollection";
 
-      $files = array_diff(scandir($dir), array('..', '.'));
+      $files = array_diff(scandir($dir), array('..', '.', 'index.xml'));
 
       // Publish each of the files one at a time using a for each
       if (is_array($files)) {
-
         foreach ($files as $filename) {
 
           $post = [
@@ -140,10 +140,33 @@ class explr extends CI_Controller
           curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
           curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
-          // execute!
           $response = curl_exec($ch);
 
+          $xmlResponse = simplexml_load_string($response);
+
+          // echo "FLAG " . print_r($xmlResponse);
+          $timeTaken = $xmlResponse->lst[2]->str[7];
+
+          $explodedTime = explode(":", $timeTaken);
+
+          // Right now just accounting for minutes because I don't think it will take hours
+          $minutesToSeconds = $explodedTime[1] * 60;
+          // Adding .5 to make sure the seconds round up
+          $seconds = round($explodedTime[2] + .5);
+
+          $timeToWait = $minutesToSeconds + $seconds;
+
+          // echo "FLAG seconds passed $timeToWait"; */
+
+          /*$xml = simplexml_load_string($response, "SimpleXMLElement", LIBXML_NOCDATA);
+          $json = json_encode($xml);
+          $array = json_decode($json,TRUE);
+          echo "FLAG " . print_r($array); */
+
+          curl_close($ch);
           $numFiles ++;
+          // Darn the next request cannot start until the previous request has finished...
+          sleep($timeToWait);
         }
 
         $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/*xml");
