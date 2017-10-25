@@ -193,7 +193,7 @@ class explr extends CI_Controller
         'command' => 'full-import',
         'clean' => 'false',
         'commit' => 'true',
-        'fileName'   => $filePath
+        'fileName'   => $fileName
       ];
 
       $ch = curl_init('http://35.162.165.138:8983/solr/Exploro/dataimport');
