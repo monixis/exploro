@@ -120,18 +120,24 @@
               var fileName = $("#selectFileName").val();
               // var uploadType = $("input[name=uploadType]:checked").val();
 
-              // Validate the collection drop down
+              // Validate the collection dropdown
               if (collection == 0) {
                 $("#error-panel").show();
                 $("#error-message").html("You must select a valid collection.");
                 return 0;
               }
 
-              // Validate the subcollection drop down
+              // Validate the subcollection dropdown
               if (subCollection == 0) {
                 $("#error-panel").show();
                 $("#error-message").html("You must select a valid subcollection.");
                 return 0;
+              }
+
+              // Validate the filename dropdown
+              if (fileName == 0) {
+                $("#error-panel").show();
+                $("#error-message").html("You must select a valid file name.");
               }
 
               if(!confirm("Are you sure you would like to upload this collection to Exploro?")){

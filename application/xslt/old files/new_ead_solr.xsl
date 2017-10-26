@@ -10,24 +10,19 @@
 
      </xsl:template>
     <xsl:template match="ead">
-        <!--<xsl:variable name="collectionLink" select="archdesc/dsc/c01/did/ptr/@href"/>-->
-		<!-- <xsl:value-of select="concat('http://library.marist.edu/?c=exploro&m=viewEAD&cid=', $folderName, '&id=', $myUnitID)"/>-->
+        <xsl:variable name="collectionLink" select="control/recordid/@instanceurl"/>
         <xsl:variable name="collection" select="control/filedesc/titlestmt/titleproper"/>
         <xsl:variable name="genreform" select="archdesc/controlaccess/genreform/part"/>
-		<xsl:variable name="myUnitID" select="archdesc/did/unitid"/>
-		<!-- Getting the folder name for the unittitle, ex LTP -->
-		<xsl:variable name="folderName" select="control/recordid/@id"/>
 
-		<!-- Used to get collection name ex: Lowell Thomas Papers -->
-		<xsl:variable name="myCollection" select="archdesc/dsc/c01/did/unittitle"/>
+        <doc>
 
-		<!-- Links to the finding aids -->
-		<xsl:variable name="collectionLink">http://library.marist.edu/exploro/?c=exploro<![CDATA[&]]>m=viewEAD<![CDATA[&]]>cid=<xsl:value-of select="$folderName"/><![CDATA[&]]>id=<xsl:value-of select="$myUnitID"/></xsl:variable>
-        <doc1>
-				<field name="collectionLink">
-					<xsl:value-of select="$collectionLink"/>
-				</field>
+                        <field name="collectionLink">
+                            <xsl:value-of select="control/recordid/@instanceurl"/>
+                        </field>
 
+                        <field name="collection">
+                            <xsl:value-of select="control/filedesc/titlestmt/titleproper"/>
+                        </field>
                 <xsl:if test="control/filedesc/publicationstmt/publisher">
                         <field name="publisher">
                             <xsl:value-of select="control/filedesc/publicationstmt/publisher"/>
@@ -84,39 +79,15 @@
                         </field>
                 </xsl:if>
                 <xsl:if test="archdesc/did/physdescstructured/@physdescstructuredtype">
-                    <field name='physdesc'>
+                    <field name='physdescstructured'>
                         <xsl:value-of select="archdesc/did/physdescstructured/quantity"/>(<xsl:value-of select="archdesc/did/physdescstructured/unittype"/>)
                     </field>
                 </xsl:if>
-
-
-    <!-- <xsl:template match="/*/*[1]">
-        <xsl:variable name="second" select="local-name(following-sibling::*[1])" />
-        <xsl:element name="{local-name()}And{$second}">
-            <xsl:apply-templates select="node()" />
-            <xsl:text> </xsl:text>
-            <xsl:apply-templates select="following-sibling::*[1]/node()"/>
-        </xsl:element>
-    </xsl:template>-->
-
-
-				<!-- <xsl:template match ="/*/*[1]">
-					<xsl:variable name="combinedID" select="unittitle(following-sibling::*[1])" />
-					<xsl:element name="{unittitle()}And{$combinedID}">
-						<xsl:apply-templates select="node()" />
-						<xsl:text> </xsl:text>
-						<xsl:apply-templates select="following-sibling::*[1]/node()"/>
-					</xsl:element>
-				</xsl:template> -->
-
                 <xsl:if test="archdesc/did/unitid">
                     <field name="unitid">
-                        <xsl:value-of select="concat($folderName, '.', $myUnitID)"/>
+                        <xsl:value-of select="archdesc/did/unitid"/>
                     </field>
                 </xsl:if>
-				<field name="collection">
-					<xsl:value-of select="$myCollection"/>
-				</field>
                 <xsl:if test="archdesc/accessrestrict">
                     <field name="accessrestrict">
                         <xsl:value-of select="archdesc/accessrestrict"/>
@@ -140,23 +111,22 @@
                     <xsl:value-of select="archdesc/controlaccess/geogname/@identifier"/>
                 </field>
                 </xsl:if>
-            </doc1>
+            </doc>
             <xsl:for-each select=".//*[@level='recordgrp']">
                  <xsl:variable name="container" select="./did/container"/>
                 <xsl:for-each select=".//*[@level='item']">
-					<xsl:variable name="itemUnitID" select="did/unitid"/>
                     <doc>
-						<field name="collectionLink">
-						  <xsl:value-of select="$collectionLink"/>
-						</field>
+                          <field name="collectionLink">
+                              <xsl:value-of select="$collectionLink" />
+                          </field>
                         <field name="collection">
-                            <xsl:value-of select="$myCollection" />
+                            <xsl:value-of select="$collection" />
                         </field>
                         <field name="format">
                             <xsl:value-of select="$genreform" /><xsl:if test="./controlaccess/genreform">,<xsl:value-of select="./controlaccess/genreform"/></xsl:if>
                         </field>
                         <field name="unitid">
-                            <xsl:value-of select="concat($folderName, '.', $container, '.', $itemUnitID)"/>
+                            <xsl:value-of select="$container" />.<xsl:value-of select="./did/unitid"/>
                         </field>
                         <field name="unittitle">
                             <xsl:value-of select="./did/unittitle"/>
@@ -176,37 +146,16 @@
                             <xsl:value-of select="./physdescstructured/dimensions"/>
                         </field>
                         </xsl:if>
-						<!-- taken from https://stackoverflow.com/questions/13622338/how-to-implement-if-else-statement-in-xslt -->
-						<xsl:choose>
-							<xsl:when test="./dao">
-								<field name="link">
-									<xsl:value-of select="./dao/@href"/>
-								</field>
-								<field name="category">
-									<xsl:value-of select="'Digital Object'"/>
-								</field>
-							</xsl:when>
-							<xsl:otherwise>
-								<field name="link">
-									<xsl:value-of select="'../images/folder-icon.png'"/>
-								</field>
-								<field name="category">
-									<xsl:value-of select="'Finding Aid'"/>
-								</field>
-							</xsl:otherwise>
-						</xsl:choose>
 
-                        <!--<xsl:if test="./dao">
+
+                        <xsl:if test="./dao">
                             <field name="link">
                                 <xsl:value-of select="./dao/@href"/>
                             </field>
-							<field name="category">
-								<xsl:value-of select="'Digital Object'"/>
-							</field>
-                        </xsl:if> -->
-                        <xsl:if test="./userestrict">
-                            <field name="userestrict">
-                                <xsl:value-of select="./userestrict"/>
+                        </xsl:if>
+                        <xsl:if test="./userrestrict">
+                            <field name="userrestrict">
+                                <xsl:value-of select="./userrestrict"/>
                             </field>
                         </xsl:if>
                     </doc>
@@ -413,3 +362,4 @@
     </xsl:template>-->
 
 </xsl:stylesheet>
+
