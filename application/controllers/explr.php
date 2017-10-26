@@ -196,7 +196,7 @@ class explr extends CI_Controller
         'fileName'   => $fileName
       ];
 
-      $ch = curl_init('http://35.162.165.138:8983/solr/Exploro/dataimport');
+      $ch = curl_init('http://35.162.165.138:8983/solr/exploro/dataimport');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
@@ -244,7 +244,7 @@ class explr extends CI_Controller
             'fileName'   => $filename
           ];
 
-          $ch = curl_init('http://35.162.165.138:8983/solr/Exploro/dataimport');
+          $ch = curl_init('http://35.162.165.138:8983/solr/exploro/dataimport');
           curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
           curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 

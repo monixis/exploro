@@ -75,10 +75,8 @@
 		<dsc>
 			<c01 level='collection'>
 				<did>
-					<unittitle>
-						Lowell Thomas Papers
+					<unittitle>Lowell Thomas Papers</unittitle>
 						<ptr href='http://library.marist.edu/archives/LTP/LTP.xml'></ptr>
-					</unittitle>
 				</did>
 				<c02 level='series'>
 					<did>
@@ -283,7 +281,7 @@
 													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
 												</userestrict>
 											</c08>
-											<c08 level='item'>
+											<!-- <c08 level='item'>
 												<did>
 													<unitid>46</unitid>
 													<unittitle>Looking toward the Monopteros, Linderhof gardens</unittitle>
@@ -563,10 +561,10 @@
 												<userestrict>
 													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
 												</userestrict>
-											</c08>
+											</c08> -->
 										</did>
 									</c07>
-									<c07 level='recordgrp'>
+									<!-- <c07 level='recordgrp'>
 										<did>
 											<container localtype='box'>1174</container>
 											<c08 level='item'>
@@ -1466,7 +1464,7 @@
 												</userestrict>
 											</c08>
 										</did>
-									</c07>
+									</c07> -->
 								</c06>
 							</c05>
 						</c04>
