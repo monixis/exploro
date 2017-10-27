@@ -76,8 +76,10 @@
 		<dsc>
 			<c01 level="collection">
 				<did>
-					<unittitle>Lowell Thomas Papers</unittitle>
-					<ptr href="http://library.marist.edu/archives/LTP/LTP.xml"/>
+					<unittitle>
+						Lowell Thomas Papers
+						<ptr href="http://library.marist.edu/archives/LTP/LTP.xml"/>
+					</unittitle>
 				</did>
 				<c02 level="series">
 					<did>
@@ -187,7 +189,7 @@
 													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
 												</userestrict>
 											</c08>
-											<!--<c08 level="item">
+											<c08 level="item">
 												<did>
 													<unitid>6</unitid>
 													<unittitle>Marie-Thereseien Strasse, looking toward the Anna Saule, Austrian Tyrol</unittitle>
@@ -666,7 +668,7 @@
 												<userestrict>
 													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
 												</userestrict>
-											</c08> -->
+											</c08>
 										</did>
 									</c07>
 								</c06>

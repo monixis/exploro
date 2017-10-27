@@ -1,0 +1,1348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type='text/xsl' href='./styles/boxbuilder.xsl'?>
+<ead>
+	<!-- EAD3 required element -->
+	<control countryencoding="iso3166-1" dateencoding="iso8601" langencoding="iso639-2b" repositoryencoding="iso15511" scriptencoding="iso15924">
+		<!-- EAD3 required element -->
+		<recordid instanceurl=" ">2.1.1.2.4</recordid><!-- EAD3 required element -->
+		<filedesc>
+			<!-- EAD3 required element -->
+			<titlestmt>
+				<!-- EAD3 required element -->
+				<titleproper>England</titleproper><!-- Required element within titlestmt -->
+			</titlestmt>
+			<publicationstmt>
+				<publisher>Marist College</publisher>
+				<date>2009 October 30</date>
+				<address>
+					<addressline>3399 North Road, Poughkeepsie, New York 12601</addressline>
+				</address>
+				<p>
+					<ref href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</ref>
+				</p>
+			</publicationstmt>
+			<notestmt>
+				<controlnote>
+					<p>Lowell Thomas Papers - Graphic Materials - Photographs - Glass plate negatives - Lowell Thomas - England</p>
+				</controlnote>
+			</notestmt>
+		</filedesc>
+	</control>
+	<archdesc level="collection">
+		<!-- EAD3 required element -->
+		<did>
+			<!-- EAD3 required element -->
+			<repository>
+				<corpname source="DBP" identifier="http://dbpedia.org/page/Marist_College">
+					<part>Marist Archives and Special Collections</part>
+				</corpname>
+				<address>
+					<addressline>3399 North Road, Poughkeepsie, New York 12601</addressline>
+				</address>
+			</repository>
+			<origination source="DBP" identifier="http://dbpedia.org/page/Lowell_Thomas">
+				<!-- Optional EAD3 element, added to comply with DACS requirement for 'Name of Creator(s) Element'. The new <relations> element can satisfy this and expand on it, but as <relations> is experimental, use of <origination> is recommended for now -->
+				<persname>
+					<part>Lowell Thomas</part>
+				</persname>
+			</origination>
+			<unittitle>England</unittitle><!-- Optional EAD3 element, added to comply with DACS requirement for 'Title Element' -->
+			<unitid>2.1.1.2.4</unitid><!-- Optional EAD3 element, added to comply with 'Reference Code Element' of DACS requirement -->
+			<unitdatestructured unitdatetype="Bulk">
+				<daterange>
+					<fromdate>1789</fromdate>
+					<todate>1984</todate>
+				</daterange>
+			</unitdatestructured>
+			<physdescstructured physdescstructuredtype="spaceoccupied" coverage="whole">
+				<quantity>1203</quantity>
+				<unittype>Linear feet</unittype>
+			</physdescstructured>
+			<langmaterial>
+				<language>English</language>
+			</langmaterial>
+		</did>
+		<accessrestrict>
+			<!-- Optional EAD3 element, added to comply with DACS requirement for 'Conditions Governing Access Element' -->
+			<p>Items in this collection do not circulate and may be used in-house only.</p>
+		</accessrestrict>
+		<userestrict>
+			<!-- Optional EAD3 element, added to comply with DACS requirement for 'Conditions Governing Access Element' -->
+			<p>Individuals requesting reproductions expressly assume the responsibility for compliance with all pertinent provisions of the Copyright Act, 17 U.S.C. ss101 et seq. Patrons further agree to indemnify and hold harmless the Marist College Archives &amp; Special Collections and its staff in connection with any disputes arising from the Copyright Act, over the reproduction of material at the request of patrons. For more information please visit the following website: http://www.loc.gov/copyright/title17/.</p>
+		</userestrict>
+		<controlaccess>
+			<genreform>
+				<part>Glass plate negatives</part>
+			</genreform>
+			<geogname source="" identifier="">
+				<part>England</part>
+			</geogname>
+		</controlaccess>
+		<dsc>
+			<c01 level="collection">
+				<did>
+					<unittitle>
+						Lowell Thomas Papers
+						<ptr href="http://library.marist.edu/archives/LTP/LTP.xml"/>
+					</unittitle>
+				</did>
+				<c02 level="series">
+					<did>
+						<unitid>2</unitid>
+						<unittitle>Graphic Materials</unittitle>
+					</did>
+					<c03 level="subseries">
+						<did>
+							<unitid>2.1</unitid>
+							<unittitle>Photographs</unittitle>
+						</did>
+						<c04 level="subseries">
+							<did>
+								<unitid>2.1.1</unitid>
+								<unittitle>Glass plate negatives</unittitle>
+							</did>
+							<c05 level="subseries">
+								<did>
+									<unitid>2.1.1.2</unitid>
+									<unittitle>Lowell Thomas</unittitle>
+								</did>
+								<c06 level="subseries">
+									<did>
+										<unitid>2.1.1.2.4</unitid>
+										<unittitle>England</unittitle>
+									</did>
+									<c07 level="recordgrp">
+										<did>
+											<container localtype="box">1322</container>
+											<c08 level="item">
+												<did>
+													<unitid>9</unitid>
+													<unittitle>Girl driving Australian soldiers, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.9.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>10</unitid>
+													<unittitle>Australian soldier with arm around girl, sitting on Balustrade, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.10.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>11</unitid>
+													<unittitle>Girl with arm around Australian soldier, American soldier in one corner, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.11.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>12</unitid>
+													<unittitle>Australian soldier holding child, sitting on bench, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.12.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>13</unitid>
+													<unittitle>Canadian soldier with arm around girl, surrounded by children, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.13.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>14</unitid>
+													<unittitle>Soldiers and women sitting on Balustrade, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.14.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>15</unitid>
+													<unittitle>Soldiers sitting on Balustrade, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.15.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>16</unitid>
+													<unittitle>Soldiers sitting on Balustrade, others standing Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.16.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>17</unitid>
+													<unittitle>Sailors and girls sitting on bench, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.17.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>18</unitid>
+													<unittitle>Women standing in front of a statue of a lion near Nelson’s Column, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.18.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>19</unitid>
+													<unittitle>Two women standing in front of a statue of a lion near Nelson’s Column, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.19.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>20</unitid>
+													<unittitle>Two women, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.20.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>21</unitid>
+													<unittitle>Two women and a soldier sitting on a bench, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.21.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>22</unitid>
+													<unittitle>Woman standing by statue, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.22.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>23</unitid>
+													<unittitle>Poster for the women’s land army at the base of Nelson’s Column, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.23.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>24</unitid>
+													<unittitle>Poster for women’s land army at base of Nelson’s Column, drummers in foreground, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.24.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>25</unitid>
+													<unittitle>Women standing in rows</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.25.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>26</unitid>
+													<unittitle>Crowds watching women march down street</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.26.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>27</unitid>
+													<unittitle>Two land army girls, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.27.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>28</unitid>
+													<unittitle>American soldier (“Doughboy””) talking to land army girls, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.28.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>29</unitid>
+													<unittitle>Four wagons filled with soldiers</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.29.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>30</unitid>
+													<unittitle>Wagons filled with soldiers</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.30.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>31</unitid>
+													<unittitle>Soldier standing in front of wagon</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.31.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>32</unitid>
+													<unittitle>Demonstration for State Aid for the Blind, Nelson’s Column, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.32.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>33</unitid>
+													<unittitle>Demonstration for State Aid for the Blind, three soldiers and woman and foreground, Nelson’s Column, Trafalgar Square, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.33.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>34</unitid>
+													<unittitle>Four girls standing in front of a white craft airplane model, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.34.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>35</unitid>
+													<unittitle>American soldier and London horse Guard</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.35.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>36</unitid>
+													<unittitle>American soldier, sailor and London horse Guard</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.36.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>37</unitid>
+													<unittitle>Three soldiers and woman, with dog, in front of tents, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.37.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>38</unitid>
+													<unittitle>British soldiers sewing socks, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.38.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>39</unitid>
+													<unittitle>Soldiers leaving a Y.M.C.A</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.39.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>40</unitid>
+													<unittitle>Group of soldiers and sailors, American Y.M.C.A in background, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.40.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>41</unitid>
+													<unittitle>Street scene, poster for American Y.M.C.A. in foreground</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.41.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>42</unitid>
+													<unittitle>Street scene, Canadian Y.M.C.A., Hotel Cecil in background, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.42.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>43</unitid>
+													<unittitle>Street scene, double-decker buses, Morley’s Hotel, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.43.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>44</unitid>
+													<unittitle>Street scene, double-decker bus, Morley’s Hotel, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.44.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>45</unitid>
+													<unittitle>Charing Cross Hotel</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.45.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>46</unitid>
+													<unittitle>Two men on horses, Victorian Hotel in background</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.46.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>47</unitid>
+													<unittitle>Whitehead and his two children in garden, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.47.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>48</unitid>
+													<unittitle>Whitehead’s home, house and lawn</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.48.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>49</unitid>
+													<unittitle>Whitehead’s home, lawn and waterfront, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.49.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>50</unitid>
+													<unittitle>Whitehead’s home, lawn, two people in distance, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.50.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>51</unitid>
+													<unittitle>Washington Inn, soldier on bench in foreground, statue in distance, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.51.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>52</unitid>
+													<unittitle>Washington Inn, soldiers in foreground, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.52.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>53</unitid>
+													<unittitle>Balloon automobile in front of the Oceanic House, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.53.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>54</unitid>
+													<unittitle>Westminster Abbey, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.54.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>55</unitid>
+													<unittitle>Westminster Hospital, Big Ben in distance, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.55.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>56</unitid>
+													<unittitle>Wellington Arch, soldier in foreground, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.56.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>57</unitid>
+													<unittitle>Large statue with lions at base</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.57.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>58</unitid>
+													<unittitle>Woman standing by lamppost, buildings in distance, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.58.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>59</unitid>
+													<unittitle>Two men standing near ornate fence, large building in distance, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.59.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>60</unitid>
+													<unittitle>Crowd of people in park</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.60.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>61</unitid>
+													<unittitle>Four military men talking next to man holding advertisement for baseball game</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.61.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>62</unitid>
+													<unittitle>Three military men walking away from building</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.62.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>63</unitid>
+													<unittitle>Two military men talking next to Sphinx replica, London</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.63.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>64</unitid>
+													<unittitle>Two women wearing “Royal Flying Corps” uniforms on motorcycle and sidecar</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.64.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>65</unitid>
+													<unittitle>Three people sitting on bench in front of fountain</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>4x5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1322/1322.65.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+										</did>
+									</c07>
+									<c07 level="recordgrp">
+										<did>
+											<container localtype="box">1323</container>
+											<c08 level="item">
+												<did>
+													<unitid>1</unitid>
+													<unittitle>Crowd of people, in park, gathered around flagpole</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.1.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>2</unitid>
+													<unittitle>Crowd of people in park</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.2.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>3</unitid>
+													<unittitle>Chelsea Football Club, spectators watching game</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.3.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>4</unitid>
+													<unittitle>Chelsea Football Club, cricket match</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.4.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>5</unitid>
+													<unittitle>Chelsea Football Club, cricket match</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.5.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>6</unitid>
+													<unittitle>Crowd sitting near the church army, Lord Kitchener Hut</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.6.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>7</unitid>
+													<unittitle>Crowd near the church army , Lord Kitchener Hut</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.7.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>8</unitid>
+													<unittitle>Couple sitting in field, crowd in background</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.8.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>9</unitid>
+													<unittitle>Canadian soldier, woman and child sitting in field, crowd in background</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.9.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>10</unitid>
+													<unittitle>Little boy, saluting, wearing H.M.S. diadem hat</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.10.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>11</unitid>
+													<unittitle>Little girl wearing hat from the H.M.S. Queen Mary</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>5x7</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.11.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>12</unitid>
+													<unittitle>English submarine</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x5.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.12.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>13</unitid>
+													<unittitle>English submarine</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x5.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.13.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>14</unitid>
+													<unittitle>Man with binoculars</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x5.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.14.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>15</unitid>
+													<unittitle>English submarine, man using binoculars</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x5.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.15.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>16</unitid>
+													<unittitle>Officer of an English submarine</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.25x4.25</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.16.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>17</unitid>
+													<unittitle>Officers of English submarines</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.25x4.25</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.17.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>18</unitid>
+													<unittitle>Crew and officers, English submarine</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.18.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+											<c08 level="item">
+												<did>
+													<unitid>19</unitid>
+													<unittitle>Person wearing long coat, British Submarine</unittitle>
+													<unitdatestructured>
+														<datesingle>circa 1918</datesingle>
+													</unitdatestructured>
+												</did>
+												<physdescstructured coverage="whole" physdescstructuredtype="materialtype">
+													<dimensions>3.5x4.5</dimensions>
+												</physdescstructured>
+												<dao daotype="derived" href="http://148.100.181.189:8090/digitizedContents/LTP/1323/1323.19.jpg"/>
+												<userestrict>
+													<p>No Copyright - United States ; http://rightsstatements.org/page/NoC-US/1.0/?language=en</p>
+												</userestrict>
+											</c08>
+										</did>
+									</c07>
+								</c06>
+							</c05>
+						</c04>
+					</c03>
+				</c02>
+			</c01>
+		</dsc>
+	</archdesc>
+</ead>

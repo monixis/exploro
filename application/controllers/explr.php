@@ -323,7 +323,7 @@ class explr extends CI_Controller
       $subcollections =  scandir("$folderLocation/eads/$collection");
 
       foreach ($subcollections as $subcollection) {
-        if (($subcollection == ".") || ($subcollection == "..")){
+        if (($subcollection == ".") || ($subcollection == "..") || ($subcollection == "index.xml")) {
           // We do not want to add . or .. into the drop down.. should probably just remove them from array
           continue;
         }
