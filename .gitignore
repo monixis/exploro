@@ -45,3 +45,7 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# SOLR_XMLS and EADS do not need version control probably
+/solr_xmls
+/eads
