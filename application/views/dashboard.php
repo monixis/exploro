@@ -35,7 +35,6 @@
           // This is the folder location for testing on the dev server.. not sure exactly why but dope
           // var folderLocation = "/data/dev.library/htdocs/exploro";
 
-
           $(document).ready(function() {
             // Dynamically creates a drop down consisting of folders of EAD collections that can be converted into SOLR XML
             $.get("<?php echo base_url("?c=explr&m=getCollections&folderLocation=")?>" + folderLocation, function(response) {
@@ -136,6 +135,7 @@
               if (fileName == 0) {
                 $("#error-panel").show();
                 $("#error-message").html("You must select a valid file name.");
+                return 0;
               }
 
               if(!confirm("Are you sure you would like to upload this collection to Exploro?")){
@@ -195,15 +195,24 @@
                 url: "<?php echo base_url("?c=explr&m=publishToSolr")?>",
                 data: postData,
                 dataType: "text",
-                success: function (message) {
-                    if (message > 0) {
+                success: function (timeToWait) {
+                    if (timeToWait > 0) {
+                      $('#requestStatus').empty();
+                      $('#requestStatus').show().css('background', '#66cc00').append("eXploro will need about " + timeToWait + " seconds to index the chosen file.");
+
+                      $("#upload").prop("disabled", true);
+
+                      setTimeout(function() {
+                        $("#upload").prop("disabled", false);
                         $('#requestStatus').empty();
-                        $('#requestStatus').show().css('background', '#66cc00').append("Successfully uploaded - " + message + " file(s) to SOLR.").delay(3000).fadeOut();
+                        $('#requestStatus').show().css('background', '#66cc00').append("eXploro is ready to index another file.");
+                      }, (timeToWait * 1000));
 
                     } else {
                         $('#requestStatus').empty();
                         $('#requestStatus').show().css('background', '#b31b1b').append("Failed to upload files.").delay(3000).fadeOut();
                     }
+
                 }
             });
           }

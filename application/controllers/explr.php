@@ -46,6 +46,17 @@ class explr extends CI_Controller
 
                   $new_ead_doc->load($filepath);
 
+                  // Creates an array of all elements called recordid ... in the EAD we know it is only one
+                  $rawRecordIDArray = $new_ead_doc->getElementsByTagName('recordid');
+                  // Selects the first element of the array
+                  $recordID = $rawRecordIDArray[0];
+                  // Create id attribute to be placed in unittitle of ocllection
+                  $collectionUnittitle = $new_ead_doc->createAttribute('id');
+                  // Assigns the value of the collection as the value of the attribute
+                  $collectionUnittitle->value = $collection;
+                  // Add attribute to the element
+                  $recordID->appendChild($collectionUnittitle);
+
                   // echo "Flag LOADING FILEPATH " . print_r($new_ead_doc) . "<br>";
 
                   $xsl_doc = new DOMDocument();
@@ -204,17 +215,21 @@ class explr extends CI_Controller
 
       curl_close($ch);
 
-      $numFiles ++;
+      $xmlResponse = simplexml_load_string($response);
 
-      $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/$fileName");
-      $convertedFileCount = sizeof($convertedFiles);
+      // echo "FLAG " . print_r($xmlResponse);
+      $timeTaken = $xmlResponse->lst[2]->str[7];
 
-      if($convertedFileCount == $numFiles){
-        echo $convertedFileCount;
-      }
-      else{
-        echo 0;
-      }
+      $explodedTime = explode(":", $timeTaken);
+
+      // Right now just accounting for minutes because I don't think it will take hours
+      $minutesToSeconds = $explodedTime[1] * 60;
+      // Adding .5 to make sure the seconds round up
+      $seconds = round($explodedTime[2] + .5);
+
+      $timeToWait = $minutesToSeconds + $seconds;
+
+      echo $timeToWait;
     }
 
     public function publishBulkToSolr()
