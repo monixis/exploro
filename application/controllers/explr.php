@@ -13,7 +13,7 @@ class explr extends CI_Controller
     }
 
     // Transform EAD3 XML into SOLR XML format using XSLT
-    public function converteads()
+    public function convertEADs()
     {
         // echo "FLAG " . print_r($_POST);
         $folderLocation = $_POST["folderLocation"];
@@ -25,18 +25,13 @@ class explr extends CI_Controller
         // OK echo "FLAG DIR " . $dir . "<br>";
         $files = array_diff(scandir($dir), array('..', '.'));
 
-        // OK echo "FLAG FILES VAR DUMP " . var_dump($files) . "<br><br>";
-
         $numFiles = 0;
 
         if (is_array($files)) {
-
             foreach ($files as $filename) {
                 $file = basename($filename);
-                // echo "FLAG VALUE " . $file;
-                $filepath = "$folderLocation/eads/$collection/$subCollection/$file";
 
-                // echo "FLAG FILEPATH " . $filepath . "<br>";
+                $filepath = "$folderLocation/eads/$collection/$subCollection/$file";
 
                 if($file !="index.xml") {
                   // Add each filename to the list of filenames to be sent in the log email to Monish
@@ -57,8 +52,6 @@ class explr extends CI_Controller
                   // Add attribute to the element
                   $recordID->appendChild($collectionUnittitle);
 
-                  // echo "Flag LOADING FILEPATH " . print_r($new_ead_doc) . "<br>";
-
                   $xsl_doc = new DOMDocument();
                   $xsl_doc->load("$folderLocation/application/xslt/ead_3_solr.xsl");
 
@@ -69,10 +62,6 @@ class explr extends CI_Controller
 
                   $newdom = $proc->transformToDoc($new_ead_doc);
 
-                  // echo "FLAG NEW DOM " .  print_r($newdom) . "<br><br>";
-
-                  // echo "Flag trying to save this location $folderLocation/solr_xmls/$collection/$subCollection/$file";
-
                   $newdom->save("$folderLocation/solr_xmls/$collection/$subCollection/$file") or die("Flag: Error");
 
                   $numFiles ++;
@@ -81,9 +70,7 @@ class explr extends CI_Controller
             }
         }
 
-        // echo "FLAG NUM FILES IN DIRECTORY " . $numFiles . "<br>";
-
-        $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/$fileNamexml");
+        $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/*.xml");
         $convertedFileCount = sizeof($convertedFiles);
         // echo "FLAG CONVERTED FILES COUNT " . $convertedFileCount;
         if($convertedFileCount == $numFiles) {
@@ -108,13 +95,13 @@ class explr extends CI_Controller
                       <p>Collection: $collection</p>
                       <p>Subcollection: $subCollection</p><ul>";
                       foreach($filenameList as $file){
-                        echo "<li>$file</li>";
+                        $message .= "<li>$file</li>";
                       }
 
           $message .= "</ul>";
 
     			$this->email->message($message);
-    			$this->email->send();
+    			// $this->email->send();
         }
         else {
             echo 0;
@@ -217,6 +204,7 @@ class explr extends CI_Controller
 
       $xmlResponse = simplexml_load_string($response);
 
+
       // echo "FLAG " . print_r($xmlResponse);
       $timeTaken = $xmlResponse->lst[2]->str[7];
 
@@ -267,7 +255,7 @@ class explr extends CI_Controller
 
           $xmlResponse = simplexml_load_string($response);
 
-          // echo "FLAG " . print_r($xmlResponse);
+          echo "</br></br>FLAG " . print_r($xmlResponse);
           $timeTaken = $xmlResponse->lst[2]->str[7];
 
           $explodedTime = explode(":", $timeTaken);

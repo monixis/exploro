@@ -30,10 +30,10 @@
 
     <script>
           // This is the folderlocation for testing on localhost
-          var folderLocation = "C:/xampp/htdocs/exploro";
+          // var folderLocation = "C:/xampp/htdocs/exploro";
 
           // This is the folder location for testing on the dev server.. not sure exactly why but dope
-          // var folderLocation = "/data/dev.library/htdocs/exploro";
+          var folderLocation = "/data/dev.library/htdocs/exploro";
 
           $(document).ready(function() {
             // Dynamically creates a drop down consisting of folders of EAD collections that can be converted into SOLR XML
@@ -46,6 +46,7 @@
             $("#selectCollection").change(function() {
               // Resets the sub collection dropdown
               $("#selectSubCollection").html('<option selected value="0">Please select a subcollection to upload</option>');
+              $("#selectFileName").html('<option selected value="0">You must select a subcollection before a file</option>');
 
               var collection = $("#selectCollection").val();
               if (collection == 0) {
@@ -80,7 +81,7 @@
 
 
             $("#selectSubCollection").change(function() {
-              $("#selectFileName").html('<option selected value="0">Please select a file to </option>');
+              $("#selectFileName").html('<option selected value="0">Please select a file to upload</option>');
               var collection = $("#selectCollection").val();
               var subCollection = $("#selectSubCollection").val();
 
@@ -102,6 +103,8 @@
                     $("#error-message").html("This collection does not have any valid subcollections.");
                   }
                   else {
+                    // $("#selectFileName").html('<option selected value="all">Convert all files in SubCollection</option>');
+                    $("#selectFileName").html('<option selected value="0">Choose a file to upload</option>');
                     $("#selectFileName").append(message);
                   }
                 },
@@ -153,32 +156,57 @@
                 fileName: fileName
               };
 
-              $.ajax({
-                  type: "POST",
-                  url: "<?php echo base_url("?c=explr&m=convertSingleEAD")?>",
-                  data: postData,
-                  dataType: "text",
-                  success: function (message) {
-                      if (message > 0) {
-                          $('#requestStatus').empty();
-                          $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s). Please remain on this page until the next message appears.").delay(5000).fadeOut();
-                          publishToSolr();
-                          // $('#requestStatus').empty();
-                          //var convertedFileCount = '<!--?php echo $convertedFileCount;?>'';
-                          //   alert("Success:Total number of documents converted :" message);
-                      } else {
-                          $('#requestStatus').empty();
-                          $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert").delay(3000).fadeOut();
-                          // $('#requestStatus').empty();
-                      }
-                  }
-              });
+              /* Uploads entire batch */
+              if (fileName == "all") {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url("?c=explr&m=convertEADs")?>",
+                    data: postData,
+                    dataType: "text",
+                    success: function (message) {
+                        if (message > 0) {
+                            $('#requestStatus').empty();
+                            $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s). Please remain on this page until the next message appears.").delay(5000).fadeOut();
+                            publishBulkToSolr();
+                            // $('#requestStatus').empty();
+                            //var convertedFileCount = '<!--?php echo $convertedFileCount;?>'';
+                            //   alert("Success:Total number of documents converted :" message);
+                        } else {
+                            $('#requestStatus').empty();
+                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert").delay(3000).fadeOut();
+                            // $('#requestStatus').empty();
+                        }
+                    }
+                });
+              }
+              else {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url("?c=explr&m=convertSingleEAD")?>",
+                    data: postData,
+                    dataType: "text",
+                    success: function (message) {
+                        if (message > 0) {
+                            $('#requestStatus').empty();
+                            $('#requestStatus').show().css('background', '#66cc00').append("Successfully converted - " + message + " file(s). Now indexing. Please remain on this page until the next message appears.");
+                            publishToSolr();
+                            // $('#requestStatus').empty();
+                            //var convertedFileCount = '<!--?php echo $convertedFileCount;?>'';
+                            //   alert("Success:Total number of documents converted :" message);
+                        } else {
+                            $('#requestStatus').empty();
+                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert").delay(3000).fadeOut();
+                            // $('#requestStatus').empty();
+                        }
+                    }
+                });
+              }
             });
 
           });
 
           function publishToSolr() {
-            // Get the specific directory to be converted
+            // Get the specific file to be converted
             var collection = $("#selectCollection").val();
             var subCollection = $("#selectSubCollection").val();
             var fileName = $("#selectFileName").val();
@@ -217,33 +245,41 @@
             });
           }
 
-          function oldPublishToSolr() {
-            var r = confirm("Are you sure you want to publish?");
-            if (r == true) {
-                $.ajax({
-                    type: "POST",
-                    url: "http://35.162.165.138:8983/solr/explor/dataimport?command=full-import&indent=on&wt=json",
-                    data: "",
-                    contentType: false,
-                    processData: false,
-                    success: function (message) {
-                        if (message) {
-                            $('#requestStatus').empty();
-                            $('#requestStatus').show().css('background', '#66cc00').append("Successfully published to solr core").delay(3000).fadeOut();
+          function publishBulkToSolr() {
+            // Disable update button
+            $("#upload").prop("disabled", true);
 
-                           // alert("Published Successfully");
+            // Get the specific directory to be converted
+            var collection = $("#selectCollection").val();
+            var subCollection = $("#selectSubCollection").val();
 
-                        }else{
+            var postData = {
+              folderLocation: folderLocation,
+              collection: collection,
+              subCollection: subCollection
+            };
 
-                            $('#requestStatus').empty();
-                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to publish: Please contact administrator or check error logs in solr server").delay(3000).fadeOut();
-                        }
-                    },
-                    async: false
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url("?c=explr&m=publishBulkToSolr")?>",
+                data: postData,
+                dataType: "text",
+                success: function (message) {
+                    if (message > 0) {
+                      $('#requestStatus').empty();
+                      $("#upload").prop("disabled", false);
+                      $('#requestStatus').show().css('background', '#66cc00').append("eXploro succesfully indexed " + message + " files.");
+                    } else {
+                        $('#requestStatus').empty();
+                        $("#upload").prop("disabled", false);
+                        $('#requestStatus').show().css('background', '#b31b1b').append("Failed to upload files.").delay(3000).fadeOut();
+                    }
 
-                });
-            }
-        }
+                }
+            });
+          }
+
+
     </script>
 
 </head>
