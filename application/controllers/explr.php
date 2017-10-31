@@ -112,6 +112,7 @@ class explr extends CI_Controller
     {
       $numFiles = 0;
       $folderLocation = $_POST["folderLocation"];
+      $urlLocation = $_POST["urlLocation"];
       $collection = $_POST["collection"];
       $subCollection = $_POST["subCollection"];
       $fileName = $_POST["fileName"];
@@ -120,23 +121,32 @@ class explr extends CI_Controller
 
       $new_ead_doc = new DOMDocument();
 
-      $new_ead_doc->load($filepath);
+      $new_ead_doc->loadXML($filepath);
 
-      // echo "Flag LOADING FILEPATH " . print_r($new_ead_doc) . "<br>";
+      //echo "FLAG 1 " . var_dump($new_ead_doc) ."</br></br>";
+
+      // Creates an array of all elements called recordid ... in the EAD we know it is only one
+      $rawRecordIDArray = $new_ead_doc->getElementsByTagName('recordid');
+
+      echo "FLAG 2" . print_r($rawRecordIDArray);
+
+      // Selects the first element of the array
+      // $recordID = $rawRecordIDArray[0];
+      // Create id attribute to be placed in unittitle of ocllection
+      // $collectionUnittitle = $new_ead_doc->createAttribute('id');
+      // Assigns the value of the collection as the value of the attribute
+      // $collectionUnittitle->value = $collection;
+      // Add attribute to the element
+      // $recordID->appendChild($collectionUnittitle);
 
       $xsl_doc = new DOMDocument();
       $xsl_doc->load("$folderLocation/application/xslt/ead_3_solr.xsl");
 
-      // echo "Hello";
       $proc = new XSLTProcessor();
-      // echo "Goodbye";
+
       $proc->importStylesheet($xsl_doc);
 
       $newdom = $proc->transformToDoc($new_ead_doc);
-
-      // echo "FLAG NEW DOM " .  print_r($newdom) . "<br><br>";
-
-      // echo "Flag trying to save this location $folderLocation/solr_xmls/$collection/$subCollection/$file";
 
       $newdom->save("$folderLocation/solr_xmls/$collection/$subCollection/$fileName") or die("Flag: Error");
 
@@ -160,7 +170,7 @@ class explr extends CI_Controller
 
         $this->email->to("danmopsick@gmail.com");
         $this->email->subject('EAD3 files uploaded to Exploro');
-        $message = "</br><p>Hi Monish, <br/>The following EAD3 file(s) were converted into SOLR XML and are ready to be uploaded to Explro.</p>
+        $message = "<br/><p>Hi Monish, <br/>The following EAD3 file(s) were converted into SOLR XML and are ready to be uploaded to Explro.</p>
                     <p>Collection: $collection</p>
                     <p>Subcollection: $subCollection</p><ul>
                     <li>$fileName</li>";
@@ -191,7 +201,7 @@ class explr extends CI_Controller
         'command' => 'full-import',
         'clean' => 'false',
         'commit' => 'true',
-        'fileName'   => $fileName
+        'fileName'   => "/$collection/$subCollection/$fileName"
       ];
 
       $ch = curl_init('http://35.162.165.138:8983/solr/exploro/dataimport');
@@ -204,11 +214,13 @@ class explr extends CI_Controller
 
       $xmlResponse = simplexml_load_string($response);
 
-
       // echo "FLAG " . print_r($xmlResponse);
+
       $timeTaken = $xmlResponse->lst[2]->str[7];
 
       $explodedTime = explode(":", $timeTaken);
+
+      // echo "FLAG" . print_r($explodedTime);
 
       // Right now just accounting for minutes because I don't think it will take hours
       $minutesToSeconds = $explodedTime[1] * 60;
