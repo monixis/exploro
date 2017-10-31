@@ -12,6 +12,7 @@ class explr extends CI_Controller
          $this ->load ->view("dashboard");
     }
 
+    /* Currently not converting in batches but this code is useful
     // Transform EAD3 XML into SOLR XML format using XSLT
     public function convertEADs()
     {
@@ -70,6 +71,7 @@ class explr extends CI_Controller
             }
         }
 
+
         $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/*.xml");
         $convertedFileCount = sizeof($convertedFiles);
         // echo "FLAG CONVERTED FILES COUNT " . $convertedFileCount;
@@ -106,7 +108,7 @@ class explr extends CI_Controller
         else {
             echo 0;
         }
-    }
+    } */
 
     public function convertSingleEAD()
     {
@@ -117,33 +119,32 @@ class explr extends CI_Controller
       // $subCollection = $_POST["subCollection"];
       $fileName = $_POST["fileName"];
 
-      $filepath = "$folderLocation/eads/$collection/$fileName";
+      $filepath = "$urlLocation/eads/$collection/$fileName";
 
       $new_ead_doc = new DOMDocument();
 
-      $new_ead_doc->loadXML($filepath);
-
-      //echo "FLAG 1 " . var_dump($new_ead_doc) ."</br></br>";
+      $new_ead_doc->load($filepath);
 
       // Creates an array of all elements called recordid ... in the EAD we know it is only one
-      $rawRecordIDArray = $new_ead_doc->getElementsByTagName('recordid');
+      // $rawRecordIDArray = $new_ead_doc->getElementsByTagName('recordid');
 
-      // echo "FLAG 2" . print_r($rawRecordIDArray);
+      // echo "FLAG " . var_dump($rawRecordIDArray);
 
       // Selects the first element of the array
       // $recordID = $rawRecordIDArray[0];
+
       // Create id attribute to be placed in unittitle of ocllection
       // $collectionUnittitle = $new_ead_doc->createAttribute('id');
+
       // Assigns the value of the collection as the value of the attribute
       // $collectionUnittitle->value = $collection;
+
       // Add attribute to the element
       // $recordID->appendChild($collectionUnittitle);
 
       $xsl_doc = new DOMDocument();
       $xsl_doc->load("$folderLocation/application/xslt/ead_3_solr.xsl");
-
       $proc = new XSLTProcessor();
-
       $proc->importStylesheet($xsl_doc);
 
       $newdom = $proc->transformToDoc($new_ead_doc);
@@ -199,7 +200,8 @@ class explr extends CI_Controller
         'command' => 'full-import',
         'clean' => 'false',
         'commit' => 'true',
-        'fileName'   => "/$collection/$fileName"
+        'collection' => "$collection",
+        'fileName'   => "$fileName"
       ];
 
       $ch = curl_init('http://35.162.165.138:8983/solr/exploro/dataimport');
