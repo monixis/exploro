@@ -114,10 +114,10 @@ class explr extends CI_Controller
       $folderLocation = $_POST["folderLocation"];
       $urlLocation = $_POST["urlLocation"];
       $collection = $_POST["collection"];
-      $subCollection = $_POST["subCollection"];
+      // $subCollection = $_POST["subCollection"];
       $fileName = $_POST["fileName"];
 
-      $filepath = "$folderLocation/eads/$collection/$subCollection/$fileName";
+      $filepath = "$folderLocation/eads/$collection/$fileName";
 
       $new_ead_doc = new DOMDocument();
 
@@ -128,7 +128,7 @@ class explr extends CI_Controller
       // Creates an array of all elements called recordid ... in the EAD we know it is only one
       $rawRecordIDArray = $new_ead_doc->getElementsByTagName('recordid');
 
-      echo "FLAG 2" . print_r($rawRecordIDArray);
+      // echo "FLAG 2" . print_r($rawRecordIDArray);
 
       // Selects the first element of the array
       // $recordID = $rawRecordIDArray[0];
@@ -148,7 +148,7 @@ class explr extends CI_Controller
 
       $newdom = $proc->transformToDoc($new_ead_doc);
 
-      $newdom->save("$folderLocation/solr_xmls/$collection/$subCollection/$fileName") or die("Flag: Error");
+      $newdom->save("$folderLocation/solr_xmls/$collection/$fileName") or die("Flag: Error");
 
       $numFiles ++;
 
@@ -172,9 +172,7 @@ class explr extends CI_Controller
         $this->email->subject('EAD3 files uploaded to Exploro');
         $message = "<br/><p>Hi Monish, <br/>The following EAD3 file(s) were converted into SOLR XML and are ready to be uploaded to Explro.</p>
                     <p>Collection: $collection</p>
-                    <p>Subcollection: $subCollection</p><ul>
-                    <li>$fileName</li>";
-
+                    <ul><li>$fileName</li>";
         $message .= "</ul>";
 
         $this->email->message($message);
@@ -192,16 +190,16 @@ class explr extends CI_Controller
       // Parse POST variables
       $folderLocation = $_POST["folderLocation"];
       $collection = $_POST["collection"];
-      $subCollection = $_POST["subCollection"];
+      // $subCollection = $_POST["subCollection"];
       $fileName = $_POST["fileName"];
 
-      $filePath = "$folderLocation/eads/$collection/$subCollection/$fileName";
+      $filePath = "$folderLocation/eads/$collection/$fileName";
 
       $post = [
         'command' => 'full-import',
         'clean' => 'false',
         'commit' => 'true',
-        'fileName'   => "/$collection/$subCollection/$fileName"
+        'fileName'   => "/$collection/$fileName"
       ];
 
       $ch = curl_init('http://35.162.165.138:8983/solr/exploro/dataimport');
@@ -353,9 +351,9 @@ class explr extends CI_Controller
     {
       $folderLocation = $_POST["folderLocation"];
       $collection = $_POST["collection"];
-      $subCollection = $_POST["subCollection"];
+      // $subCollection = $_POST["subCollection"];
 
-      $rawFiles = scandir("$folderLocation/eads/$collection/$subCollection");
+      $rawFiles = scandir("$folderLocation/eads/$collection");
 
       $files = array_diff($rawFiles, array('index.xml', '..', '.'));
 

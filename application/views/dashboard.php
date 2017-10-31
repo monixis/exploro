@@ -86,12 +86,12 @@
             $("#selectSubCollection").change(function() {
               $("#selectFileName").html('<option selected value="0">Please select a file to upload</option>');
               var collection = $("#selectCollection").val();
-              var subCollection = $("#selectSubCollection").val();
+              // var subCollection = $("#selectSubCollection").val();
 
               var postData = {
                 folderLocation: folderLocation,
-                collection: collection,
-                subCollection: subCollection
+                collection: collection
+                // subCollection: subCollection
               };
 
               $.ajax({
@@ -119,7 +119,7 @@
 
               // Get the specific directory to be converted
               var collection = $("#selectCollection").val();
-              var subCollection = $("#selectSubCollection").val();
+              // var subCollection = $("#selectSubCollection").val();
               var fileName = $("#selectFileName").val();
               // var uploadType = $("input[name=uploadType]:checked").val();
 
@@ -131,11 +131,11 @@
               }
 
               // Validate the subcollection dropdown
-              if (subCollection == 0) {
+              /* if (subCollection == 0) {
                 $("#error-panel").show();
                 $("#error-message").html("You must select a valid subcollection.");
                 return 0;
-              }
+              } */
 
               // Validate the filename dropdown
               if (fileName == 0) {
@@ -156,7 +156,7 @@
                 folderLocation: folderLocation,
                 urlLocation: urlLocation,
                 collection: collection,
-                subCollection: subCollection,
+                // subCollection: subCollection,
                 fileName: fileName
               };
 
@@ -212,13 +212,13 @@
           function publishToSolr() {
             // Get the specific file to be converted
             var collection = $("#selectCollection").val();
-            var subCollection = $("#selectSubCollection").val();
+            // var subCollection = $("#selectSubCollection").val();
             var fileName = $("#selectFileName").val();
 
             var postData = {
               folderLocation: folderLocation,
               collection: collection,
-              subCollection: subCollection,
+              //subCollection: subCollection,
               fileName: fileName
             };
 
@@ -255,12 +255,12 @@
 
             // Get the specific directory to be converted
             var collection = $("#selectCollection").val();
-            var subCollection = $("#selectSubCollection").val();
+            // var subCollection = $("#selectSubCollection").val();
 
             var postData = {
               folderLocation: folderLocation,
-              collection: collection,
-              subCollection: subCollection
+              collection: collection
+              // subCollection: subCollection
             };
 
             $.ajax({
@@ -341,11 +341,11 @@
                         </select>
                       </div>
 
-                      <div class="form-spacing">
+                      <!-- <div class="form-spacing">
                         <select id="selectFileName">
                           <option selected value="0">You must select a subcollection before a file</option>
                         </select>
-                      </div>
+                      </div> -->
 
                       <div class="form-spacing">
                         <input id="upload" name="update" class="btn btn-primary" type="submit" style="background:#333;" value="Convert" />
