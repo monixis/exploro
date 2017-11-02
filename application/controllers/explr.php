@@ -142,13 +142,18 @@ class explr extends CI_Controller
       $newdom = $proc->transformToDoc($new_ead_doc);
 
       // Ensure that all files in the solr_xml directory are writeable
-      $solrFiles = array_diff(scandir("$folderLocation/solr_xmls/$collection"), array('..', '.'));
-      echo print_r($solrFiles);
-      foreach($solrFiles as $file) {
-        chmod("$folderLocation/solr_xmls/$collection/$file", octdec(777));
-      }
+      // $solrFiles = array_diff(scandir("$folderLocation/solr_xmls/$collection"), array('..', '.'));
+      // echo print_r($solrFiles);
+
+      // foreach($solrFiles as $file) {
+      //   chmod("$folderLocation/solr_xmls/$collection/$file", octdec(777));
+      // }
 
       $newdom->save("$folderLocation/solr_xmls/$collection/$fileName") or die("Flag: Error");
+
+      if(!is_writable("$folderLocation/solr_xmls/$collection/$fileName")){
+        chmod("$folderLocation/solr_xmls/$collection/$fileName", octdec(777));
+      }
 
       $numFiles ++;
 

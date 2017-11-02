@@ -33,10 +33,12 @@
           // var folderLocation = "C:/xampp/htdocs/exploro";
 
           // This is the folder location for testing on the dev server.. not sure exactly why but dope
-          var folderLocation = "/data/dev.library/htdocs/exploro";
+          // var folderLocation = "/data/dev.library/htdocs/exploro";
+          // var urlLocation = "http://dev.library.marist.edu/exploro";
 
-          // Also trying this one on dev server
-          var urlLocation = "http://dev.library.marist.edu/exploro";
+          // folder and url locations for prod environment
+          var folderLocation = "/data/library/htdocs/exploro";
+          var urlLocation = "http://library.marist.edu/exploro";
 
           $(document).ready(function() {
             // Dynamically creates a drop down consisting of folders of EAD collections that can be converted into SOLR XML
@@ -275,7 +277,7 @@
 
                     } else {
                         $('#requestStatus').empty();
-                        $('#requestStatus').show().css('background', '#b31b1b').append("Failed to upload files.").delay(3000).fadeOut();
+                        $('#requestStatus').show().css('background', '#b31b1b').append("Failed to upload files. Try again in 30 seconds or else contact Monish to check the Error Logs.").delay(3000).fadeOut();
                     }
 
                 }
