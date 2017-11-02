@@ -15,6 +15,9 @@ body {font-family: Helvetica,Arial;}
 			<li>
 				Project Manager: Monish Singh
 			</li>
+      <li>
+        Developer: Dan Mopsick
+      </li>
 		</ul>
 	</body>
 </html>

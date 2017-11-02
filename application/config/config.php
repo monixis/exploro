@@ -14,8 +14,10 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/exploro/';
-
+// For testing on local host 
+// $config['base_url']	= 'http://localhost/exploro/';
+// For testing on the dev server
+$config['base_url'] = 'http://dev.library.marist.edu/exploro';
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +29,7 @@ $config['base_url']	= 'http://localhost/exploro/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = "";
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +47,7 @@ $config['index_page'] = 'index.php';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= 'AUTO';
+$config['uri_protocol']	= 'REQUEST_URI';
 
 /*
 |--------------------------------------------------------------------------

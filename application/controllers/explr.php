@@ -7,99 +7,364 @@ class explr extends CI_Controller
         session_start();
     }
 // Transform XML into other XML format using XSLT
-    public function index(){
+    public function index()
+    {
          $this ->load ->view("dashboard");
     }
-// Transform XML into other XML format using XSLT
-    public function converteads()
+
+    /* Currently not converting in batches but this code is useful
+    // Transform EAD3 XML into SOLR XML format using XSLT
+    public function convertEADs()
     {
-        $dir =  "eads";
-        $folders = array_diff(scandir($dir), array('..', '.'));
-        $folderCount = sizeof($folders);
-        //  $files = glob("/ead_uploads/*xml");
+        // echo "FLAG " . print_r($_POST);
+        $folderLocation = $_POST["folderLocation"];
+        $collection = $_POST["collection"];
+        $subCollection = $_POST["subCollection"];
+        $filenameList = array();
+
+        $dir = "$folderLocation/eads/$collection/$subCollection";
+        // OK echo "FLAG DIR " . $dir . "<br>";
+        $files = array_diff(scandir($dir), array('..', '.'));
+
         $numFiles = 0;
-        foreach($folders as $folder) {
-            $newDir = $dir."/".$folder;
-            $files = glob($newDir."/*xml");
-            $filecount = sizeof($files);
-            if (is_array($files)) {
 
-                foreach ($files as $filename) {
-                    $file = basename($filename);
+        if (is_array($files)) {
+            foreach ($files as $filename) {
+                $file = basename($filename);
 
-                    /*               $ead_doc = new DOMDocument();
-                                   $ead_doc->load($filename);
-                                   $newString = str_replace("xmlns=\"http://ead3.archivists.org/schema/\"", "", $ead_doc->saveXML());
-                                   file_put_contents("application/solr_xmls/$file", $newString);*/
-                    if($file !="index.xml") {
-                        //print_r($filename);
+                $filepath = "$folderLocation/eads/$collection/$subCollection/$file";
 
-                        $new_ead_doc = new DOMDocument();
-                        $new_ead_doc->load($filename);
-                        $xsl_doc = new DOMDocument();
-                        $xsl_doc->load("application/xslt/ead_3_solr.xsl");
-                        $proc = new XSLTProcessor();
-                        $proc->importStylesheet($xsl_doc);
-                        $newdom = $proc->transformToDoc($new_ead_doc);
-                        $newdom->save("solr_xmls/" . $file) or die("Error");
-                        $numFiles ++;
+                if($file !="index.xml") {
+                  // Add each filename to the list of filenames to be sent in the log email to Monish
+                  $filenameList[] = $filename;
 
-                    }
+                  $new_ead_doc = new DOMDocument();
+
+                  $new_ead_doc->load($filepath);
+
+                  // Creates an array of all elements called recordid ... in the EAD we know it is only one
+                  $rawRecordIDArray = $new_ead_doc->getElementsByTagName('recordid');
+                  // Selects the first element of the array
+                  $recordID = $rawRecordIDArray[0];
+                  // Create id attribute to be placed in unittitle of ocllection
+                  $collectionUnittitle = $new_ead_doc->createAttribute('id');
+                  // Assigns the value of the collection as the value of the attribute
+                  $collectionUnittitle->value = $collection;
+                  // Add attribute to the element
+                  $recordID->appendChild($collectionUnittitle);
+
+                  $xsl_doc = new DOMDocument();
+                  $xsl_doc->load("$folderLocation/application/xslt/ead_3_solr.xsl");
+
+                  // echo "Hello";
+                  $proc = new XSLTProcessor();
+                  // echo "Goodbye";
+                  $proc->importStylesheet($xsl_doc);
+
+                  $newdom = $proc->transformToDoc($new_ead_doc);
+
+                  $newdom->save("$folderLocation/solr_xmls/$collection/$subCollection/$file") or die("Flag: Error");
+
+                  $numFiles ++;
+                  // echo "FLAG NUM FILES " . $numFiles;
                 }
-
-                // echo $convertedFileCount;
-                // $this->load->view('Home', $data);
-
             }
-
         }
-        $convertedFiles = glob("solr_xmls/*xml");
+
+
+        $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/*.xml");
         $convertedFileCount = sizeof($convertedFiles);
-        if($convertedFileCount == $numFiles){
-
+        // echo "FLAG CONVERTED FILES COUNT " . $convertedFileCount;
+        if($convertedFileCount == $numFiles) {
             echo $convertedFileCount;
-        }else{
 
-            echo 0;
+            // Success! send an email to Monish loggin what folders have been updated
+            $this->load->library('email');
+    				$config['protocol'] = "smtp";
+                      $config['smtp_host'] = "tls://smtp.googlemail.com";
+                      $config['smtp_port'] = "465";
+                      $config['smtp_user'] = "cannavinolibrary@gmail.com";
+                      $config['smtp_pass'] = "845@jac3419";
+                      $config['charset'] = "utf-8";
+                      $config['mailtype'] = "html";
+                      $config['newline'] = "\r\n";
+                      $this->email->initialize($config);
+    			$this->email->from('cannavinolibrary@gmail.com', 'James A. Cannavino Library (Collaboration Room Reservation System)');
 
+    			$this->email->to("danmopsick@gmail.com");
+    			$this->email->subject('EAD3 files uploaded to Exploro');
+    			$message = "</br><p>Hi Monish, <br/>The following EAD3 file(s) were converted into SOLR XML and are ready to be uploaded to Explro.</p>
+                      <p>Collection: $collection</p>
+                      <p>Subcollection: $subCollection</p><ul>";
+                      foreach($filenameList as $file){
+                        $message .= "<li>$file</li>";
+                      }
+
+          $message .= "</ul>";
+
+    			$this->email->message($message);
+    			// $this->email->send();
         }
+        else {
+            echo 0;
+        }
+    } */
 
+    public function convertSingleEAD()
+    {
+      $numFiles = 0;
+      $folderLocation = $_POST["folderLocation"];
+      $urlLocation = $_POST["urlLocation"];
+      $collection = $_POST["collection"];
+      // $subCollection = $_POST["subCollection"];
+      $fileName = $_POST["fileName"];
+
+      $filepath = "$urlLocation/eads/$collection/$fileName";
+
+      $new_ead_doc = new DOMDocument();
+
+      $new_ead_doc->load($filepath);
+
+      // Create a new element to hold the value of the collection foldername
+      $element = $new_ead_doc->createElement('collectionFolder', $collection);
+
+      // Find a record to add append the created element as a child
+      $elementToAppend = $new_ead_doc->getElementsByTagName('recordid');
+
+      // Add the element into the desired elements
+      $new_ead_doc->appendChild($element);
+
+      $xsl_doc = new DOMDocument();
+      $xsl_doc->load("$folderLocation/application/xslt/ead_3_solr.xsl");
+      $proc = new XSLTProcessor();
+      $proc->importStylesheet($xsl_doc);
+
+      $newdom = $proc->transformToDoc($new_ead_doc);
+
+      // Ensure that all files in the solr_xml directory are writeable
+      // $solrFiles = array_diff(scandir("$folderLocation/solr_xmls/$collection"), array('..', '.'));
+      // echo print_r($solrFiles);
+
+      // foreach($solrFiles as $file) {
+      //   chmod("$folderLocation/solr_xmls/$collection/$file", octdec(777));
+      // }
+
+      $newdom->save("$folderLocation/solr_xmls/$collection/$fileName") or die("Flag: Error");
+
+      if(!is_writable("$folderLocation/solr_xmls/$collection/$fileName")){
+        chmod("$folderLocation/solr_xmls/$collection/$fileName", octdec(777));
+      }
+
+      $numFiles ++;
+
+      if($numFiles == 1) {
+          echo 1;
+
+          // Success! send an email to Monish loggin what folders have been updated
+          $this->load->library('email');
+          $config['protocol'] = "smtp";
+                    $config['smtp_host'] = "tls://smtp.googlemail.com";
+                    $config['smtp_port'] = "465";
+                    $config['smtp_user'] = "cannavinolibrary@gmail.com";
+                    $config['smtp_pass'] = "845@jac3419";
+                    $config['charset'] = "utf-8";
+                    $config['mailtype'] = "html";
+                    $config['newline'] = "\r\n";
+                    $this->email->initialize($config);
+        $this->email->from('cannavinolibrary@gmail.com', 'James A. Cannavino Library (Collaboration Room Reservation System)');
+
+        $this->email->to("danmopsick@gmail.com");
+        $this->email->subject('EAD3 files uploaded to Exploro');
+        $message = "<br/><p>Hi Monish, <br/>The following EAD3 file(s) were converted into SOLR XML and are ready to be uploaded to Explro.</p>
+                    <p>Collection: $collection</p>
+                    <ul><li>$fileName</li>";
+        $message .= "</ul>";
+
+        $this->email->message($message);
+        // $this->email->send();
+      }
+      else {
+          echo 0;
+      }
     }
 
-    /*public function publishToSolr(){
+    public function publishToSolr()
+    {
+      // $folderLocation = $_POST["folderLocation"];
+      $collection = $_POST["collection"];
+      // $subCollection = $_POST["subCollection"];
+      $fileName = $_POST["fileName"];
 
-        $dir =  "application/ceads";
-        //$files = glob("application/eads/*xml");
-        $files = scandir($dir);
+      $post = [
+        'command' => 'full-import',
+        'clean' => 'false',
+        'commit' => 'true',
+        'fileName'   => "$collection/$fileName"
+      ];
 
-        //$files2 = scandir($dir, 1);
-        if(in_array("index.xml", $files)){
-                $filename = "application/ceads/index.xml";
-                $ead_doc = new DOMDocument();
-                $ead_doc->load($filename);
-                $file = basename($filename);
-                $newString = str_replace("<?xml version='1.0' encoding='UTF-8'?><?xml-model href='schema/ead3.rng' type='application/xml' schematypens='http://relaxng.org/ns/structure/1.0'?>", "<?xml version='1.0' encoding='UTF-8'?><?xml-model href='schema/ead3.rng' type='application/xml' schematypens='http://relaxng.org/ns/structure/1.0'?><?xml-stylesheet type=\"text/xsl\" href=\"boxbuilder.xsl\"?>", $ead_doc->saveXML());
+      $ch = curl_init('http://35.162.165.138:8983/solr/exploro/dataimport');
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
-              $newString1 = str_replace("<?xml version='1.0' encoding='UTF-8'?><?xml-model href='schema/ead3.rng' type='application/xml' schematypens='http://relaxng.org/ns/structure/1.0'?>", "<?xml version='1.0' encoding='UTF-8'?><?xml-model href='schema/ead3.rng' type='application/xml' schematypens='http://relaxng.org/ns/structure/1.0'?><?xml-stylesheet type=\"text/xsl\" href=\"boxbuilder.xsl\"?>", $ead_doc->saveXML());
+      $response = curl_exec($ch);
 
-            if (file_put_contents("application/ceads/$file", $newString)) {
+      curl_close($ch);
 
-                    echo 1;
-                }
+      $xmlResponse = simplexml_load_string($response);
 
-        }else{
+      // echo "FLAG " . print_r($xmlResponse);
 
-            echo 0;
+      $timeTaken = $xmlResponse->lst[2]->str[7];
+
+      $explodedTime = explode(":", $timeTaken);
+
+      // echo "FLAG" . print_r($explodedTime);
+
+      // Right now just accounting for minutes because I don't think it will take hours
+      $minutesToSeconds = $explodedTime[1] * 60;
+      // Adding .5 to make sure the seconds round up
+      $seconds = round($explodedTime[2] + .5);
+
+      $timeToWait = $minutesToSeconds + $seconds;
+
+      echo $timeToWait;
+    }
+
+    /* Publishes batches of files to SOLR, useful but not currently being used
+    public function publishBulkToSolr()
+    {
+      // Parse POST variables
+      $folderLocation = $_POST["folderLocation"];
+      $collection = $_POST["collection"];
+      $subCollection = $_POST["subCollection"];
+
+      // Create a variable to hold the list of filenames outside of any loop or conditional
+      $filenameList = array();
+      $numFiles = 0;
+
+      // Get list of files to publish to SOLR
+      $dir = "$folderLocation/eads/$collection/$subCollection";
+
+      $files = array_diff(scandir($dir), array('..', '.', 'index.xml'));
+
+      // Publish each of the files one at a time using a for each
+      if (is_array($files)) {
+        foreach ($files as $filename) {
+
+          $post = [
+            'command' => 'full-import',
+            'clean' => 'false',
+            'commit' => 'true',
+            'fileName'   => $filename
+          ];
+
+          $ch = curl_init('http://35.162.165.138:8983/solr/exploro/dataimport');
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+          $response = curl_exec($ch);
+
+          $xmlResponse = simplexml_load_string($response);
+
+          echo "</br></br>FLAG " . print_r($xmlResponse);
+          $timeTaken = $xmlResponse->lst[2]->str[7];
+
+          $explodedTime = explode(":", $timeTaken);
+
+          // Right now just accounting for minutes because I don't think it will take hours
+          $minutesToSeconds = $explodedTime[1] * 60;
+          // Adding .5 to make sure the seconds round up
+          $seconds = round($explodedTime[2] + .5);
+
+          $timeToWait = $minutesToSeconds + $seconds;
+
+          // echo "FLAG seconds passed $timeToWait";
+
+          /*$xml = simplexml_load_string($response, "SimpleXMLElement", LIBXML_NOCDATA);
+          $json = json_encode($xml);
+          $array = json_decode($json,TRUE);
+          echo "FLAG " . print_r($array);
+
+          curl_close($ch);
+          $numFiles ++;
+          // Darn the next request cannot start until the previous request has finished...
+          sleep($timeToWait);
         }
 
-        //print_r($files1);
-       // print_r($files2);
+        $convertedFiles = glob("$folderLocation/solr_xmls/$collection/$subCollection/*xml");
+        $convertedFileCount = sizeof($convertedFiles);
 
+        if($convertedFileCount == $numFiles){
+          echo $convertedFileCount;
+        }
+        else{
+          echo 0;
+        }
 
+      }
+    } */
 
-    }*/
+    /* Returns a list of all of the collections in the /eads folder as a series of options elements for a dropdown */
+    public function getCollections()
+    {
+      // Need to directly link to the directory of EADs *Very important
+     // $folders = scandir("C:/xampp/htdocs/exploro/eads");
+     $folderLocation = $_GET["folderLocation"];
 
-    public function formatEads(){
+     $folders = scandir("$folderLocation/eads");
+
+     //echo "FLAG " . var_dump($files);
+
+     foreach ($folders as $folder) {
+       if (($folder == ".") || ($folder == "..")){
+         // We do not want to add . or .. into the drop down
+         continue;
+       }
+       else {
+           echo "<option value = '" . $folder . "'>$folder</option>";
+       }
+     }
+    }
+
+    /* Returns a list of subcollections for a given collection in the form of option elements for dropdown
+    Returns the subfolders for a user specified collection*/
+    public function getSubCollections()
+    {
+      $folderLocation = $_POST["folderLocation"];
+      $collection = $_POST["collection"];
+
+      // Directly link to the subcollections that we want to fetch
+      $subcollections =  scandir("$folderLocation/eads/$collection");
+
+      foreach ($subcollections as $subcollection) {
+        if (($subcollection == ".") || ($subcollection == "..") || ($subcollection == "index.xml")) {
+          // We do not want to add . or .. into the drop down.. should probably just remove them from array
+          continue;
+        }
+        else {
+          echo "<option value = '" . $subcollection . "'>$subcollection</option>";
+        }
+      }
+    }
+
+    /* Returns a list of files in the specified subcollection */
+    public function getFileNames()
+    {
+      $folderLocation = $_POST["folderLocation"];
+      $collection = $_POST["collection"];
+      // $subCollection = $_POST["subCollection"];
+
+      $rawFiles = scandir("$folderLocation/eads/$collection");
+
+      $files = array_diff($rawFiles, array('index.xml', '..', '.'));
+
+      foreach ($files as $file) {
+        echo "<option value = '" . $file . "'>$file</option>";
+      }
+    }
+
+    public function formatEads()
+    {
         $dir =  "eads";
 
 //for ($i=1; $i<sizeof($files);$i++){

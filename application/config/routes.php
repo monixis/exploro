@@ -38,6 +38,7 @@
 |
 */
 
+$route['explr'] = "explr";
 $route['default_controller'] = "exploro";
 $route['404_override'] = '';
 
