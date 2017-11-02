@@ -16,7 +16,7 @@
         <xsl:variable name="genreform" select="archdesc/controlaccess/genreform/part"/>
 		<xsl:variable name="myUnitID" select="archdesc/did/unitid"/>
 		<!-- Getting the folder name for the unittitle, ex LTP -->
-		<xsl:variable name="folderName" select="control/recordid/@id"/>
+		<xsl:variable name="folderName" select="../collectionFolder"/>
 
 		<!-- Used to get collection name ex: Lowell Thomas Papers -->
 		<xsl:variable name="myCollection" select="archdesc/dsc/c01/did/unittitle"/>

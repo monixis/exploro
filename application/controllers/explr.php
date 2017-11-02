@@ -125,22 +125,14 @@ class explr extends CI_Controller
 
       $new_ead_doc->load($filepath);
 
-      // Creates an array of all elements called recordid ... in the EAD we know it is only one
-      // $rawRecordIDArray = $new_ead_doc->getElementsByTagName('recordid');
+      // Create a new element to hold the value of the collection foldername
+      $element = $new_ead_doc->createElement('collectionFolder', $collection);
 
-      // echo "FLAG " . var_dump($rawRecordIDArray);
+      // Find a record to add append the created element as a child
+      $elementToAppend = $new_ead_doc->getElementsByTagName('recordid');
 
-      // Selects the first element of the array
-      // $recordID = $rawRecordIDArray[0];
-
-      // Create id attribute to be placed in unittitle of ocllection
-      // $collectionUnittitle = $new_ead_doc->createAttribute('id');
-
-      // Assigns the value of the collection as the value of the attribute
-      // $collectionUnittitle->value = $collection;
-
-      // Add attribute to the element
-      // $recordID->appendChild($collectionUnittitle);
+      // Add the element into the desired elements
+      $new_ead_doc->appendChild($element);
 
       $xsl_doc = new DOMDocument();
       $xsl_doc->load("$folderLocation/application/xslt/ead_3_solr.xsl");
@@ -148,6 +140,13 @@ class explr extends CI_Controller
       $proc->importStylesheet($xsl_doc);
 
       $newdom = $proc->transformToDoc($new_ead_doc);
+
+      // Ensure that all files in the solr_xml directory are writeable
+      $solrFiles = array_diff(scandir("$folderLocation/solr_xmls/$collection"), array('..', '.'));
+      echo print_r($solrFiles);
+      foreach($solrFiles as $file) {
+        chmod("$folderLocation/solr_xmls/$collection/$file", octdec(777));
+      }
 
       $newdom->save("$folderLocation/solr_xmls/$collection/$fileName") or die("Flag: Error");
 
@@ -186,22 +185,16 @@ class explr extends CI_Controller
 
     public function publishToSolr()
     {
-      $numFiles = 0;
-
-      // Parse POST variables
-      $folderLocation = $_POST["folderLocation"];
+      // $folderLocation = $_POST["folderLocation"];
       $collection = $_POST["collection"];
       // $subCollection = $_POST["subCollection"];
       $fileName = $_POST["fileName"];
-
-      $filePath = "$folderLocation/eads/$collection/$fileName";
 
       $post = [
         'command' => 'full-import',
         'clean' => 'false',
         'commit' => 'true',
-        'collection' => "$collection",
-        'fileName'   => "$fileName"
+        'fileName'   => "$collection/$fileName"
       ];
 
       $ch = curl_init('http://35.162.165.138:8983/solr/exploro/dataimport');
@@ -232,6 +225,7 @@ class explr extends CI_Controller
       echo $timeToWait;
     }
 
+    /* Publishes batches of files to SOLR, useful but not currently being used
     public function publishBulkToSolr()
     {
       // Parse POST variables
@@ -279,12 +273,12 @@ class explr extends CI_Controller
 
           $timeToWait = $minutesToSeconds + $seconds;
 
-          // echo "FLAG seconds passed $timeToWait"; */
+          // echo "FLAG seconds passed $timeToWait";
 
           /*$xml = simplexml_load_string($response, "SimpleXMLElement", LIBXML_NOCDATA);
           $json = json_encode($xml);
           $array = json_decode($json,TRUE);
-          echo "FLAG " . print_r($array); */
+          echo "FLAG " . print_r($array);
 
           curl_close($ch);
           $numFiles ++;
@@ -303,7 +297,7 @@ class explr extends CI_Controller
         }
 
       }
-    }
+    } */
 
     /* Returns a list of all of the collections in the /eads folder as a series of options elements for a dropdown */
     public function getCollections()
@@ -358,8 +352,6 @@ class explr extends CI_Controller
       $rawFiles = scandir("$folderLocation/eads/$collection");
 
       $files = array_diff($rawFiles, array('index.xml', '..', '.'));
-
-      echo "FLAG " . print_r($files);
 
       foreach ($files as $file) {
         echo "<option value = '" . $file . "'>$file</option>";

@@ -376,7 +376,7 @@
 
                       <div class="form-spacing">
                         <select id="selectFileName">
-                          <option selected value="0">You must select a subcollection before a file</option>
+                          <option selected value="0">You must select a collection before a file</option>
                         </select>
                       </div>
 
