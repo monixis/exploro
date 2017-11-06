@@ -16,7 +16,9 @@ class exploro extends CI_Controller
   {
   	$q = $this -> input -> get('q');
 		$q = str_replace(" ","%20", $q);
-		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=" . $q."&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.limit=100000";
+    // Taken from repository search keywords
+    $solrQ = str_replace("fq","&fq", $q);
+		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=" . $solrQ."&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.limit=100000";
  		$json = file_get_contents($resultsLink);
    	$data['results'] = json_decode($json);
 

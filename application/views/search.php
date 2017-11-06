@@ -27,7 +27,7 @@
 		<script type="text/javascript" src="http://library.marist.edu/crrs/js/jquery-ui.js"></script>
 		<link rel="stylesheet" href="http://library.marist.edu/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-		
+
 	</head>
 
 	<body>
@@ -41,7 +41,7 @@
 		<div id="miniMenu" style="width: 100%;border: 1px solid black; border-bottom: none;">
 
 		</div>
-		
+
 		<!-- Main jumbotron for a primary marketing message or call to action -->
 		<div id="main-container" class="container">
 			<div class="jumbotron">
@@ -55,16 +55,16 @@
 							<div id="custom-search-input">
 								<div class="input-group col-md-12">
 									<input type="text" class="form-control input-lg" id="searchBox" placeholder="Search finding aids and digitized objects" />
+                  <input type="hidden" class="form-control input-lg" id="queryTag" />
 									<span class="input-group-btn">
 										<button id="initiateSearch" class="btn btn-info btn-lg" type="button" style="background: #ffffff; border-color: #ccc;">
 											<img src="./icons/search.png"  style="height: 25px;"/>
 										</button> </span>
 								</div>
 							</div>
-							<div id="searchResults" style="float: inherit">
 
-							</div>
-
+              <div id="selectedFacet"></div>
+							<div id="searchResults" style="position: relative;display: inline-block"></div>
 						</div>
 					</div><!-- row -->
 				</div><!-- container -->

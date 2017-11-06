@@ -1,5 +1,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="./js/nprogress.js"></script>
+<link rel="stylesheet" type="text/css" href="./styles/nprogress.css" />
 
 <script>
   $(function(){
@@ -145,6 +147,7 @@
 				}
 			?>
 		</ol></br>
+    <div id="pagination"></div>
   </div>
 </div>
 <script type="text/javascript">
@@ -175,14 +178,48 @@
     		}
 		}
 
-		$('a.tags').click(function(){
+		/*
+    This is the old results JS... I don't think it does anything
+    $('a.tags').click(function(){
 			var selectedTag = ($(this).parents('div.panel').attr('id')) + ' > ' + ($(this).text().substr(0, $(this).text().indexOf('-')));
 			$('#selectedFacet').append('<button class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px;">'+ selectedTag +'<a href="#" class="remove" style="margin-left:10px;"> X </a></button>');
 
 		});
 
-		$('#selectedFacet').on('click', '.remove', function() {
-    	    $(this).closest('button.taglist').remove();
-	    });
+    $('#selectedFacet').on('click', '.remove', function() {
+          $(this).closest('button.taglist').remove();
+      });
+
+    */
+
+    $('a.tags').click(function(){
+      var searchTerm = $('input#searchBox').val();
+      var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + ($(this).text().substr(0, $(this).text().indexOf('-')));
+      $('#selectedFacet').append('<button class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px;"> X </a></button>');
+      $('input#queryTag').val($('input#queryTag').val() + "fq=" + selectedTag);
+      var queryTag = $('input#queryTag').val();
+      searchTerm = searchTerm + queryTag;
+      searchTerm = searchTerm.replace(/ /g,"%20");
+      var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
+      NProgress.start();
+      NProgress.configure({ showSpinner: true });
+      $('#searchResults').load(resultUrl);
+      NProgress.done();
+    });
+
+    $('#selectedFacet').on('click', '.remove', function() {
+        var searchTerm = $('input#searchBox').val();
+        var unselectedTag ="fq=" + $(this).attr('id');
+        $(this).closest('button.taglist').remove();
+        $('input#queryTag').val($('input#queryTag').val().replace(unselectedTag, ' '));
+        var queryTag = $('input#queryTag').val();
+        searchTerm = searchTerm + queryTag;
+        searchTerm = searchTerm.replace(/ /g,"%20");
+        NProgress.start();
+        NProgress.configure({ showSpinner: true });
+        var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
+        $('#searchResults').load(resultUrl);
+        NProgress.done();
+    });
 
 </script>
