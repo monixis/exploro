@@ -157,8 +157,14 @@
                 <xsl:value-of select="normalize-space($myCollection)" />
             </field>
 
+            <xsl:variable name="itemGenreForm" select="./controlaccess/genreform/part"/>
             <field name="format">
-                <xsl:value-of select="translate($genreform, $uppercase, $lowercase)" /><xsl:if test="./controlaccess/genreform">, <xsl:value-of select="./controlaccess/genreform/part"/></xsl:if>
+              <xsl:choose>
+              <xsl:when test="concat($genreform, $itemGenreForm)">
+                <xsl:if test="$genreform"><xsl:value-of select="translate($genreform, $uppercase, $lowercase)" /></xsl:if> <xsl:if test="./controlaccess/genreform/part"> <xsl:value-of select="concat(' ', $itemGenreForm)"/></xsl:if>
+              </xsl:when>
+              <xsl:otherwise>N/A</xsl:otherwise>
+            </xsl:choose>
             </field>
 
             <field name="unitid">

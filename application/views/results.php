@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css" href="./styles/main.css" />
 	<div id="selectedFacet">
 	</div>
-	<h2>Results:</h2>
+	<h2>Total <?php echo $results->response->numFound; ?> Results:</h2>
 		<div id="facets" style="width: 240px; height: auto; float: left; margin-left: -240px;">
 			<h4>Filter By:</h4>
 			<?php
@@ -78,7 +78,7 @@
 							<?php if ($level == "files"){ ?>
 								<p style="font-size: 12pt; margin-top: -10px;">Box: <?php echo $box ?></p>
 							<?php }	?>
-						<p style="font-size: 12pt; margin-top: -10px;">Type: <?php echo $level ?></p>
+						<p style="font-size: 12pt; margin-top: -10px;">Category: <?php echo $level ?></p>
 						<p style="font-size: 12pt; margin-top: -10px;">Collection: <?php echo $collection ?></p>
 					</div>
 				</li>

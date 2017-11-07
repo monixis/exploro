@@ -88,6 +88,8 @@
 </body>
 <script type="text/javascript">
 		$('#initiateSearch').click(function(){
+      // Clear the selected facets of the previous search
+      $("#selectedFacet").empty();
 			var searchTerm = $('input#searchBox').val();
 			var searchTerm = searchTerm.replace(/ /g,"%20");
 			var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
