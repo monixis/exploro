@@ -18,6 +18,9 @@
 		<link href="http://library.marist.edu/css/library.css" rel="stylesheet">
 		<link href="http://library.marist.edu/css/menuStyle.css" rel="stylesheet">
 		<link href="./styles/main.css" rel="stylesheet">
+    <script src="./js/nprogress.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
+    <script src="./js/jquery.easyPaginate.js"></script>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -54,7 +57,7 @@
 							<div id="logo"></div>
 							<div id="custom-search-input">
 								<div class="input-group col-md-12">
-									<input type="text" class="form-control input-lg" id="searchBox" placeholder="Search finding aids and digitized objects" />
+									<input type="text" class="form-control input-lg" id="searchBox" placeholder="Search finding aids and digitized objects" autofocus/>
                   <input type="hidden" class="form-control input-lg" id="queryTag" />
 									<span class="input-group-btn">
 										<button id="initiateSearch" class="btn btn-info btn-lg" type="button" style="background: #ffffff; border-color: #ccc;">
@@ -81,7 +84,7 @@
 				<br />
 				&#169; Copyright 2007-2017 Marist College. All Rights Reserved.
 
-				<a href="http://www.marist.edu/disclaimers.html" target="_blank" >Disclaimers</a> | <a href="http://www.marist.edu/privacy.html" target="_blank" >Privacy Policy</a> | <a href="http://library.marist.edu/ack.html?iframe=true&width=50%&height=62%" rel="prettyphoto[iframes]">Acknowledgements</a>
+				<a href="http://www.marist.edu/disclaimers.html" target="_blank">Disclaimers</a> | <a href="http://www.marist.edu/privacy.html" target="_blank" >Privacy Policy</a> | <a href="http://library.marist.edu/ack.html?iframe=true&width=50%&height=62%" rel="prettyphoto[iframes]">Acknowledgements</a>
 			</p>
 
 </div>
@@ -91,10 +94,32 @@
       // Clear the selected facets of the previous search
       $("#selectedFacet").empty();
 			var searchTerm = $('input#searchBox').val();
+      if (searchTerm == "") {
+        return -1;
+      }
 			var searchTerm = searchTerm.replace(/ /g,"%20");
 			var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
 			$('#searchResults').load(resultUrl);
-
 		});
+
+    // Start the search on the pressing of the enter key as well
+    $('#searchBox').keypress(function (e) {
+     var key = e.which;
+     // The enter key code
+     if(key == 13) {
+        // Clear the selected facets of the previous search
+        $("#selectedFacet").empty();
+  			var searchTerm = $('input#searchBox').val();
+        if (searchTerm == "") {
+          return -1;
+        }
+  			var searchTerm = searchTerm.replace(/ /g,"%20");
+  			var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
+  			$('#searchResults').load(resultUrl);
+      }
+      else{
+        return 0;
+      }
+    });
 </script>
 </html>

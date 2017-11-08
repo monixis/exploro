@@ -1,6 +1,8 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="./js/nprogress.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
+<script src="./js/jquery.easyPaginate.js"></script>
 <link rel="stylesheet" type="text/css" href="./styles/nprogress.css" />
 
 <script>
@@ -9,7 +11,30 @@
 
   });
 
+  /*
+  // Paginate Marist Library results
+  $('#tabs-1').easyPaginate({
+       paginateElement: 'li',
+       elementsPerPage: 10
+ });
+
+
+// Paginate DPLA results
+ $('#tabs-2').easyPaginate({
+      paginateElement: 'li',
+      elementsPerPage: 10
+}); */
+
 </script>
+<!-- Inline style is generally not the best practice but I am taking pagination directly from eaditorSearch -->
+<style>
+  .easyPaginateNav a {
+    padding:5px;float: inherit
+  }
+  .easyPaginateNav a.current {
+    font-weight:bold;text-decoration:underline;
+  }
+</style>
 <link rel="stylesheet" type="text/css" href="./styles/main.css" />
 	<div id="selectedFacet">
 	</div>
@@ -43,12 +68,12 @@
 
 <div id="tabs">
  <ul>
-    <li><a href="#tabs-1">Marist Archives</a></li>
-    <li><a href="#tabs-2">Digital Public Library of America</a></li>
+    <li><a href="#tabs-1" id="tab-1-link">Marist Archives</a></li>
+    <li><a href="#tabs-2" id="tab-2-link">Digital Public Library of America</a></li>
   </ul>
   <div id="tabs-1">
   	<h4 style="text-align: left; color: #6592A6; margin-bottom: 3px; margin-top: 0px;">Marist Archives records:</h4>
-  	<ol id="list">
+  	<ol id="list-1">
 			<?php
 				foreach ($results->response->docs as $row) {
 					//$title = (isset($row -> unittitle[0]) ? $row -> unittitle[0] : FALSE);
@@ -90,7 +115,7 @@
   <div id="tabs-2">
   	<!--img src="https://dp.la/info/wp-content/uploads/2015/02/horizontal_logo_standard_Jan2015.jpg" style="height: 100px;"/-->
   	<h4 style="text-align: left; color: #6592A6; margin-bottom: 3px; margin-top: 0px;">DPLA records:</h4>
-	<ol id="list">
+	<ol id="list-2">
 			<?php
 			foreach ($dplaResults -> docs as $row) {
 					$title = $row -> sourceResource -> title;
@@ -131,6 +156,10 @@
 					}else{
 						$description =  (isset($row -> sourceResource -> description) ? $row -> sourceResource -> description : FALSE);
 					}
+
+          if ($object == "") {
+            $object =  'http://148.100.181.189:8090/testing/images/folder-icon.png';
+          }
 			?>
 				<li class="results" style="height: auto; padding: 10px;">
 					<img src="<?php echo $object ?>" style="width: 135px; height: 115px; float: left; "/>
@@ -222,4 +251,20 @@
         NProgress.done();
     });
 
+    $('#tabs-1').easyPaginate({
+         paginateElement: 'li',
+         elementsPerPage: 10
+   });
+
+   // Show the pagination for Marist Library Archives when that section is selected
+   $("#tab-1-link").click(function(){
+     $(".easyPaginateNav").show();
+     $("#facets").show();
+   });
+
+   // Hide the pagination for Marist Library Archives when the DPLA is selected
+   $("#tab-2-link").click(function(){
+     $(".easyPaginateNav").hide();
+     $("#facets").hide();
+   });
 </script>

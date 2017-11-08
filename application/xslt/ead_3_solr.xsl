@@ -161,7 +161,7 @@
             <field name="format">
               <xsl:choose>
               <xsl:when test="concat($genreform, $itemGenreForm)">
-                <xsl:if test="$genreform"><xsl:value-of select="translate($genreform, $uppercase, $lowercase)" /></xsl:if> <xsl:if test="./controlaccess/genreform/part"> <xsl:value-of select="concat(' ', $itemGenreForm)"/></xsl:if>
+                <xsl:if test="$genreform"><xsl:value-of select="translate($genreform, $uppercase, $lowercase)" /></xsl:if> <xsl:if test="./controlaccess/genreform/part"> <xsl:choose><xsl:when test="$genreform"><xsl:value-of select="concat(', ', $itemGenreForm)"/></xsl:when><xsl:otherwise><xsl:value-of select="$itemGenreForm"/></xsl:otherwise></xsl:choose> </xsl:if>
               </xsl:when>
               <xsl:otherwise>N/A</xsl:otherwise>
             </xsl:choose>
