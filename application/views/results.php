@@ -50,6 +50,13 @@
 			?>
 					<button class="accordion"><?php echo ucfirst($key) ; ?></button>
 					<div class="panel" id="<?php echo $key ; ?>">
+            <form class="form-horizontal">
+								<div class="form-group has-feedback">
+                        <input id="searchInput_<?php echo $key;?>" class="form-control hasclear" oninput="sFacet.filterHTML('#<?php echo $key ; ?>', 'li#<?php echo $key;?>', this.value)" type="text" placeholder="Search">
+						<span></span>
+
+						</div>
+							</form>
 					<?php
 						$facetList = " ";
 						$i = 0;
@@ -58,7 +65,7 @@
 								$facetList = $row;
 							}else{
 								$facetList = $facetList . " - " . $row ;
-					?><a href="#" class='tags'><?php echo $facetList ; ?></a><br/><?php
+					?><li id="<?php echo $key;?>" style="margin-bottom:5px;"><a href="#" class='tags'><?php echo $facetList ; ?></a></li><?php
 							}
 							$i += 1;
 						}
@@ -270,4 +277,38 @@
      $(".easyPaginateNav").hide();
      $("#facets").hide();
    });
+
+   /* Code taken from eaditor... handles the searching inside of facets */
+   var sFacet = {};
+    sFacet.filterHTML = function(id, sel, filter) {
+        var a, b, c, i, ii, iii, hit;
+        a = sFacet.getElements(id);
+        for (i = 0; i < a.length; i++) {
+            b = sFacet.getElements(sel);
+            for (ii = 0; ii < b.length; ii++) {
+                hit = 0;
+                if (b[ii].innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
+                    hit = 1;
+                }
+                c = b[ii].getElementsByTagName("*");
+                for (iii = 0; iii < c.length; iii++) {
+                    if (c[iii].innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
+                        hit = 1;
+                    }
+                }
+                if (hit == 1) {
+                    b[ii].style.display = "";
+                } else {
+                    b[ii].style.display = "none";
+                }
+            }
+        }
+    };
+    sFacet.getElements = function (id) {
+        if (typeof id == "object") {
+            return [id];
+        } else {
+            return document.querySelectorAll(id);
+        }
+    };
 </script>
