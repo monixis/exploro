@@ -44,8 +44,11 @@
 			<?php
 				$facets = (array) $results->facet_counts->facet_fields;
 				foreach ($facets as $key => $value){
+          if ($key == "datesingle") {
+            $key ="Date";
+          }
 			?>
-					<button class="accordion"><?php echo $key ; ?></button>
+					<button class="accordion"><?php echo ucfirst($key) ; ?></button>
 					<div class="panel" id="<?php echo $key ; ?>">
 					<?php
 						$facetList = " ";
