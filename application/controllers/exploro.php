@@ -16,7 +16,10 @@ class exploro extends CI_Controller
   {
   	$q = $this -> input -> get('q');
 		$q = str_replace(" ","%20", $q);
-		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=" . $q."&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.limit=100000";
+    // Taken from repository search keywords
+    $solrQ = str_replace("fq","&fq", $q);
+    // rows=2147483647 is the max value of an int... this returns all rows so that way they can all be viewed with pagination... will get a lot of uneeded data which is expensive..
+		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=" . $solrQ."&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.field=format&rows=100";
  		$json = file_get_contents($resultsLink);
    	$data['results'] = json_decode($json);
 
@@ -30,7 +33,7 @@ class exploro extends CI_Controller
 
 	 public function searchSubjects()
 	 {
-      	$q = $this -> input -> get('q');
+  	$q = $this -> input -> get('q');
 		$q = str_replace(" ","%20", $q);
 		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=" . $q."&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.field=format&facet.field=physdesc&facet.field=location";
  		$json = file_get_contents($resultsLink);

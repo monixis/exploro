@@ -149,33 +149,48 @@
 						<field name="collectionLink">
 						  <xsl:value-of select="$collectionLink"/>
 						</field>
-                        <field name="collection">
-                            <xsl:value-of select="$myCollection" />
-                        </field>
-                        <field name="format">
-                            <xsl:value-of select="$genreform" /><xsl:if test="./controlaccess/genreform">,<xsl:value-of select="./controlaccess/genreform"/></xsl:if>
-                        </field>
-                        <field name="unitid">
-                            <xsl:value-of select="concat($folderName, '.', $container, '.', $itemUnitID)"/>
-                        </field>
-                        <field name="unittitle">
-                            <xsl:value-of select="./did/unittitle"/>
-                        </field>
-                        <xsl:if test="./did/unitdatestructured/datesingle">
-                            <field name="datesingle">
-                                <xsl:value-of select="./did/unitdatestructured/datesingle"/>
-                            </field>
-                        </xsl:if>
-                        <xsl:if test="./did/unitdatestructured/daterange/fromdate">
-                            <field name="daterange">
-                                <xsl:value-of select="./did/unitdatestructured/daterange/fromdate"/>-<xsl:value-of select="./did/unitdatestructured/daterange/todate"/>
-                            </field>
-                        </xsl:if>
-                        <xsl:if test="./physdescstructured/dimensions">
-                        <field name="dimensions">
-                            <xsl:value-of select="./physdescstructured/dimensions"/>
-                        </field>
-                        </xsl:if>
+
+            <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyz'" />
+            <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+
+            <field name="collection">
+                <xsl:value-of select="normalize-space($myCollection)" />
+            </field>
+
+            <xsl:variable name="itemGenreForm" select="./controlaccess/genreform/part"/>
+            <field name="format">
+              <xsl:choose>
+              <xsl:when test="concat($genreform, $itemGenreForm)">
+                <xsl:if test="$genreform"><xsl:value-of select="translate($genreform, $uppercase, $lowercase)" /></xsl:if> <xsl:if test="./controlaccess/genreform/part"> <xsl:choose><xsl:when test="$genreform"><xsl:value-of select="concat(', ', $itemGenreForm)"/></xsl:when><xsl:otherwise><xsl:value-of select="$itemGenreForm"/></xsl:otherwise></xsl:choose> </xsl:if>
+              </xsl:when>
+              <xsl:otherwise>N/A</xsl:otherwise>
+            </xsl:choose>
+            </field>
+
+            <field name="unitid">
+                <xsl:value-of select="concat($folderName, '.', $container, '.', $itemUnitID)"/>
+            </field>
+            <field name="unittitle">
+                <xsl:value-of select="./did/unittitle"/>
+            </field>
+            <!-- Variables required to make all characters in dates lowercase to fight inconsitent data -->
+            <xsl:variable name="datesingle" select="did/unitdatestructured/datesingle"/>
+
+            <xsl:if test="./did/unitdatestructured/datesingle">
+                <field name="datesingle">
+                    <xsl:value-of select="translate(string($datesingle), $uppercase, $lowercase)"/>
+                </field>
+            </xsl:if>
+            <xsl:if test="./did/unitdatestructured/daterange/fromdate">
+                <field name="daterange">
+                    <xsl:value-of select="./did/unitdatestructured/daterange/fromdate"/>-<xsl:value-of select="./did/unitdatestructured/daterange/todate"/>
+                </field>
+            </xsl:if>
+            <xsl:if test="./physdescstructured/dimensions">
+              <field name="dimensions">
+                  <xsl:value-of select="./physdescstructured/dimensions"/>
+              </field>
+            </xsl:if>
 						<!-- taken from https://stackoverflow.com/questions/13622338/how-to-implement-if-else-statement-in-xslt -->
 						<xsl:choose>
 							<xsl:when test="./dao">
@@ -183,7 +198,7 @@
 									<xsl:value-of select="./dao/@href"/>
 								</field>
 								<field name="category">
-									<xsl:value-of select="'Digital Object'"/>
+									<xsl:value-of select="'Digitized'"/>
 								</field>
 							</xsl:when>
 							<xsl:otherwise>
@@ -191,7 +206,7 @@
 									<xsl:value-of select="'../images/folder-icon.png'"/>
 								</field>
 								<field name="category">
-									<xsl:value-of select="'Finding Aid'"/>
+									<xsl:value-of select="'Non-Digitized'"/>
 								</field>
 							</xsl:otherwise>
 						</xsl:choose>
