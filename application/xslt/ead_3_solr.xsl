@@ -12,11 +12,12 @@
     <xsl:template match="ead">
         <!--<xsl:variable name="collectionLink" select="archdesc/dsc/c01/did/ptr/@href"/>-->
 		<!-- <xsl:value-of select="concat('http://library.marist.edu/?c=exploro&m=viewEAD&cid=', $folderName, '&id=', $myUnitID)"/>-->
-        <xsl:variable name="collection" select="control/filedesc/titlestmt/titleproper"/>
-        <xsl:variable name="genreform" select="archdesc/controlaccess/genreform/part"/>
+    <xsl:variable name="collection" select="control/filedesc/titlestmt/titleproper"/>
+    <xsl:variable name="genreform" select="archdesc/controlaccess/genreform/part"/>
 		<xsl:variable name="myUnitID" select="archdesc/did/unitid"/>
 		<!-- Getting the folder name for the unittitle, ex LTP -->
 		<xsl:variable name="folderName" select="../collectionFolder"/>
+    <xsl:variable name="container" select="archdesc/dsc/c01/c02/c03/c04/c05/c06/c07/did/container"/>
 
 		<!-- Used to get collection name ex: Lowell Thomas Papers -->
 		<xsl:variable name="myCollection" select="archdesc/dsc/c01/did/unittitle"/>
@@ -142,7 +143,7 @@
                 </xsl:if>
             </doc1>
             <xsl:for-each select=".//*[@level='recordgrp']">
-                 <xsl:variable name="container" select="./did/container"/>
+                 <xsl:variable name="itemContainer" select="./did/container"/>
                 <xsl:for-each select=".//*[@level='item']">
 					<xsl:variable name="itemUnitID" select="did/unitid"/>
                     <doc>
@@ -168,7 +169,7 @@
             </field>
 
             <field name="unitid">
-                <xsl:value-of select="concat($folderName, '.', $container, '.', $itemUnitID)"/>
+                <xsl:value-of select="concat($folderName, '.', $itemContainer, '.', $itemUnitID)"/>
             </field>
             <field name="unittitle">
                 <xsl:value-of select="./did/unittitle"/>
@@ -187,10 +188,15 @@
                 </field>
             </xsl:if>
             <xsl:if test="./physdescstructured/dimensions">
-              <field name="dimensions">
+              <field name="physdesc">
                   <xsl:value-of select="./physdescstructured/dimensions"/>
               </field>
             </xsl:if>
+
+            <field name="container">
+              <xsl:value-of select="../container"/>
+            </field>
+
 						<!-- taken from https://stackoverflow.com/questions/13622338/how-to-implement-if-else-statement-in-xslt -->
 						<xsl:choose>
 							<xsl:when test="./dao">

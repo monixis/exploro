@@ -25,19 +25,19 @@
   </style>
     <?php
 	foreach ($results->response->docs as $row) {
-		$id = $row -> unitid;
-		$title = (isset($row -> unittitle[0]) ? $row -> unittitle[0] : FALSE);
+		$id = $row -> id;
+		$title = (isset($row -> unittitle) ? $row -> unittitle : FALSE);
 		$box = (isset($row -> container[0]) ? $row -> container[0] : FALSE);
-		$date = (isset($row -> unitdate[0]) ? $row -> unitdate[0] : FALSE);
+		$date = (isset($row -> datesingle) ? $row -> datesingle : FALSE);
 		$collection = (isset($row -> collection) ? $row -> collection : FALSE);
-		$category = (isset($row -> category[0]) ? $row -> category[0] : FALSE);
-		$url = (isset($row -> link[0]) ? $row -> link[0] : FALSE);
-		$findingaid = (isset($row -> collectionLink[0]) ? $row -> collectionLink[0] : FALSE);
+		$category = (isset($row -> category) ? $row -> category : FALSE);
+		$url = (isset($row -> link) ? $row -> link : FALSE);
+		$findingaid = (isset($row -> collectionLink) ? $row -> collectionLink : FALSE);
 		$rightsstatement = (isset($row -> userestrict[0]) ? $row -> userestrict[0] : FALSE);
 		$format = (isset($row -> format[0]) ? $row -> format[0] : FALSE);
 		$physdesc = (isset($row -> physdesc) ? $row -> physdesc : FALSE);
 		}
-    ?>	
+    ?>
 </head>
 <body>
 
@@ -47,7 +47,7 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#"><img src='http://library.marist.edu/archives/mainpage/images/exploro.jpg'/></a>
     </div>
@@ -63,11 +63,11 @@
     </div>
   </div>
 </nav>
-  
-<div class="container-fluid text-center">    
+
+<div class="container-fluid text-center">
   <div class="row content">
-   
-    <div class="col-md-12 text-left"> 
+
+    <div class="col-md-12 text-left">
 									 <table class="table table-file-information">
             							<thead>
             								<tr><h4>Details:</h4></tr>
@@ -116,7 +116,7 @@
             							<img src="<?php echo $url ?>" style="margin-left: auto; margin-right: auto; display: block;"/>
             						</div>
             							<!--iframe src="<?php echo $url ?>" style="width:100%; height:400px;"></iframe-->
-									
+
 								</div>
 						</div>
 					</div><!-- row -->
@@ -129,11 +129,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-

@@ -162,7 +162,7 @@ class explr extends CI_Controller
 
           // Success! send an email to Monish loggin what folders have been updated
           $this->load->library('email');
-          $config['protocol'] = "smtp";
+          $config['protocol'] = "sendmail";
                     $config['smtp_host'] = "tls://smtp.googlemail.com";
                     $config['smtp_port'] = "465";
                     $config['smtp_user'] = "cannavinolibrary@gmail.com";
@@ -181,7 +181,7 @@ class explr extends CI_Controller
         $message .= "</ul>";
 
         $this->email->message($message);
-        // $this->email->send();
+        // COMMENTED OUT FOR TESTING PURPOSES ONLY $this->email->send();
       }
       else {
           echo 0;
