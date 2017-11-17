@@ -268,14 +268,29 @@
 
    // Show the pagination for Marist Library Archives when that section is selected
    $("#tab-1-link").click(function(){
+     $("#tabs-1").show();
+     $("#tabs-2").hide();
      $(".easyPaginateNav").show();
      $("#facets").show();
+     // Display Marist Archives Results
+     var searchTerm = $('input#searchBox').val();
+     searchTerm = searchTerm.replace(/ /g,"%20");
+     var resultUrl = "<?php echo base_url("?c=exploro&m=searchMaristArchives&q=")?>"+searchTerm;
+     $('#searchResults').load(resultUrl);
    });
 
    // Hide the pagination for Marist Library Archives when the DPLA is selected
    $("#tab-2-link").click(function(){
+     $("#tabs-1").hide();
+     $("#tabs-2").show();
      $(".easyPaginateNav").hide();
      $("#facets").hide();
+     // Display DPLA results
+     $("#selectedFacet").empty();
+     var searchTerm = $('input#searchBox').val();
+     searchTerm = searchTerm.replace(/ /g,"%20");
+     var resultUrl = "<?php echo base_url("?c=exploro&m=searchDPLA&q=")?>"+searchTerm;
+     $('#searchResults').load(resultUrl);
    });
 
    /* Code taken from eaditor... handles the searching inside of facets */

@@ -307,6 +307,19 @@ class explr extends CI_Controller
     /* Returns a list of all of the collections in the /eads folder as a series of options elements for a dropdown */
     public function getCollections()
     {
+      $folders = scandir("http://148.100.181.189:8090/digitizedContents/LTP/");
+      foreach ($folders as $folder) {
+        if (($folder == ".") || ($folder == "..")){
+          // We do not want to add . or .. into the drop down
+          continue;
+        }
+        else {
+            $newFolderName = str_replace("Box ", "", $folder);
+            rename($folder, $newFolderName);
+        }
+      }
+
+
       // Need to directly link to the directory of EADs *Very important
      // $folders = scandir("C:/xampp/htdocs/exploro/eads");
      $folderLocation = $_GET["folderLocation"];
@@ -324,6 +337,21 @@ class explr extends CI_Controller
            echo "<option value = '" . $folder . "'>$folder</option>";
        }
      }
+    }
+
+    public function removeBox()
+    {
+      $folders = scandir("http://148.100.181.189:8090/digitizedContents/LTP");
+      foreach ($folders as $folder) {
+        if (($folder == ".") || ($folder == "..")){
+          // We do not want to add . or .. into the drop down
+          continue;
+        }
+        else {
+            $newFolderName = str_replace("Box ", "", $folder);
+            rename($folder, $newFolderName);
+        }
+      }
     }
 
     /* Returns a list of subcollections for a given collection in the form of option elements for dropdown

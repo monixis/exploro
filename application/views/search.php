@@ -98,7 +98,7 @@
         return -1;
       }
 			var searchTerm = searchTerm.replace(/ /g,"%20");
-			var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
+			var resultUrl = "<?php echo base_url("?c=exploro&m=searchMaristArchives&q=")?>"+searchTerm;
 			$('#searchResults').load(resultUrl);
 		});
 
@@ -114,7 +114,7 @@
           return -1;
         }
   			var searchTerm = searchTerm.replace(/ /g,"%20");
-  			var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
+  			var resultUrl = "<?php echo base_url("?c=exploro&m=searchMaristArchives&q=")?>"+searchTerm;
   			$('#searchResults').load(resultUrl);
       }
       else{
