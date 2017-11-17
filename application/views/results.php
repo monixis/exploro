@@ -63,7 +63,11 @@
 						foreach ($value as $row) {
 							if ($i % 2 == 0){
 								$facetList = $row;
-							}else{
+							}
+              else{
+                if ($row == 0){
+                  break;
+                }
 								$facetList = $facetList . " - " . $row ;
 					?><li id="<?php echo $key;?>" style="margin-bottom:5px;"><a href="#" class='tags'><?php echo $facetList ; ?></a></li><?php
 							}
