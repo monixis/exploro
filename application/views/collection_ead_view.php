@@ -6,12 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles/bootstrap.css">
   <link rel="stylesheet" href="styles/boxbuilder.css">
+  <link rel="stylesheet" href="http://library.marist.edu/archives/researchcart/styles/main.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
 
    </script>
-</head>
 <body>
 
 <nav class="navbar navbar-inverse">
@@ -47,15 +47,14 @@
     <div class="col-sm-8 text-left">
       <?php
       $xml = simplexml_load_file($url);
-      echo print_r($xml->archdesc->did->repository->address->addressline);
+      echo print_r($xml->archdesc->did->langmaterial);
       ?>
       <!-- Display the name of the collection -->
       <h1 class="heading"> <?php echo $xml->control->filedesc->titlestmt->titleproper; ?></h1>
 
       <!-- Display the repository details found in index.xml -->
-      <h3>
-        <b>Repository</b>
-      </h3>
+      <h2 class="indHeading">Repository</h2>
+
       <p><?php echo $xml->archdesc->did->repository->corpname->part ?></p>
       <p><?php echo $xml->archdesc->did->repository->address->addressline; ?></p>
       <p>Phone: <?php echo $xml->archdesc->did->repository->address->addressline[1]; ?></p>
@@ -63,6 +62,51 @@
       <p>Email</p>
 
       <h4 class="indHeading"><a href="http://library.marist.edu/archives/<?php echo $cid?>/report/" target="_blank">NHPRC Grant Report</a></h4>
+
+      <h2 class="indHeading">Project Director</h2>
+      <p></p>
+
+      <h2 class="indHeading">Project Archivist</h2>
+      <p></p>
+
+      <h2 class="indHeading">Date Completed</h2>
+      <p><?php echo $xml->control->filedesc->publicationstmt->date; ?></p>
+
+      <h2 class="indHeading">Encoded By</h2>
+      <p></p>
+
+      <h2 class="indHeading">Creator</h2>
+      <p><?php echo $xml->archdesc->did->origination->persname->part; ?></p>
+
+      <h2 class="indHeading">Extent</h2>
+      <p><?php echo $xml->archdesc->did->physdescstructured->quantity . " " . $xml->archdesc->did->physdescstructured->unittype; ?></p>
+
+      <h2 class="indHeading">Conditions Governing Access</h2>
+      <p><?php echo $xml->archdesc->accessrestrict->p ?></p>
+
+      <h2 class="indHeading">Languages</h2>
+      <p><?php
+      // Display each of the languages included in the specified collection
+       $languages = $xml->archdesc->did->langmaterial->language;
+       foreach($languages as $language) {
+         echo $language . " ";
+       }
+      ?></p>
+
+      <h2 class="indHeading">Scope and Content</h2>
+      <p><?php echo $xml->archdesc->scopecontent->p; ?></p>
+
+      <h2 class="indHeading">Historical Note</h2>
+      <p><?php echo $xml->archdesc->bioghist->p; ?></p>
+
+      <h2 class="indHeading">Provence</h2>
+      <p></p>
+
+      <h2 class="indHeading">Copyright Notice</h2>
+      <p><?php echo $xml->archdesc->userestrict->p ?></p>
+
+      <h2 class="indHeading">Acknowledgements</h2>
+      <p></p>
 
     </div>
   </div>
