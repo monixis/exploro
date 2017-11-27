@@ -63,8 +63,8 @@
     </div>
   </div>
 </nav>
-
-<div class="container-fluid text-center">
+<div class="col-md-2"></div>
+<div class="container-fluid text-center col-md-8">
   <div class="row content">
 
     <div class="col-md-12 text-left">
@@ -120,10 +120,11 @@
 								</div>
 						</div>
 					</div><!-- row -->
+          <div class="col-md-12"></div>
   </div>
 </div>
 
-<footer class="container-fluid text-center">
+<footer class="container-fluid text-center col-md-12">
 	<?php $this->load->view('footer'); ?>
 </footer>
 

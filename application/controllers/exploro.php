@@ -86,16 +86,25 @@ class exploro extends CI_Controller
     }
 
 	  public function viewEAD()
-	{
-		$cid = $this -> input -> get('cid');
-		$id = $this -> input -> get('id');
-		$data['url'] = base_url('eads/'.$cid.'/'.$id.'.xml');
-        $data['cid'] = $cid;
-        $this->load->view('ead_view', $data);
-     }
+	  {
+  		$cid = $this -> input -> get('cid');
+  		$id = $this -> input -> get('id');
+  		$data['url'] = base_url('eads/'.$cid.'/'.$id.'.xml');
+      $data['cid'] = $cid;
+      $this->load->view('ead_view', $data);
+    }
 
-	  public function ack(){
-	 	$this->load->view('ack');
-	 }
-}
+    public function viewCollectionEAD(){
+      $cid = $this -> input -> get('cid');
+      $data['url'] = base_url('eads/'.$cid.'/index.xml');
+      $data['cid'] = $cid;
+      $this->load->view('ead_view', $data);
+    }
+
+	   public function ack(){
+	 	   $this->load->view('ack');
+	   }
+   }
+
+
 ?>

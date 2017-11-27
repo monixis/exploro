@@ -5,27 +5,6 @@
 <script src="./js/jquery.easyPaginate.js"></script>
 <link rel="stylesheet" type="text/css" href="./styles/nprogress.css" />
 
-<script>
-  $(function(){
-    $("#tabs").tabs();
-
-  });
-
-  /*
-  // Paginate Marist Library results
-  $('#tabs-1').easyPaginate({
-       paginateElement: 'li',
-       elementsPerPage: 10
- });
-
-
-// Paginate DPLA results
- $('#tabs-2').easyPaginate({
-      paginateElement: 'li',
-      elementsPerPage: 10
-}); */
-
-</script>
 <!-- Inline style is generally not the best practice but I am taking pagination directly from eaditorSearch -->
 <style>
   .easyPaginateNav a {
@@ -63,7 +42,11 @@
 						foreach ($value as $row) {
 							if ($i % 2 == 0){
 								$facetList = $row;
-							}else{
+							}
+              else{
+                if ($row == 0){
+                  break;
+                }
 								$facetList = $facetList . " - " . $row ;
 					?><li id="<?php echo $key;?>" style="margin-bottom:5px;"><a href="#" class='tags'><?php echo $facetList ; ?></a></li><?php
 							}
@@ -189,7 +172,11 @@
     <div id="pagination"></div>
   </div>
 </div>
-<script type="text/javascript">
+<script>
+$(function(){
+  $("#tabs").tabs();
+
+});
 	/*('a.subjects').click(function(){
 			var subject = $(this).attr('id');
 			$('input#searchBox').val(subject);
