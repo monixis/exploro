@@ -69,7 +69,7 @@ class exploro extends CI_Controller
       $cid = $this -> input -> get('cid');
       $data['url'] = base_url('eads/'.$cid.'/index.xml');
       $data['cid'] = $cid;
-      $this->load->view('ead_view', $data);
+      $this->load->view('collection_ead_view', $data);
     }
 
 	   public function ack(){

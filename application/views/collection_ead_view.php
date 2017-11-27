@@ -9,14 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
-	$(document).ready(function() {
-		var isOpen = false;
-		var $tdata = $('table.tbl');
-		$tdata.find('tr.tbldata').hide();
-		$('tr.Box').click(function() {
-			$(this).parent().find('tr.tbldata').toggle();
-		});
-	});
+
    </script>
 </head>
 <body>
@@ -51,64 +44,26 @@
       <p><a href="#">Link</a></p>
       <p><a href="#">Link</a></p-->
     </div>
-    <div class="col-sm-8 text-left"> 
+    <div class="col-sm-8 text-left">
+      <?php
+      $xml = simplexml_load_file($url);
+      echo print_r($xml->archdesc->did->repository->address->addressline);
+      ?>
+      <!-- Display the name of the collection -->
+      <h1 class="heading"> <?php echo $xml->control->filedesc->titlestmt->titleproper; ?></h1>
 
-<?php
-$collectionId = $cid;
-$collectionUrl = base_url('eads/'.$collectionId.'/index.xml');
-$xml = simplexml_load_file($url);
-?>
+      <!-- Display the repository details found in index.xml -->
+      <h3>
+        <b>Repository</b>
+      </h3>
+      <p><?php echo $xml->archdesc->did->repository->corpname->part ?></p>
+      <p><?php echo $xml->archdesc->did->repository->address->addressline; ?></p>
+      <p>Phone: <?php echo $xml->archdesc->did->repository->address->addressline[1]; ?></p>
+      <p>Fax</p>
+      <p>Email</p>
 
-<div id="descSummary">
-	<?php foreach ($xml->xpath("//archdesc") as $info) { ?>
-		<h1 class="heading"><?php echo $info -> dsc -> c01 -> did -> unittitle; ?></h1>
-		<h2 class="heading"><?php echo $info -> did -> unitid; ?> - <?php echo $info -> did -> unittitle; ?></h2>
-		<p><label>Repository: </label><a href='http://library.marist.edu/archives' target='_blank'><?php echo $info -> did -> repository -> corpname -> part; ?></a></p>
-		<p><label>Creator: </label><?php echo $info -> did -> origination -> persname -> part; ?></p>
-		<button type="button" class="btn btn-primary"><a href='<?php echo base_url("?c=exploro&m=viewCollectionEAD&cid=$cid");?>' target='_blank' style='text-decoration: none; color: #ffffff;'>Collection Page</a></button>
-	<?php } ?>
+      <h4 class="indHeading"><a href="http://library.marist.edu/archives/<?php echo $cid?>/report/" target="_blank">NHPRC Grant Report</a></h4>
 
-	<?php foreach ($xml->xpath("//filedesc") as $seriesInfo) { ?>
-		<div id="breadcrumb"><p><?php echo $seriesInfo -> notestmt -> controlnote -> p; ?></p></div>
-	<?php } ?>
-</div>
-
-<div id="componentList">
-<?php foreach ($xml->xpath("//*[@level='recordgrp']") as $box) { ?>
-
- 	 <table class="tbl" align="center" style="margin-bottom: 15px; width: 60%;" >
-		 	<tr class="Box">
- 				<td class="caption" colspan="8"><?php echo $box -> did -> container; ?></td>
- 			</tr>
- 			<tr class="tbldata">
-      			<th style="width:50px">Item</th>
-      			<th style="width:600px">Title</th>
-	  			<th style="width:100px">Date</th>
-	  			<th style="width:75px">Size (inches)</th>
- 			</tr>
-
- 			<?php foreach ($box->did->children() as $item) {
- 				if($item->getname() != 'container'){
- 			?>
- 				<tr class="tbldata">
- 					<td class="tableFont"><?php echo $item -> did -> unitid; ?></td>
- 					<?php if (isset($item->dao)) { ?>
-	 					<td class="tableFont"><a href="<?php echo $item -> dao['href']; ?>" target="_blank"><?php echo $item -> did -> unittitle; ?></a></td>
- 					<?php }else{ ?>
- 						<td class="tableFont"><?php echo $item -> did -> unittitle; ?></td>
- 					<?php } ?>
- 					<?php if (isset($item->did->unitdatestructured->datesingle)) { ?>
-	 					<td class="tableFont"><?php echo $item -> did -> unitdatestructured -> datesingle; ?></td>
- 					<?php }elseif (isset($item->did->unitdatestructured->daterange)){ ?>
- 						<td class="tableFont"><?php echo $item -> did -> unitdatestructured -> fromdate; ?> - <?php echo $item -> did -> unitdatestructured -> todate; ?></td>
- 					<?php } ?>
- 					<td class="tableFont"><?php echo $item -> physdescstructured -> dimensions; ?></td>
- 				</tr>
- 			<?php }} ?>
- 	</table>
-<?php } ?>
-
-		</div>
     </div>
   </div>
 </div>
