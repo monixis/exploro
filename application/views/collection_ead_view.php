@@ -1,100 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>eXploro EAD</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles/bootstrap.css">
-  <link rel="stylesheet" href="styles/boxbuilder.css">
-  <link rel="stylesheet" href="http://library.marist.edu/archives/researchcart/styles/main.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script>
+  <head>
+    <title>eXploro EAD</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="styles/boxbuilder.css">
+    <link rel="stylesheet" href="styles/collection_ead.css">
+    <!-- Using a different library stylesheet to make collection info consistent with the old info formatting -->
+    <link rel="stylesheet" href="http://library.marist.edu/archives/researchcart/styles/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
 
-   </script>
-   <style>
-   @media (max-width: 767px) {
-     .section-sizing {
-         height: 308px;
-         min-width: 375px;
-         width: 100%;
-         padding-left: 0;
-         padding-right: 0;
-       }
-       .welcome-header {
-        color: #fff;
-        background-color: RGBA(0, 0, 0, .4);
-        font-size: 1.6em;
-        font-weight: bold;
-        text-align: center;
-        padding: 25px 0 15px 0;
-        position: absolute;
-        bottom: 0;
-      }
-   }
-   @media(min-width: 768px) {
-   .section-sizing {
-      min-height: 360px;
-      width: 100%;
-      padding-left: 0;
-      padding-right: 0;
-    }
-    .welcome-header {
-      color: #fff;
-      background-color: RGBA(0, 0, 0, .4);
-      font-size: 2em;
-      font-weight: bold;
-      text-align: center;
-      padding: 25px 0 15px 0;
-      position: absolute;
-      bottom: 0;
-      margin: auto;
-      width: 90%;
-    }
-   }
-
-   </style>
-<body>
-  <?php
-    // load the index.xml file to get all collection info
-    $xml = simplexml_load_file($url);
-    // echo print_r($xml->archdesc->did->langmaterial);
-  ?>
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#"><img src='http://library.marist.edu/archives/mainpage/images/exploro.jpg'/></a>
+     </script>
+  <body>
+    <?php
+      // load the index.xml file to get all collection info
+      $xml = simplexml_load_file($url);
+      // echo print_r($xml->archdesc->did->langmaterial);
+    ?>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src='http://library.marist.edu/archives/mainpage/images/exploro.jpg'/></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <!--li class="active"><a href="#">Home</a></li-->
+           </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <!--li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li-->
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <!--li class="active"><a href="#">Home</a></li-->
-         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <!--li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li-->
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+    </nav>
 
-  <div class="col-md-12 section-sizing" style="background-image:url('http://148.100.181.189:8090/digitizedContents/LTP/1269/1269.26.jpg'); background-repeat: no-repeat; background-size: cover;"/>
-    <h1 class="welcome-header"> <?php echo $xml->control->filedesc->titlestmt->titleproper; ?></h1>
-  </div>
+    <div class="col-md-12 section-sizing" style="background-image:url('http://148.100.181.189:8090/digitizedContents/LTP/1269/1269.26.jpg'); background-repeat: no-repeat; background-size: cover;"></div>
 
-  <div class="container-fluid text-center">
-    <div class="row content">
-      <div class="col-sm-2 sidenav">
-        <!--p><a href="#">Link</a></p>
-        <p><a href="#">Link</a></p>
-        <p><a href="#">Link</a></p-->
-      </div>
-      <div class="col-sm-8 text-left" style="padding-top: 25px;">
+    <div class="container-wrapper">
+      <div class="col-md-2"></div>
+      <div class="col-md-8 text-left div-container-body">
         <!-- Display the name of the collection -->
         <h1 class="heading"> <?php echo $xml->control->filedesc->titlestmt->titleproper; ?></h1>
 
@@ -155,12 +108,13 @@
         <p></p>
 
       </div>
+      <div class="col-md-2"></div>
+
+      <div class="col-md-12">
+        <footer class="container-fluid text-center">
+           <?php $this->load->view('footer'); ?>
+        </footer>
+      </div>
     </div>
-  </div>
-
-  <footer class="container-fluid text-center">
-  	<?php $this->load->view('footer'); ?>
-  </footer>
-
-</body>
+  </body>
 </html>
