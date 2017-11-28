@@ -1,18 +1,18 @@
 .container-wrapper {
   position: absolute;
-  top: 30%;
+  top: 25%;
 }
 .div-container-body {
 	margin: 32px auto;
   padding: 32px;
 	background-color: white;
   border-radius: 5px;
-  box-shadow: 1px 5px 10px 1px rgba(111, 111, 111, 0.3);
+  box-shadow: 2px 5px 10px 1px rgba(111, 111, 111, 0.3);
 }
 @media (max-width: 767px) {
   .section-sizing {
       height: 308px;
-      min-width: 375px;
+      min-width: 475px;
       width: 100%;
       padding-left: 0;
       padding-right: 0;
@@ -20,7 +20,7 @@
 }
 @media(min-width: 768px) {
 .section-sizing {
-   min-height: 600px;
+   min-height: 650px;
    width: 100%;
    padding-left: 0;
    padding-right: 0;

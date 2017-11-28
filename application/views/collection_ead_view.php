@@ -43,11 +43,11 @@
       </div>
     </nav>
 
-    <div class="col-md-12 section-sizing" style="background-image:url('http://148.100.181.189:8090/digitizedContents/LTP/1269/1269.26.jpg'); background-repeat: no-repeat; background-size: cover;"></div>
+    <div class="col-md-12 col-xs-12 section-sizing" style="background-image:url('http://148.100.181.189:8090/digitizedContents/LTP/1269/1269.26.jpg'); background-repeat: no-repeat; background-size: cover;"></div>
 
     <div class="container-wrapper">
-      <div class="col-md-2"></div>
-      <div class="col-md-8 text-left div-container-body">
+      <div class="col-md-2 col-xs-2"></div>
+      <div class="col-md-8 col-xs-8 text-left div-container-body">
         <!-- Display the name of the collection -->
         <h1 class="heading"> <?php echo $xml->control->filedesc->titlestmt->titleproper; ?></h1>
 
@@ -108,9 +108,9 @@
         <p></p>
 
       </div>
-      <div class="col-md-2"></div>
+      <div class="col-md-2 col-xs-2"></div>
 
-      <div class="col-md-12">
+      <div class="col-md-12 col-xs-12">
         <footer class="container-fluid text-center">
            <?php $this->load->view('footer'); ?>
         </footer>
