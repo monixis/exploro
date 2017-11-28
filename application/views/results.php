@@ -1,7 +1,7 @@
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="./js/nprogress.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js?r=123"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js?r=123"></script>
+<script src="./js/nprogress.js?r=123"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js?r=123"></script>
 <script src="./js/jquery.easyPaginate.js"></script>
 <link rel="stylesheet" type="text/css" href="./styles/nprogress.css" />
 
@@ -248,20 +248,29 @@ $(function(){
         NProgress.done();
     });
 
-    $('#tabs-1').easyPaginate({
-         paginateElement: 'li',
-         elementsPerPage: 10
+    // Use easyPaginate to handle pagination of Marist Archives and DPLA
+   $('#tabs-1').easyPaginate({
+     paginateElement: 'li',
+     elementsPerPage: 10
    });
+   $('#tabs-2').easyPaginate({
+     paginateElement: 'li',
+     elementsPerPage: 10
+   });
+   $(".easyPaginateNav:last").hide();
+
 
    // Show the pagination for Marist Library Archives when that section is selected
    $("#tab-1-link").click(function(){
-     $(".easyPaginateNav").show();
+     $(".easyPaginateNav:first").show();
+     $(".easyPaginateNav:last").hide();
      $("#facets").show();
    });
 
    // Hide the pagination for Marist Library Archives when the DPLA is selected
    $("#tab-2-link").click(function(){
-     $(".easyPaginateNav").hide();
+      $(".easyPaginateNav:first").hide();
+     $(".easyPaginateNav:last").show();
      $("#facets").hide();
    });
 
