@@ -249,8 +249,6 @@ $(function(){
         NProgress.done();
     });
 
-    alert("Flag");
-
     // Use easyPaginate to handle pagination of Marist Archives and DPLA
    $('#tabs-1').easyPaginate({
      paginateElement: 'li',
@@ -260,7 +258,10 @@ $(function(){
      paginateElement: 'li',
      elementsPerPage: 10
    });
+   // Hiding the last makes sure that the both the pagination for Marist Archives and DPLA are not displayed at the same time
    $(".easyPaginateNav:last").hide();
+   // This is used to make sure facets do not hide the only pagination that is being shown
+   $(".easyPaginateNav:first").show();
 
    // Show the pagination for Marist Library Archives when that section is selected
    $("#tab-1-link").click(function(){
