@@ -93,7 +93,7 @@ $xml = simplexml_load_file($url);
  				<tr class="tbldata">
  					<td class="tableFont"><?php echo $item -> did -> unitid; ?></td>
  					<?php if (isset($item->dao)) { ?>
-	 					<td class="tableFont"><a href="<?php echo $item -> dao['href']; ?>" target="_blank"><?php echo $item -> did -> unittitle; ?></a></td>
+	 					<td class="tableFont"><a title="<?php echo $item -> did -> unittitle; ?>" name="<?php echo $item -> dao['href']; ?>" class="modal_link"><?php echo $item -> did -> unittitle; ?></a></td>
  					<?php }else{ ?>
  						<td class="tableFont"><?php echo $item -> did -> unittitle; ?></td>
  					<?php } ?>
@@ -112,6 +112,38 @@ $xml = simplexml_load_file($url);
     </div>
   </div>
 </div>
+
+<!-- Create the image for the modal ... based on https://stackoverflow.com/questions/25023199/bootstrap-open-image-in-modal#25023822 -->
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Image preview</h4>
+      </div>
+      <div class="modal-body">
+        <img src="" id="imagepreview" style="width: 400px; max-height: 525px; display: block; margin:auto;" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .modal_link {
+    cursor: pointer;
+  }
+</style>
+<script>
+  // Script for the modal image preview
+  $(".modal_link").on("click", function() {
+   $('#imagepreview').attr('src', $(this).attr('name')); // here asign the image to the modal when the user click the enlarge link
+   $("#myModalLabel").html($(this).attr("title"));
+   $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+
+});
+</script>
 
 <footer class="container-fluid text-center">
 	<?php $this->load->view('footer'); ?>
