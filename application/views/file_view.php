@@ -98,7 +98,7 @@
                 								<td class ="col-md-2" >Category:</td> <td><?php echo $category ?></td>
             								</tr>
             								<tr>
-                								<td class ="col-md-2" >Finding aid:</td> <td><a href='<?php echo $findingaid ?>' target="_blank"><?php echo $findingaid ?></a></td>
+                								<td class ="col-md-2" >Finding aid:</td> <td><a href='<?php echo $findingaid ?>'><?php echo $findingaid ?></a></td>
             								</tr>
             								<tr>
                 								<td class ="col-md-2" >Rights Statement:</td> <td><?php echo $rightsstatement ?></td>
