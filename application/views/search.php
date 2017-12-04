@@ -10,7 +10,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<title>eXploro</title>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<!-- Bootstrap core CSS -->
 		<link href="http://library.marist.edu/css/bootstrap.css" rel="stylesheet">
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -19,7 +19,7 @@
 		<link href="http://library.marist.edu/css/menuStyle.css" rel="stylesheet">
 		<link href="./styles/main.css" rel="stylesheet">
     <script src="./js/nprogress.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
     <script src="./js/jquery.easyPaginate.js"></script>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -29,7 +29,7 @@
 		<script type="text/javascript" src="http://library.marist.edu/js/libraryMenu.js"></script>
 		<script type="text/javascript" src="http://library.marist.edu/crrs/js/jquery-ui.js"></script>
 		<link rel="stylesheet" href="http://library.marist.edu/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 	</head>
 

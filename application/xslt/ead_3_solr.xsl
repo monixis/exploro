@@ -183,7 +183,7 @@
                 </field>
             </xsl:if>
             <xsl:if test="./did/unitdatestructured/daterange/fromdate">
-                <field name="daterange">
+                <field name="datesingle">
                     <xsl:value-of select="./did/unitdatestructured/daterange/fromdate"/>-<xsl:value-of select="./did/unitdatestructured/daterange/todate"/>
                 </field>
             </xsl:if>
@@ -209,7 +209,7 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<field name="link">
-									<xsl:value-of select="'../images/folder-icon.png'"/>
+									<xsl:value-of select="'http://148.100.181.189:8090/testing/images/folder-icon.png'"/>
 								</field>
 								<field name="category">
 									<xsl:value-of select="'Non-Digitized'"/>

@@ -24,8 +24,13 @@ class exploro extends CI_Controller
  		$json = file_get_contents($resultsLink);
    	$data['results'] = json_decode($json);
 
+
+    // Search the DPLA without Marist Archives facets
+    $queryArray = explode("fq", $q);
+    $dplaQ = $queryArray[0];
+
     // Code to query the Digital Public Library of America
-		$dplaResultsLink = "http://api.dp.la/v2/items?q=" . $q ."&page_size=13&facets=sourceResource.subject.name&api_key=96410fe9eab08488c9a3da4e9641669f";
+		$dplaResultsLink = "http://api.dp.la/v2/items?q=" . $dplaQ ."&page_size=13&facets=sourceResource.subject.name&page_size=50&api_key=96410fe9eab08488c9a3da4e9641669f";
 	 	$json1 = file_get_contents($dplaResultsLink);
    	$data['dplaResults'] = json_decode($json1);
 
@@ -57,16 +62,25 @@ class exploro extends CI_Controller
     }
 
 	  public function viewEAD()
-	{
-		$cid = $this -> input -> get('cid');
-		$id = $this -> input -> get('id');
-		$data['url'] = base_url('eads/'.$cid.'/'.$id.'.xml');
-        $data['cid'] = $cid;
-        $this->load->view('ead_view', $data);
-     }
+	  {
+  		$cid = $this -> input -> get('cid');
+  		$id = $this -> input -> get('id');
+  		$data['url'] = base_url('eads/'.$cid.'/'.$id.'.xml');
+      $data['cid'] = $cid;
+      $this->load->view('ead_view', $data);
+    }
 
-	  public function ack(){
-	 	$this->load->view('ack');
-	 }
-}
+    public function viewCollectionEAD(){
+      $cid = $this -> input -> get('cid');
+      $data['url'] = base_url('eads/'.$cid.'/index.xml');
+      $data['cid'] = $cid;
+      $this->load->view('collection_ead_view', $data);
+    }
+
+	   public function ack(){
+	 	   $this->load->view('ack');
+	   }
+   }
+
+
 ?>

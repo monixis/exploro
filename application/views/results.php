@@ -1,31 +1,11 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="./js/nprogress.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="./js/nprogress.js?r=123"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
 <script src="./js/jquery.easyPaginate.js"></script>
 <link rel="stylesheet" type="text/css" href="./styles/nprogress.css" />
 
-<script>
-  $(function(){
-    $("#tabs").tabs();
-
-  });
-
-  /*
-  // Paginate Marist Library results
-  $('#tabs-1').easyPaginate({
-       paginateElement: 'li',
-       elementsPerPage: 10
- });
-
-
-// Paginate DPLA results
- $('#tabs-2').easyPaginate({
-      paginateElement: 'li',
-      elementsPerPage: 10
-}); */
-
-</script>
 <!-- Inline style is generally not the best practice but I am taking pagination directly from eaditorSearch -->
 <style>
   .easyPaginateNav a {
@@ -63,7 +43,11 @@
 						foreach ($value as $row) {
 							if ($i % 2 == 0){
 								$facetList = $row;
-							}else{
+							}
+              else{
+                if ($row == 0){
+                  break;
+                }
 								$facetList = $facetList . " - " . $row ;
 					?><li id="<?php echo $key;?>" style="margin-bottom:5px;"><a href="#" class='tags'><?php echo $facetList ; ?></a></li><?php
 							}
@@ -189,7 +173,11 @@
     <div id="pagination"></div>
   </div>
 </div>
-<script type="text/javascript">
+<script>
+$(function(){
+  $("#tabs").tabs();
+
+});
 	/*('a.subjects').click(function(){
 			var subject = $(this).attr('id');
 			$('input#searchBox').val(subject);
@@ -261,22 +249,34 @@
         NProgress.done();
     });
 
-    $('#tabs-1').easyPaginate({
-         paginateElement: 'li',
-         elementsPerPage: 10
+    // Use easyPaginate to handle pagination of Marist Archives and DPLA
+   $('#tabs-1').easyPaginate({
+     paginateElement: 'li',
+     elementsPerPage: 10
    });
+   $('#tabs-2').easyPaginate({
+     paginateElement: 'li',
+     elementsPerPage: 10
+   });
+   // Hiding the last makes sure that the both the pagination for Marist Archives and DPLA are not displayed at the same time
+   $(".easyPaginateNav:last").hide();
+   // This is used to make sure facets do not hide the only pagination that is being shown
+   $(".easyPaginateNav:first").show();
 
    // Show the pagination for Marist Library Archives when that section is selected
    $("#tab-1-link").click(function(){
-     $(".easyPaginateNav").show();
+     $(".easyPaginateNav:first").show();
+     $(".easyPaginateNav:last").hide();
      $("#facets").show();
    });
 
    // Hide the pagination for Marist Library Archives when the DPLA is selected
    $("#tab-2-link").click(function(){
-     $(".easyPaginateNav").hide();
+      $(".easyPaginateNav:first").hide();
+     $(".easyPaginateNav:last").show();
      $("#facets").hide();
    });
+
 
    /* Code taken from eaditor... handles the searching inside of facets */
    var sFacet = {};

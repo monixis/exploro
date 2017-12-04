@@ -63,8 +63,8 @@
     </div>
   </div>
 </nav>
-
-<div class="container-fluid text-center">
+<div class="col-md-2"></div>
+<div class="container-fluid text-center col-md-8">
   <div class="row content">
 
     <div class="col-md-12 text-left">
@@ -98,7 +98,7 @@
                 								<td class ="col-md-2" >Category:</td> <td><?php echo $category ?></td>
             								</tr>
             								<tr>
-                								<td class ="col-md-2" >Finding aid:</td> <td><a href='<?php echo $findingaid ?>' target="_blank"><?php echo $findingaid ?></a></td>
+                								<td class ="col-md-2" >Finding aid:</td> <td><a href='<?php echo $findingaid ?>'><?php echo $findingaid ?></a></td>
             								</tr>
             								<tr>
                 								<td class ="col-md-2" >Rights Statement:</td> <td><?php echo $rightsstatement ?></td>
@@ -120,10 +120,11 @@
 								</div>
 						</div>
 					</div><!-- row -->
+          <div class="col-md-12"></div>
   </div>
 </div>
 
-<footer class="container-fluid text-center">
+<footer class="container-fluid text-center col-md-12">
 	<?php $this->load->view('footer'); ?>
 </footer>
 
