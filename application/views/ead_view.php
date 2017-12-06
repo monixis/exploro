@@ -90,7 +90,7 @@ $xml = simplexml_load_file($url);
  			<?php foreach ($box->did->children() as $item) {
  				if($item->getname() != 'container'){
  			?>
- 				<tr class="tbldata">
+ 				<tr class="tbldata record">
  					<td class="tableFont"><?php echo $item -> did -> unitid; ?></td>
  					<?php if (isset($item->dao)) { ?>
 	 					<td class="tableFont"><a title="<?php echo $item -> did -> unittitle; ?>" name="<?php echo $item -> dao['href']; ?>" class="modal_link"><?php echo $item -> did -> unittitle; ?></a></td>
@@ -122,10 +122,11 @@ $xml = simplexml_load_file($url);
         <h4 class="modal-title" id="myModalLabel">Image preview</h4>
       </div>
       <div class="modal-body">
-        <img src="" id="imagepreview" style="width: 400px; max-height: 525px; display: block; margin:auto;" >
+        <img src="" id="imagepreview" style="width: 385px; max-height: 525px; display: block; margin:auto;" >
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="prevBtn" style="float:left;" type="button" class="btn btn-default">Previous</button>
+        <button id="nextBtn" style="float:right;" type="button" class="btn btn-default">Next</button>
       </div>
     </div>
   </div>
@@ -142,7 +143,29 @@ $xml = simplexml_load_file($url);
    $("#myModalLabel").html($(this).attr("title"));
    $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
 
-});
+
+   // Hide both buttons by default... then check what buttons should be shown
+   $("#prevBtn").css("visibility", "hidden");
+   $("#nextBtn").css("visibility", "hidden");
+   if ( $(this).parent().parent().prev().hasClass('record') ) {
+     $("#prevBtn").css("visibility", "visible");
+   }
+   if ( $(this).parent().parent().next().hasClass('record') ) {
+     $("#nextBtn").css("visibility", "visible");
+   }
+
+  });
+
+ // Script for previous button on modal image preview
+ $("#prevBtn").on("click", function() {
+   alert("Previous button clicked");
+ });
+
+ // Script for next button on modal image preview
+ $("#nextBtn").on("click", function() {
+   // alert("Next button clicked");
+ });
+
 </script>
 
 <footer class="container-fluid text-center">
