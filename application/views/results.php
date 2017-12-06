@@ -72,6 +72,7 @@
 				foreach ($results->response->docs as $row) {
 					//$title = (isset($row -> unittitle[0]) ? $row -> unittitle[0] : FALSE);
 					$title = $row -> unittitle;
+          $findingaid = (isset($row -> collectionLink) ? $row -> collectionLink : FALSE);
 					$date = (isset($row -> datesingle) ? $row -> datesingle : FALSE) ;
 					$level = $row -> category;
 					if ($level == 'files'){
@@ -92,7 +93,7 @@
 				<li class="results" style="height: auto; padding: 10px;">
 					<img src="<?php echo $link ?>" style="width: 135px; height: 115px; float: left; margin-right: 10px;"/>
 					<div style="margin-left: 120px; padding: 5px; height: auto;">
-						<a href="<?php echo base_url("?c=exploro&m=fileInfo&id=".$id)?>" target="_blank"><?php echo $title ?></a></br>
+            <a href="<?php if ($level == "Non-Digitized") { echo $findingaid; } else{ echo base_url("?c=exploro&m=fileInfo&id=".$id); }?>" target="_blank"><?php echo $title ?></a></br>
 						<p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
 							<?php if ($level == "files"){ ?>
 								<p style="font-size: 12pt; margin-top: -10px;">Box: <?php echo $box ?></p>
