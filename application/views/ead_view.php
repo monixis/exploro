@@ -163,31 +163,30 @@ $xml = simplexml_load_file($url);
 
  // Script for previous button on modal image preview
  $("#prevBtn").on("click", function() {
-   // Add the previous class to the previous row temporarily to access it in the below lines
-   $(".active").prev().addClass('previous');
-
-   // Change the text and picture of modal
-   $('#imagepreview').attr('src', $(".previous td a").attr('name')); // here asign the image to the modal when the user click the enlarge link
-   $("#myModalLabel").html($(".previous td a").attr("title"));
-
-   // Remove active from old resource and make new resource active
-   $(".active").removeClass("active");
-   $(".previous").addClass("active");
-   $(".previous").removeClass("previous");
-
-   // Handle buttons for new resource
-   $("#prevBtn").css("visibility", "hidden");
-   $("#nextBtn").css("visibility", "hidden");
-   if ( $(".active").prev().hasClass('record') ) {
-     $("#prevBtn").css("visibility", "visible");
-   }
-   if ( $(".active").next().hasClass('record') ) {
-     $("#nextBtn").css("visibility", "visible");
-   }
+   previous();
  });
 
  // Script for next button on modal image preview
  $("#nextBtn").on("click", function() {
+   next();
+ });
+
+ $(".modal").keydown(function(e) {
+   // Left key press
+   if(e.keyCode == 37) {
+     if ( $("#prevBtn").is(':visible') ) {
+      previous();
+     }
+   }
+   // Right key press
+   else if(e.keyCode == 39) {
+     if ( $("#nextBtn").is(':visible') ) {
+       next();
+     }
+   }
+ });
+
+ function next() {
    // Add the next class to the next row temporarily to access it in below lines
    $(".active").next().addClass("next");
 
@@ -209,7 +208,31 @@ $xml = simplexml_load_file($url);
    if ( $(".active").next().hasClass('record') ) {
      $("#nextBtn").css("visibility", "visible");
    }
- });
+ }
+
+ function previous(){
+   // Add the previous class to the previous row temporarily to access it in the below lines
+   $(".active").prev().addClass('previous');
+
+   // Change the text and picture of modal
+   $('#imagepreview').attr('src', $(".previous td a").attr('name')); // here asign the image to the modal when the user click the enlarge link
+   $("#myModalLabel").html($(".previous td a").attr("title"));
+
+   // Remove active from old resource and make new resource active
+   $(".active").removeClass("active");
+   $(".previous").addClass("active");
+   $(".previous").removeClass("previous");
+
+   // Handle buttons for new resource
+   $("#prevBtn").css("visibility", "hidden");
+   $("#nextBtn").css("visibility", "hidden");
+   if ( $(".active").prev().hasClass('record') ) {
+     $("#prevBtn").css("visibility", "visible");
+   }
+   if ( $(".active").next().hasClass('record') ) {
+     $("#nextBtn").css("visibility", "visible");
+   }
+ }
 
 </script>
 
