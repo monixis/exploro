@@ -122,7 +122,7 @@ $xml = simplexml_load_file($url);
         <h4 class="modal-title" id="myModalLabel">Image preview</h4>
       </div>
       <div class="modal-body">
-        <img src="" id="imagepreview" style="width: 385px; max-height: 525px; display: block; margin:auto;" >
+        <img src="" id="imagepreview" style="display: block; margin:auto;" >
       </div>
       <div class="modal-footer">
         <button id="prevBtn" style="float:left;" type="button" class="btn btn-default">Previous</button>
@@ -134,6 +134,27 @@ $xml = simplexml_load_file($url);
 <style>
   .modal_link {
     cursor: pointer;
+  }
+
+  @media(max-width: 1023px) {
+    .modal-content {
+      vertical-align: middle;
+    }
+    #imagepreview {
+      max-height: 525px;
+      width: 450px;
+    }
+  }
+
+  @media(min-width: 1024px) {
+    .modal-content {
+      vertical-align: middle;
+      width: 800px !important;
+    }
+    #imagepreview {
+      max-height: 750px;
+      width: 750px;
+    }
   }
 </style>
 <script>
