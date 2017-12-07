@@ -14,6 +14,41 @@
   .easyPaginateNav a.current {
     font-weight:bold;text-decoration:underline;
   }
+  /* Style the tab */
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
 </style>
 <link rel="stylesheet" type="text/css" href="./styles/main.css" />
 	<div id="selectedFacet">
@@ -60,125 +95,147 @@
 			?>
 		</div>
 
-<div id="tabs">
- <ul>
-    <li><a href="#tabs-1" id="tab-1-link">Marist Archives</a></li>
-    <li><a href="#tabs-2" id="tab-2-link">Digital Public Library of America</a></li>
-  </ul>
-  <div id="tabs-1">
-  	<h4 style="text-align: left; color: #6592A6; margin-bottom: 3px; margin-top: 0px;">Marist Archives records:</h4>
-  	<ol id="list-1">
-			<?php
-				foreach ($results->response->docs as $row) {
-					//$title = (isset($row -> unittitle[0]) ? $row -> unittitle[0] : FALSE);
-					$title = $row -> unittitle;
-          $findingaid = (isset($row -> collectionLink) ? $row -> collectionLink : FALSE);
-					$date = (isset($row -> datesingle) ? $row -> datesingle : FALSE) ;
-					$level = $row -> category;
-					if ($level == 'files'){
-	          $box = $row -> container[0];
-					}
-					$collectionLink = (isset($row -> collectionLink[0]) ? $row -> collectionLink[0]: FALSE) ;
-					$collection = $row -> collection;
-					$id = $row -> id;
-					$link = $row -> link;
-
-          // Check to see if the file is a .pdf, if so display a placeholder image
-          $linkPath = pathinfo($link);
-          $fileExtension = $linkPath['extension'];
-          if ($fileExtension == "pdf"){
-            $link = "http://148.100.181.189:8090/testing/images/folder-icon.png";
-          }
-			?>
-				<li class="results" style="height: auto; padding: 10px;">
-					<img src="<?php echo $link ?>" style="width: 135px; height: 115px; float: left; margin-right: 10px;"/>
-					<div style="margin-left: 120px; padding: 5px; height: auto;">
-            <a href="<?php if ($level == "Non-Digitized") { echo $findingaid; } else{ echo base_url("?c=exploro&m=fileInfo&id=".$id); }?>" target="_blank"><?php echo $title ?></a></br>
-						<p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
-							<?php if ($level == "files"){ ?>
-								<p style="font-size: 12pt; margin-top: -10px;">Box: <?php echo $box ?></p>
-							<?php }	?>
-						<p style="font-size: 12pt; margin-top: -10px;">Category: <?php echo $level ?></p>
-						<p style="font-size: 12pt; margin-top: -10px;">Collection: <?php echo $collection ?></p>
-					</div>
-				</li>
-			<?php
-				}
-			?>
-		</ol></br>
-  </div>
-  <div id="tabs-2">
-  	<!--img src="https://dp.la/info/wp-content/uploads/2015/02/horizontal_logo_standard_Jan2015.jpg" style="height: 100px;"/-->
-  	<h4 style="text-align: left; color: #6592A6; margin-bottom: 3px; margin-top: 0px;">DPLA records:</h4>
-	<ol id="list-2">
-			<?php
-			foreach ($dplaResults -> docs as $row) {
-					$title = $row -> sourceResource -> title;
-					if (is_array($title)){
-						$title = $row -> sourceResource -> title[0];
-					}else{
-						$title = $row -> sourceResource -> title;
-					}
-
-					$object = (isset($row -> object) ? $row -> object : FALSE);
-					if (is_array($object)){
-						$object = (isset($row -> object[0]) ? $row -> object[0] : FALSE);
-					}else{
-						$object = (isset($row -> object) ? $row -> object : FALSE);
-					}
-
-					$isShownAt = $row -> isShownAt;
-
-					$date = (isset($row -> sourceResource -> date -> displayDate) ? $row -> sourceResource -> date -> displayDate :FALSE);
-					if (is_array($date)){
-						$date = (isset($row -> sourceResource -> date[0] -> displayDate) ? $row -> sourceResource -> date[0] -> displayDate :FALSE);
-					}else{
-						$date = (isset($row -> sourceResource -> date -> displayDate) ? $row -> sourceResource -> date -> displayDate :FALSE);
-					}
-
-					$dataProvider  = (isset($row -> dataProvider) ? $row -> dataProvider : FALSE);
-					if (is_array($dataProvider)){
-						$dataProvider  = (isset($row -> dataProvider[0]) ? $row -> dataProvider[0] : FALSE);
-					}else{
-						$dataProvider  = (isset($row -> dataProvider) ? $row -> dataProvider : FALSE);
-					}
-
-					$type = (isset($row -> sourceResource -> type) ? $row -> sourceResource -> type : FALSE);
-
-					$description = (isset($row -> sourceResource -> description) ? $row -> sourceResource -> description : FALSE);
-					if (is_array($description)){
-						$description = (isset($row -> sourceResource -> description[0]) ? $row -> sourceResource -> description[0] : FALSE);
-					}else{
-						$description =  (isset($row -> sourceResource -> description) ? $row -> sourceResource -> description : FALSE);
-					}
-
-          if ($object == "") {
-            $object =  'http://148.100.181.189:8090/testing/images/folder-icon.png';
-          }
-			?>
-				<li class="results" style="height: auto; padding: 10px;">
-					<img src="<?php echo $object ?>" style="width: 135px; height: 115px; float: left; "/>
-					<div style="margin-left: 150px; padding: 5px; height: auto;">
-						<a href="<?php echo $isShownAt ?>" target="_blank"><?php echo $title ?></a></br>
-						<p style="font-size: 12pt; margin-top: -10px;">Data Provider: <?php echo $dataProvider ?></p>
-						<p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
-						<p style="font-size: 12pt; margin-top: -10px;">Type: <?php echo $type ?></p>
-						<p style="font-size: 12pt; margin-top: -10px;">Description: <?php echo $description ?></p>
-						<!--p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p-->
-					</div>
-				</li>
-			<?php
-				}
-			?>
-		</ol></br>
-    <div id="pagination"></div>
-  </div>
+<div class="tab">
+  <button id="ma-link" class="tablinks" onclick="displayResults(event, 'ma')">Marist Archives</button>
+  <button id="dpla-link" class="tablinks" onclick="displayResults(event, 'dpla')">DPLA</button>
 </div>
-<script>
-$(function(){
-  $("#tabs").tabs();
 
-});
+<div name="Tab-Nation"> <!-- This empty div holds both tabs for the sake of pagination positioning -->
+<div id="ma" class="tabcontent">
+  <ol id="list-1">
+    <?php
+    foreach ($results->response->docs as $row) {
+      //$title = (isset($row -> unittitle[0]) ? $row -> unittitle[0] : FALSE);
+      $title = $row -> unittitle;
+      $findingaid = (isset($row -> collectionLink) ? $row -> collectionLink : FALSE);
+      $date = (isset($row -> datesingle) ? $row -> datesingle : FALSE) ;
+      $level = $row -> category;
+      if ($level == 'files'){
+        $box = $row -> container[0];
+      }
+      $collectionLink = (isset($row -> collectionLink[0]) ? $row -> collectionLink[0]: FALSE) ;
+      $collection = $row -> collection;
+      $id = $row -> id;
+      $link = $row -> link;
+
+      // Check to see if the file is a .pdf, if so display a placeholder image
+      $linkPath = pathinfo($link);
+      $fileExtension = $linkPath['extension'];
+      if ($fileExtension == "pdf"){
+        $link = "http://148.100.181.189:8090/testing/images/folder-icon.png";
+      }
+  ?>
+    <li class="results" style="height: auto; padding: 10px;">
+      <img src="<?php echo $link ?>" style="width: 135px; height: 115px; float: left; margin-right: 10px;"/>
+      <div style="margin-left: 120px; padding: 5px; height: auto;">
+        <a href="<?php if ($level == "Non-Digitized") { echo $findingaid; } else{ echo base_url("?c=exploro&m=fileInfo&id=".$id); }?>" target="_blank"><?php echo $title ?></a></br>
+        <p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
+          <?php if ($level == "files"){ ?>
+            <p style="font-size: 12pt; margin-top: -10px;">Box: <?php echo $box ?></p>
+          <?php }	?>
+        <p style="font-size: 12pt; margin-top: -10px;">Category: <?php echo $level ?></p>
+        <p style="font-size: 12pt; margin-top: -10px;">Collection: <?php echo $collection ?></p>
+      </div>
+    </li>
+    <?php
+      }
+     ?>
+   </ol>
+ </div>
+
+ <div id="dpla" class="tabcontent">
+ <ol id="list-2">
+ <?php
+ foreach ($dplaResults -> docs as $row) {
+     $title = $row -> sourceResource -> title;
+     if (is_array($title)){
+       $title = $row -> sourceResource -> title[0];
+     }else{
+       $title = $row -> sourceResource -> title;
+     }
+
+     $object = (isset($row -> object) ? $row -> object : FALSE);
+     if (is_array($object)){
+       $object = (isset($row -> object[0]) ? $row -> object[0] : FALSE);
+     }else{
+       $object = (isset($row -> object) ? $row -> object : FALSE);
+     }
+
+     $isShownAt = $row -> isShownAt;
+
+     $date = (isset($row -> sourceResource -> date -> displayDate) ? $row -> sourceResource -> date -> displayDate :FALSE);
+     if (is_array($date)){
+       $date = (isset($row -> sourceResource -> date[0] -> displayDate) ? $row -> sourceResource -> date[0] -> displayDate :FALSE);
+     }else{
+       $date = (isset($row -> sourceResource -> date -> displayDate) ? $row -> sourceResource -> date -> displayDate :FALSE);
+     }
+
+     $dataProvider  = (isset($row -> dataProvider) ? $row -> dataProvider : FALSE);
+     if (is_array($dataProvider)){
+       $dataProvider  = (isset($row -> dataProvider[0]) ? $row -> dataProvider[0] : FALSE);
+     }else{
+       $dataProvider  = (isset($row -> dataProvider) ? $row -> dataProvider : FALSE);
+     }
+
+     $type = (isset($row -> sourceResource -> type) ? $row -> sourceResource -> type : FALSE);
+
+     $description = (isset($row -> sourceResource -> description) ? $row -> sourceResource -> description : FALSE);
+     if (is_array($description)){
+       $description = (isset($row -> sourceResource -> description[0]) ? $row -> sourceResource -> description[0] : FALSE);
+     }else{
+       $description =  (isset($row -> sourceResource -> description) ? $row -> sourceResource -> description : FALSE);
+     }
+
+     if ($object == "") {
+       $object =  'http://148.100.181.189:8090/testing/images/folder-icon.png';
+     }
+ ?>
+   <li class="results" style="height: auto; padding: 10px;">
+     <img src="<?php echo $object ?>" style="width: 135px; height: 115px; float: left; "/>
+     <div style="margin-left: 150px; padding: 5px; height: auto;">
+       <a href="<?php echo $isShownAt ?>" target="_blank"><?php echo $title ?></a></br>
+       <p style="font-size: 12pt; margin-top: -10px;">Data Provider: <?php echo $dataProvider ?></p>
+       <p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
+       <p style="font-size: 12pt; margin-top: -10px;">Type: <?php echo $type ?></p>
+       <p style="font-size: 12pt; margin-top: -10px;">Description: <?php echo $description ?></p>
+       <!--p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p-->
+     </div>
+   </li>
+ <?php
+   }
+ ?>
+ </ol></br>
+  <div id="pagination" style="position:absolute; bottom:0;"></div>
+ </div>
+</div>
+
+
+<script>
+  $(function(){
+    displayResults(event, 'ma');
+  });
+
+  function displayResults(evt, src) {
+      // Declare all variables
+      var i, tabcontent, tablinks;
+
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(src).style.display = "block";
+      evt.currentTarget.className += " active";
+  }
+
 	/*('a.subjects').click(function(){
 			var subject = $(this).attr('id');
 			$('input#searchBox').val(subject);
@@ -256,30 +313,30 @@ $(function(){
     });
 
     // Use easyPaginate to handle pagination of Marist Archives and DPLA
-   $('#tabs-1').easyPaginate({
+   $('#ma').easyPaginate({
      paginateElement: 'li',
      elementsPerPage: 10
    });
-   $('#tabs-2').easyPaginate({
+   $('#dpla').easyPaginate({
      paginateElement: 'li',
      elementsPerPage: 10
    });
    // Hiding the last makes sure that the both the pagination for Marist Archives and DPLA are not displayed at the same time
-   $(".easyPaginateNav:last").hide();
+   $(".easyPaginateNav:last").css('visibility', 'hidden');
    // This is used to make sure facets do not hide the only pagination that is being shown
-   $(".easyPaginateNav:first").show();
+   $(".easyPaginateNav:first").css('visibility', 'visible');
 
    // Show the pagination for Marist Library Archives when that section is selected
-   $("#tab-1-link").click(function(){
-     $(".easyPaginateNav:first").show();
-     $(".easyPaginateNav:last").hide();
+   $("#ma-link").click(function(){
+     $(".easyPaginateNav:first").css('visibility', 'visible');
+     $(".easyPaginateNav:last").css('visibility', 'hidden');
      $("#facets").show();
    });
 
    // Hide the pagination for Marist Library Archives when the DPLA is selected
-   $("#tab-2-link").click(function(){
-      $(".easyPaginateNav:first").hide();
-     $(".easyPaginateNav:last").show();
+   $("#dpla-link").click(function(){
+     $(".easyPaginateNav:first").css('visibility', 'hidden');
+     $(".easyPaginateNav:last").css('visibility', 'visible');
      $("#facets").hide();
    });
 

@@ -138,6 +138,7 @@ $xml = simplexml_load_file($url);
 
   @media(max-width: 1023px) {
     .modal-content {
+      text-align: center;
       vertical-align: middle;
     }
     #imagepreview {
@@ -148,6 +149,9 @@ $xml = simplexml_load_file($url);
 
   @media(min-width: 1024px) {
     .modal-content {
+      position: absolute;
+      right: -14%;
+      text-align: center;
       vertical-align: middle;
       width: 800px !important;
     }
