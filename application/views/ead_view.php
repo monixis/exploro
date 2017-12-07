@@ -139,10 +139,15 @@ $xml = simplexml_load_file($url);
 <script>
   // Script for the modal image preview
   $(".modal_link").on("click", function() {
+    // Clear any previously active resources
+    $(".active").removeClass("active");
+
    $('#imagepreview').attr('src', $(this).attr('name')); // here asign the image to the modal when the user click the enlarge link
    $("#myModalLabel").html($(this).attr("title"));
    $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
 
+   // Give the selected photo link's row the `active` class to keep track of what link is active.. used for next/previous
+   $(this).parent().parent().addClass("active");
 
    // Hide both buttons by default... then check what buttons should be shown
    $("#prevBtn").css("visibility", "hidden");
@@ -158,12 +163,52 @@ $xml = simplexml_load_file($url);
 
  // Script for previous button on modal image preview
  $("#prevBtn").on("click", function() {
-   alert("Previous button clicked");
+   // Add the previous class to the previous row temporarily to access it in the below lines
+   $(".active").prev().addClass('previous');
+
+   // Change the text and picture of modal
+   $('#imagepreview').attr('src', $(".previous td a").attr('name')); // here asign the image to the modal when the user click the enlarge link
+   $("#myModalLabel").html($(".previous td a").attr("title"));
+
+   // Remove active from old resource and make new resource active
+   $(".active").removeClass("active");
+   $(".previous").addClass("active");
+   $(".previous").removeClass("previous");
+
+   // Handle buttons for new resource
+   $("#prevBtn").css("visibility", "hidden");
+   $("#nextBtn").css("visibility", "hidden");
+   if ( $(".active").prev().hasClass('record') ) {
+     $("#prevBtn").css("visibility", "visible");
+   }
+   if ( $(".active").next().hasClass('record') ) {
+     $("#nextBtn").css("visibility", "visible");
+   }
  });
 
  // Script for next button on modal image preview
  $("#nextBtn").on("click", function() {
-   // alert("Next button clicked");
+   // Add the next class to the next row temporarily to access it in below lines
+   $(".active").next().addClass("next");
+
+   // Change the text and picture of modal
+   $('#imagepreview').attr('src', $(".next td a").attr('name')); // here asign the image to the modal when the user click the enlarge link
+   $("#myModalLabel").html($(".next td a").attr("title"));
+
+   // Remove active from old resource and make new resource active
+   $(".active").removeClass("active");
+   $(".next").addClass("active");
+   $(".next").removeClass("next");
+
+   // Handle buttons for new resource
+   $("#prevBtn").css("visibility", "hidden");
+   $("#nextBtn").css("visibility", "hidden");
+   if ( $(".active").prev().hasClass('record') ) {
+     $("#prevBtn").css("visibility", "visible");
+   }
+   if ( $(".active").next().hasClass('record') ) {
+     $("#nextBtn").css("visibility", "visible");
+   }
  });
 
 </script>
