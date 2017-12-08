@@ -54,7 +54,7 @@ div.tab button.active {
 	<div id="selectedFacet">
 	</div>
 	<h2>Total <?php echo $results->response->numFound; ?> Results:</h2>
-		<div id="facets" style="width: 240px; height: auto; float: left; margin-left: -240px;">
+		<div id="facets" style="width: 240px; height: auto; float: left; margin-left: -240px; margin">
 			<h4>Filter By:</h4>
 			<?php
 				$facets = (array) $results->facet_counts->facet_fields;
@@ -100,7 +100,7 @@ div.tab button.active {
   <button id="dpla-link" class="tablinks" onclick="displayResults(event, 'dpla')">DPLA</button>
 </div>
 
-<div name="TabNation" style="min-width:800px;"> <!-- This empty div holds both tabs for the sake of pagination positioning -->
+<div name="TabNation" style="width:825px;"> <!-- This empty div holds both tabs for the sake of pagination positioning -->
 <div id="ma" class="tabcontent">
   <ol id="list-1">
     <?php
