@@ -180,8 +180,7 @@ $xml = simplexml_load_file($url);
    // Give the selected photo link's row the `active` class to keep track of what link is active..   used for next/previous
    $(this).parent().parent().addClass("active");
 
-   $('#imagepreview').attr('src', $(this).attr('name')); // here asign the image to the modal when the user click the enlarge link
-   $(".active").prev(".Box").addClass("tempBox");
+    $(".active").prev(".Box").addClass("tempBox");
    $("#myModalLabel").html($(this).attr("title") + " - Box Number: " +  $(".active").prevAll(".Box").attr('name')  + " Item Number: " + $(".active .itemNum").text());
    $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
 
@@ -229,7 +228,7 @@ $xml = simplexml_load_file($url);
 
    // Change the text and picture of modal
    $('#imagepreview').attr('src', $(".next td a").attr('name')); // here asign the image to the modal when the user click the enlarge link
-   $("#myModalLabel").html($(".next td a").attr("title"));
+   $("#myModalLabel").html($(".next td a").attr("title") + " - Box Number: " +  $(".next").prevAll(".Box").attr('name')  + " Item Number: " + $(".next .itemNum").text());
 
    // Remove active from old resource and make new resource active
    $(".active").removeClass("active");
@@ -253,7 +252,7 @@ $xml = simplexml_load_file($url);
 
    // Change the text and picture of modal
    $('#imagepreview').attr('src', $(".previous td a").attr('name')); // here asign the image to the modal when the user click the enlarge link
-   $("#myModalLabel").html($(".previous td a").attr("name") + " - Box Number: <?php echo $box ?> Item Number: " + $(".previous .itemNum").val());
+   $("#myModalLabel").html($(".previous td a").attr("title") + " - Box Number: " +  $(".previous").prevAll(".Box").attr('name')  + " Item Number: " + $(".previous .itemNum").text());
 
    // Remove active from old resource and make new resource active
    $(".active").removeClass("active");
