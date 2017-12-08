@@ -77,7 +77,7 @@ $xml = simplexml_load_file($url);
 <?php foreach ($xml->xpath("//*[@level='recordgrp']") as $box) { ?>
 
  	 <table class="tbl" align="center" style="margin-bottom: 15px; width: 60%;" >
-		 	<tr class="Box">
+		 	<tr class="Box" name="<?php echo $box -> did -> container ?>">
  				<td class="caption" colspan="8"><?php echo $box -> did -> container; ?></td>
  			</tr>
  			<tr class="tbldata">
@@ -91,7 +91,7 @@ $xml = simplexml_load_file($url);
  				if($item->getname() != 'container'){
  			?>
  				<tr class="tbldata record">
- 					<td class="tableFont"><?php echo $item -> did -> unitid; ?></td>
+ 					<td class="tableFont itemNum"><?php echo $item -> did -> unitid; ?></td>
  					<?php if (isset($item->dao)) { ?>
             <?php // Need to check to see if the DAO is a pdf
               $linkInfo = pathinfo($item->dao['href']);
@@ -172,17 +172,19 @@ $xml = simplexml_load_file($url);
   }
 </style>
 <script>
-  // Script for the modal image preview
-  $(".modal_link").on("click", function() {
-    // Clear any previously active resources
-    $(".active").removeClass("active");
+   // Script for the modal image preview
+   $(".modal_link").on("click", function() {
+   // Clear any previously active resources
+   $(".active").removeClass("active");
+
+   // Give the selected photo link's row the `active` class to keep track of what link is active..   used for next/previous
+   $(this).parent().parent().addClass("active");
 
    $('#imagepreview').attr('src', $(this).attr('name')); // here asign the image to the modal when the user click the enlarge link
-   $("#myModalLabel").html($(this).attr("title"));
+   $(".active").prev(".Box").addClass("tempBox");
+   $("#myModalLabel").html($(this).attr("title") + " - Box Number: " +  $(".active").prevAll(".Box").attr('name')  + " Item Number: " + $(".active .itemNum").text());
    $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
 
-   // Give the selected photo link's row the `active` class to keep track of what link is active.. used for next/previous
-   $(this).parent().parent().addClass("active");
 
    // Hide both buttons by default... then check what buttons should be shown
    $("#prevBtn").css("visibility", "hidden");
@@ -251,7 +253,7 @@ $xml = simplexml_load_file($url);
 
    // Change the text and picture of modal
    $('#imagepreview').attr('src', $(".previous td a").attr('name')); // here asign the image to the modal when the user click the enlarge link
-   $("#myModalLabel").html($(".previous td a").attr("title"));
+   $("#myModalLabel").html($(".previous td a").attr("name") + " - Box Number: <?php echo $box ?> Item Number: " + $(".previous .itemNum").val());
 
    // Remove active from old resource and make new resource active
    $(".active").removeClass("active");
