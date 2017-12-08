@@ -77,7 +77,7 @@ $xml = simplexml_load_file($url);
 <?php foreach ($xml->xpath("//*[@level='recordgrp']") as $box) { ?>
 
  	 <table class="tbl" align="center" style="margin-bottom: 15px; width: 60%;" >
-		 	<tr class="Box">
+		 	<tr class="Box" name="<?php echo $box -> did -> container ?>">
  				<td class="caption" colspan="8"><?php echo $box -> did -> container; ?></td>
  			</tr>
  			<tr class="tbldata">
@@ -91,10 +91,20 @@ $xml = simplexml_load_file($url);
  				if($item->getname() != 'container'){
  			?>
  				<tr class="tbldata record">
- 					<td class="tableFont"><?php echo $item -> did -> unitid; ?></td>
+ 					<td class="tableFont itemNum"><?php echo $item -> did -> unitid; ?></td>
  					<?php if (isset($item->dao)) { ?>
-	 					<td class="tableFont"><a title="<?php echo $item -> did -> unittitle; ?>" name="<?php echo $item -> dao['href']; ?>" class="modal_link"><?php echo $item -> did -> unittitle; ?></a></td>
- 					<?php }else{ ?>
+            <?php // Need to check to see if the DAO is a pdf
+              $linkInfo = pathinfo($item->dao['href']);
+              $fileExtension = $linkInfo['extension'];
+
+              // Handle pdfs different than JPG and PNG
+              if ($fileExtension == "pdf") {?>
+                <td class="tableFont"><a title="<?php echo $item -> did -> unittitle; ?>" href="<?php echo $item -> dao['href']; ?>" target="_blank"><?php echo $item -> did -> unittitle; ?></a></td>
+            <?php }
+              else {?>
+       					<td class="tableFont"><a title="<?php echo $item -> did -> unittitle; ?>" name="<?php echo $item -> dao['href']; ?>" class="modal_link"><?php echo $item -> did -> unittitle; ?></a></td>
+            <?php }
+          } else{ ?>
  						<td class="tableFont"><?php echo $item -> did -> unittitle; ?></td>
  					<?php } ?>
  					<?php if (isset($item->did->unitdatestructured->datesingle)) { ?>
@@ -122,7 +132,7 @@ $xml = simplexml_load_file($url);
         <h4 class="modal-title" id="myModalLabel">Image preview</h4>
       </div>
       <div class="modal-body">
-        <img src="" id="imagepreview" style="width: 385px; max-height: 525px; display: block; margin:auto;" >
+        <img src="" id="imagepreview" style="display: block; margin:auto;" >
       </div>
       <div class="modal-footer">
         <button id="prevBtn" style="float:left;" type="button" class="btn btn-default">Previous</button>
@@ -135,65 +145,110 @@ $xml = simplexml_load_file($url);
   .modal_link {
     cursor: pointer;
   }
+
+  @media(max-width: 1023px) {
+    .modal-content {
+      text-align: center;
+      vertical-align: middle;
+    }
+    #imagepreview {
+      max-height: 425px;
+      max-width: 375px;
+      width: 100%;
+    }
+  }
+
+  @media(min-width: 1024px) and (max-width: 1599px) {
+    .modal-content {
+      position: absolute;
+      right: -14%;
+      text-align: center;
+      vertical-align: middle;
+      width: 800px !important;
+    }
+    #imagepreview {
+      max-height: 500px;
+      max-width: 600px;
+      width: 100%;
+    }
+  }
+    @media(min-width: 1600px) {
+      .modal-content {
+        position: absolute;
+        bottom: -900px;
+        right: -32%;
+        text-align: center;
+        vertical-align: middle;
+        width: 1000px !important;
+      }
+      #imagepreview {
+        max-height: 700px;
+        max-width: 700px;
+        width: 100%;
+      }
+    }
+
 </style>
 <script>
-  // Script for the modal image preview
-  $(".modal_link").on("click", function() {
-    // Clear any previously active resources
-    $(".active").removeClass("active");
+   // Script for the modal image preview
+   $(".modal_link").on("click", function() {
+     // Clear any previously active resources
+     $(".active").removeClass("active");
 
-   $('#imagepreview').attr('src', $(this).attr('name')); // here asign the image to the modal when the user click the enlarge link
-   $("#myModalLabel").html($(this).attr("title"));
-   $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+     // Give the selected photo link's row the `active` class to keep track of what link is active..   used for next/previous
+     $(this).parent().parent().addClass("active");
 
-   // Give the selected photo link's row the `active` class to keep track of what link is active.. used for next/previous
-   $(this).parent().parent().addClass("active");
+     $("#myModalLabel").html($(this).attr("title") + " - Box Number: " +  $(".active").prevAll(".Box").attr('name')  + " Item Number: " + $(".active .itemNum").text());
 
-   // Hide both buttons by default... then check what buttons should be shown
-   $("#prevBtn").css("visibility", "hidden");
-   $("#nextBtn").css("visibility", "hidden");
-   if ( $(this).parent().parent().prev().hasClass('record') ) {
-     $("#prevBtn").css("visibility", "visible");
-   }
-   if ( $(this).parent().parent().next().hasClass('record') ) {
-     $("#nextBtn").css("visibility", "visible");
-   }
+      // Change the text and picture of modal
+      $('#imagepreview').attr('src', $(".active td a").attr('name')); // here asign the image to the modal when the
+     $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+
+
+     // Hide both buttons by default... then check what buttons should be shown
+     $("#prevBtn").css("visibility", "hidden");
+     $("#nextBtn").css("visibility", "hidden");
+     if ( $(this).parent().parent().prev().hasClass('record') ) {
+       $("#prevBtn").css("visibility", "visible");
+     }
+     if ( $(this).parent().parent().next().hasClass('record') ) {
+       $("#nextBtn").css("visibility", "visible");
+     }
 
   });
 
  // Script for previous button on modal image preview
  $("#prevBtn").on("click", function() {
-   // Add the previous class to the previous row temporarily to access it in the below lines
-   $(".active").prev().addClass('previous');
-
-   // Change the text and picture of modal
-   $('#imagepreview').attr('src', $(".previous td a").attr('name')); // here asign the image to the modal when the user click the enlarge link
-   $("#myModalLabel").html($(".previous td a").attr("title"));
-
-   // Remove active from old resource and make new resource active
-   $(".active").removeClass("active");
-   $(".previous").addClass("active");
-   $(".previous").removeClass("previous");
-
-   // Handle buttons for new resource
-   $("#prevBtn").css("visibility", "hidden");
-   $("#nextBtn").css("visibility", "hidden");
-   if ( $(".active").prev().hasClass('record') ) {
-     $("#prevBtn").css("visibility", "visible");
-   }
-   if ( $(".active").next().hasClass('record') ) {
-     $("#nextBtn").css("visibility", "visible");
-   }
+   previous();
  });
 
  // Script for next button on modal image preview
  $("#nextBtn").on("click", function() {
+   next();
+ });
+
+ $(".modal").keydown(function(e) {
+   // Left key press
+   if(e.keyCode == 37) {
+     if ( $("#prevBtn").is(':visible') ) {
+      previous();
+     }
+   }
+   // Right key press
+   else if(e.keyCode == 39) {
+     if ( $("#nextBtn").is(':visible') ) {
+       next();
+     }
+   }
+ });
+
+ function next() {
    // Add the next class to the next row temporarily to access it in below lines
    $(".active").next().addClass("next");
 
    // Change the text and picture of modal
    $('#imagepreview').attr('src', $(".next td a").attr('name')); // here asign the image to the modal when the user click the enlarge link
-   $("#myModalLabel").html($(".next td a").attr("title"));
+   $("#myModalLabel").html($(".next td a").attr("title") + " - Box Number: " +  $(".next").prevAll(".Box").attr('name')  + " Item Number: " + $(".next .itemNum").text());
 
    // Remove active from old resource and make new resource active
    $(".active").removeClass("active");
@@ -209,7 +264,31 @@ $xml = simplexml_load_file($url);
    if ( $(".active").next().hasClass('record') ) {
      $("#nextBtn").css("visibility", "visible");
    }
- });
+ }
+
+ function previous(){
+   // Add the previous class to the previous row temporarily to access it in the below lines
+   $(".active").prev().addClass('previous');
+
+   // Change the text and picture of modal
+   $('#imagepreview').attr('src', $(".previous td a").attr('name')); // here asign the image to the modal when the user click the enlarge link
+   $("#myModalLabel").html($(".previous td a").attr("title") + " - Box Number: " +  $(".previous").prevAll(".Box").attr('name')  + " Item Number: " + $(".previous .itemNum").text());
+
+   // Remove active from old resource and make new resource active
+   $(".active").removeClass("active");
+   $(".previous").addClass("active");
+   $(".previous").removeClass("previous");
+
+   // Handle buttons for new resource
+   $("#prevBtn").css("visibility", "hidden");
+   $("#nextBtn").css("visibility", "hidden");
+   if ( $(".active").prev().hasClass('record') ) {
+     $("#prevBtn").css("visibility", "visible");
+   }
+   if ( $(".active").next().hasClass('record') ) {
+     $("#nextBtn").css("visibility", "visible");
+   }
+ }
 
 </script>
 
