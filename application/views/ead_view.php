@@ -167,7 +167,7 @@ $xml = simplexml_load_file($url);
       width: 800px !important;
     }
     #imagepreview {
-      max-height: 500px;
+      max-height: 450px;
       max-width: 600px;
       width: 100%;
     }
