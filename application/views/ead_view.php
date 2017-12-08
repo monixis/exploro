@@ -152,8 +152,8 @@ $xml = simplexml_load_file($url);
       vertical-align: middle;
     }
     #imagepreview {
-      max-height: 525px;
-      width: 450px;
+      max-height: 425px;
+      width: 400px;
     }
   }
 
