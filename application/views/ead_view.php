@@ -175,6 +175,7 @@ $xml = simplexml_load_file($url);
     @media(min-width: 1600px) {
       .modal-content {
         position: absolute;
+        bottom: -900px;
         right: -32%;
         text-align: center;
         vertical-align: middle;
