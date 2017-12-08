@@ -100,7 +100,7 @@ div.tab button.active {
   <button id="dpla-link" class="tablinks" onclick="displayResults(event, 'dpla')">DPLA</button>
 </div>
 
-<div name="Tab-Nation"> <!-- This empty div holds both tabs for the sake of pagination positioning -->
+<div name="TabNation" style="min-width:800px;"> <!-- This empty div holds both tabs for the sake of pagination positioning -->
 <div id="ma" class="tabcontent">
   <ol id="list-1">
     <?php

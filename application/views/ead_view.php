@@ -93,8 +93,18 @@ $xml = simplexml_load_file($url);
  				<tr class="tbldata record">
  					<td class="tableFont"><?php echo $item -> did -> unitid; ?></td>
  					<?php if (isset($item->dao)) { ?>
-	 					<td class="tableFont"><a title="<?php echo $item -> did -> unittitle; ?>" name="<?php echo $item -> dao['href']; ?>" class="modal_link"><?php echo $item -> did -> unittitle; ?></a></td>
- 					<?php }else{ ?>
+            <?php // Need to check to see if the DAO is a pdf
+              $linkInfo = pathinfo($item->dao['href']);
+              $fileExtension = $linkInfo['extension'];
+
+              // Handle pdfs different than JPG and PNG
+              if ($fileExtension == "pdf") {?>
+                <td class="tableFont"><a title="<?php echo $item -> did -> unittitle; ?>" href="<?php echo $item -> dao['href']; ?>" target="_blank"><?php echo $item -> did -> unittitle; ?></a></td>
+            <?php }
+              else {?>
+       					<td class="tableFont"><a title="<?php echo $item -> did -> unittitle; ?>" name="<?php echo $item -> dao['href']; ?>" class="modal_link"><?php echo $item -> did -> unittitle; ?></a></td>
+            <?php }
+          } else{ ?>
  						<td class="tableFont"><?php echo $item -> did -> unittitle; ?></td>
  					<?php } ?>
  					<?php if (isset($item->did->unitdatestructured->datesingle)) { ?>
