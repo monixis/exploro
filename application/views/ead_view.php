@@ -158,7 +158,7 @@ $xml = simplexml_load_file($url);
     }
   }
 
-  @media(min-width: 1024px) and (max-width: 1600px) {
+  @media(min-width: 1024px) and (max-width: 1599px) {
     .modal-content {
       position: absolute;
       right: -14%;
@@ -171,14 +171,14 @@ $xml = simplexml_load_file($url);
       max-width: 600px;
       width: 100%;
     }
-
-    @media(min-width: 1601px) {
+  }
+    @media(min-width: 1600px) {
       .modal-content {
         position: absolute;
-        right: -14%;
+        right: -32%;
         text-align: center;
         vertical-align: middle;
-        width: 800px !important;
+        width: 1000px !important;
       }
       #imagepreview {
         max-height: 700px;
@@ -186,7 +186,7 @@ $xml = simplexml_load_file($url);
         width: 100%;
       }
     }
-  }
+
 </style>
 <script>
    // Script for the modal image preview
