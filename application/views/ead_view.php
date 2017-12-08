@@ -153,11 +153,12 @@ $xml = simplexml_load_file($url);
     }
     #imagepreview {
       max-height: 425px;
-      width: 400px;
+      max-width: 375px;
+      width: 100%;
     }
   }
 
-  @media(min-width: 1024px) {
+  @media(min-width: 1024px) and (max-width: 1600px) {
     .modal-content {
       position: absolute;
       right: -14%;
@@ -166,34 +167,52 @@ $xml = simplexml_load_file($url);
       width: 800px !important;
     }
     #imagepreview {
-      max-height: 750px;
-      width: 750px;
+      max-height: 500px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    @media(min-width: 1601px) {
+      .modal-content {
+        position: absolute;
+        right: -14%;
+        text-align: center;
+        vertical-align: middle;
+        width: 800px !important;
+      }
+      #imagepreview {
+        max-height: 700px;
+        max-width: 700px;
+        width: 100%;
+      }
     }
   }
 </style>
 <script>
    // Script for the modal image preview
    $(".modal_link").on("click", function() {
-   // Clear any previously active resources
-   $(".active").removeClass("active");
+     // Clear any previously active resources
+     $(".active").removeClass("active");
 
-   // Give the selected photo link's row the `active` class to keep track of what link is active..   used for next/previous
-   $(this).parent().parent().addClass("active");
+     // Give the selected photo link's row the `active` class to keep track of what link is active..   used for next/previous
+     $(this).parent().parent().addClass("active");
 
-    $(".active").prev(".Box").addClass("tempBox");
-   $("#myModalLabel").html($(this).attr("title") + " - Box Number: " +  $(".active").prevAll(".Box").attr('name')  + " Item Number: " + $(".active .itemNum").text());
-   $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+     $("#myModalLabel").html($(this).attr("title") + " - Box Number: " +  $(".active").prevAll(".Box").attr('name')  + " Item Number: " + $(".active .itemNum").text());
+
+      // Change the text and picture of modal
+      $('#imagepreview').attr('src', $(".active td a").attr('name')); // here asign the image to the modal when the
+     $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
 
 
-   // Hide both buttons by default... then check what buttons should be shown
-   $("#prevBtn").css("visibility", "hidden");
-   $("#nextBtn").css("visibility", "hidden");
-   if ( $(this).parent().parent().prev().hasClass('record') ) {
-     $("#prevBtn").css("visibility", "visible");
-   }
-   if ( $(this).parent().parent().next().hasClass('record') ) {
-     $("#nextBtn").css("visibility", "visible");
-   }
+     // Hide both buttons by default... then check what buttons should be shown
+     $("#prevBtn").css("visibility", "hidden");
+     $("#nextBtn").css("visibility", "hidden");
+     if ( $(this).parent().parent().prev().hasClass('record') ) {
+       $("#prevBtn").css("visibility", "visible");
+     }
+     if ( $(this).parent().parent().next().hasClass('record') ) {
+       $("#nextBtn").css("visibility", "visible");
+     }
 
   });
 
