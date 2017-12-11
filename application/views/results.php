@@ -213,7 +213,7 @@ div.tab button.active {
 
 <script>
   $(function(){
-    displayResults(event, 'ma');
+    document.getElementById("ma-link").click();
   });
 
   function displayResults(evt, src) {
