@@ -3,6 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="./js/nprogress.js?r=123"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="./js/jquery.easyPaginate.js"></script>
 <link rel="stylesheet" type="text/css" href="./styles/nprogress.css" />
 
@@ -212,7 +213,7 @@ div.tab button.active {
 
 <script>
   $(function(){
-    displayResults(event, 'ma');
+    document.getElementById("ma-link").click();
   });
 
   function displayResults(evt, src) {
@@ -279,13 +280,10 @@ div.tab button.active {
 
     $('a.tags').click(function(){
       var searchTerm = $('input#searchBox').val();
-      var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + ($(this).text().substr(0, $(this).text().indexOf('-')));
-      // A very very hacky fix to the non digitized issue.. it's because there is a `-` in the facet
+      var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + ($(this).text().substr(0, $(this).text().lastIndexOf('-')));
+
       // alert(selectedTag);
-      if (selectedTag == "category : Non") {
-        selectedTag = "category: Non-Digitized";
-      }
-      $('#selectedFacet').append('<button class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px;"> X </a></button>');
+      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: ' +  selectedTag.length * 9 +'px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
       $('input#queryTag').val($('input#queryTag').val() + "fq=" + selectedTag);
       var queryTag = $('input#queryTag').val();
       searchTerm = searchTerm + queryTag;
@@ -300,7 +298,7 @@ div.tab button.active {
     $('#selectedFacet').on('click', '.remove', function() {
         var searchTerm = $('input#searchBox').val();
         var unselectedTag ="fq=" + $(this).attr('id');
-        $(this).closest('button.taglist').remove();
+        $(this).closest('div.taglist').remove();
         $('input#queryTag').val($('input#queryTag').val().replace(unselectedTag, ' '));
         var queryTag = $('input#queryTag').val();
         searchTerm = searchTerm + queryTag;
