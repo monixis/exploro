@@ -212,7 +212,7 @@
                             //   alert("Success:Total number of documents converted :" message);
                         } else {
                             $('#requestStatus').empty();
-                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert").delay(3000).fadeOut();
+                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert EAD to Solr XML").delay(3000).fadeOut();
                             // $('#requestStatus').empty();
                         }
                     }
@@ -234,7 +234,7 @@
                             //   alert("Success:Total number of documents converted :" message);
                         } else {
                             $('#requestStatus').empty();
-                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert").delay(3000).fadeOut();
+                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert EAD to Solr XML").delay(3000).fadeOut();
                             // $('#requestStatus').empty();
                         }
                     }
