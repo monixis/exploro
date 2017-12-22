@@ -84,7 +84,7 @@ div.tab button.active {
                 if ($row == 0){
                   break;
                 }
-								$facetList = $facetList . " - " . $row ;
+								$facetList = $facetList . "[" . $row . "]" ;
 					?><li id="<?php echo $key;?>" style="margin-bottom:5px;"><a href="#" class='tags'><?php echo $facetList ; ?></a></li><?php
 							}
 							$i += 1;
@@ -277,17 +277,16 @@ div.tab button.active {
       });
 
     */
-
+    
     $('a.tags').click(function(){
       var searchTerm = $('input#searchBox').val();
-      var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + ($(this).text().substr(0, $(this).text().lastIndexOf('-')));
-
-      // alert(selectedTag);
-      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: ' +  selectedTag.length * 9 +'px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
+      var selectedTag = ($(this).parents('div.panel').attr('id')) + ':"' + ($(this).text().substr(0, $(this).text().lastIndexOf('['))) + '"';
+      var selectedTagId = selectedTag.replace(/"/g, '');
+      $('#selectedFacet').append('<button class="taglist" id="'+ selectedTagId +'" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px;"><a href="#" class="remove" style="margin-left:10px;">'+ selectedTag +' X</a></button>');      
       $('input#queryTag').val($('input#queryTag').val() + "fq=" + selectedTag);
       var queryTag = $('input#queryTag').val();
       searchTerm = searchTerm + queryTag;
-      searchTerm = searchTerm.replace(/ /g,"%20");
+      var searchTerm = encodeURIComponent(searchTerm);
       var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
       NProgress.start();
       NProgress.configure({ showSpinner: true });
@@ -295,20 +294,21 @@ div.tab button.active {
       NProgress.done();
     });
 
-    $('#selectedFacet').on('click', '.remove', function() {
-        var searchTerm = $('input#searchBox').val();
-        var unselectedTag ="fq=" + $(this).attr('id');
-        $(this).closest('div.taglist').remove();
-        $('input#queryTag').val($('input#queryTag').val().replace(unselectedTag, ' '));
-        var queryTag = $('input#queryTag').val();
-        searchTerm = searchTerm + queryTag;
-        searchTerm = searchTerm.replace(/ /g,"%20");
-        NProgress.start();
-        NProgress.configure({ showSpinner: true });
-        var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
-        $('#searchResults').load(resultUrl);
-        NProgress.done();
-    });
+    $('button.taglist').click(function() {
+      var searchTerm = $('input#searchBox').val();
+      var unselectedTag ='fq=' + $(this).attr('id');
+      unselectedTag = unselectedTag.replace(':',':"')+'"';
+       $(this).closest('button.taglist').remove();
+      $('input#queryTag').val($('input#queryTag').val().replace(unselectedTag, ' '));
+      var queryTag = $('input#queryTag').val();
+      searchTerm = searchTerm + queryTag;
+     searchTerm = encodeURIComponent(searchTerm);
+      NProgress.start();
+      NProgress.configure({ showSpinner: true });
+      var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
+      $('#searchResults').load(resultUrl);
+      NProgress.done();
+  });
 
     // Use easyPaginate to handle pagination of Marist Archives and DPLA
    $('#ma').easyPaginate({
