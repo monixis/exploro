@@ -154,7 +154,7 @@
        <a href="<?php echo $isShownAt ?>" target="_blank"><?php echo $title ?></a></br>
        <p style="font-size: 12pt; margin-top: -10px;">Data Provider: <?php echo $dataProvider ?></p>
        <p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
-       <p style="font-size: 12pt; margin-top: -10px;">Type: <?php echo $type ?></p>
+       <p style="font-size: 12pt; margin-top: -10px;">Type: <?php if (is_array($type)) { echo $type[0]; } else { echo $type; } ?></p>
        <p style="font-size: 12pt; margin-top: -10px;">Description: <?php echo $description ?></p>
        <!--p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p-->
      </div>
