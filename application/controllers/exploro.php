@@ -14,8 +14,10 @@ class exploro extends CI_Controller
 
 	public function searchKeyWords()
   {
-  	$q = $this -> input -> get('q');
+		$q = $this -> input -> get('q');
+		$q = trim($q);
 		$q = str_replace(" ","%20", $q);
+		$q = str_replace("&","%26", $q);
     // Taken from repository search keywords
     $solrQ = str_replace("fq","&fq", $q);
     $solrQ = str_replace("Date", "datesingle", $solrQ);
