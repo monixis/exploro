@@ -4,8 +4,8 @@
   <title>eXploro EAD</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles/bootstrap.css">
-  <link rel="stylesheet" href="styles/boxbuilder.css">
+  <link rel="stylesheet" href="<?php echo base_url("/styles/bootstrap.css"); ?>">
+  <link rel="stylesheet" href="<?php echo base_url("/styles/boxbuilder.css"); ?>">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>

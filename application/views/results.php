@@ -86,7 +86,7 @@
     <li class="results" style="height: auto; padding: 10px;">
       <img src="<?php echo $link ?>" style="width: 135px; height: 115px; float: left; margin-right: 10px;"/>
       <div style="margin-left: 120px; padding: 5px; height: auto;">
-        <a href="<?php if ($level == "Non-Digitized") { echo $findingaid; } else{ echo base_url("?c=exploro&m=fileInfo&id=".$id); }?>" target="_blank"><?php echo $title ?></a></br>
+        <a href="<?php if ($level == "Non-Digitized") { echo $findingaid; } else{ echo base_url("exploro/fileInfo"). "/" . $id ; }?>" target="_blank"><?php echo $title ?></a></br>
         <p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
           <?php if ($level == "files"){ ?>
             <p style="font-size: 12pt; margin-top: -10px;">Box: <?php echo $box ?></p>
@@ -243,8 +243,8 @@
       $('input#queryTag').val($('input#queryTag').val() + "fq=" + selectedTag);
       var queryTag = $('input#queryTag').val();
       searchTerm = searchTerm + queryTag;
-      var searchTerm = encodeURIComponent(searchTerm);
-      var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
+      searchTerm = searchTerm.replace(/ /g,"%20");
+      var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
       NProgress.start();
       NProgress.configure({ showSpinner: true });
       $('#searchResults').load(resultUrl);
@@ -262,7 +262,7 @@
      searchTerm = encodeURIComponent(searchTerm);
       NProgress.start();
       NProgress.configure({ showSpinner: true });
-      var resultUrl = "<?php echo base_url("?c=exploro&m=searchKeyWords&q=")?>"+searchTerm;
+      var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
       $('#searchResults').load(resultUrl);
       NProgress.done();
   });

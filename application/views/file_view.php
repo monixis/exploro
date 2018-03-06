@@ -4,8 +4,7 @@
   <title>eXploro Digital File</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles/bootstrap.css">
-  <link rel="stylesheet" href="styles/boxbuilder.css">
+  <link rel="stylesheet" href="<?php echo base_url("/styles/bootstrap.css"); ?>">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
@@ -23,7 +22,7 @@
 
 		}
   </style>
-    <?php
+  <?php
 	foreach ($results->response->docs as $row) {
 		$id = $row -> id;
 		$title = (isset($row -> unittitle) ? $row -> unittitle : FALSE);
@@ -36,6 +35,7 @@
 		$rightsstatement = (isset($row -> userestrict[0]) ? $row -> userestrict[0] : FALSE);
 		$format = (isset($row -> format[0]) ? $row -> format[0] : FALSE);
 		$physdesc = (isset($row -> physdesc) ? $row -> physdesc : FALSE);
+		$ext = pathinfo($url, PATHINFO_EXTENSION);
 		}
     ?>
 </head>
@@ -112,11 +112,15 @@
                     						</tr-->
             							</tbody>
             						</table>
-            						<div style="width: 100%; height: auto; margin-top: 50px;">
-            							<img src="<?php echo $url ?>" style="margin-left: auto; margin-right: auto; display: block;"/>
-            						</div>
-            							<!--iframe src="<?php echo $url ?>" style="width:100%; height:400px;"></iframe-->
-
+												<?php if($ext == 'jpg'){ ?>
+													<div style="width: 100%; height: auto; margin-top: 50px;">
+            								<img src="<?php echo $url ?>" style="margin-left: auto; margin-right: auto; display: block;"/>
+            							</div>	
+												<?php }else if($ext == 'pdf'){ ?>
+													<button><a href="<?php echo $url ?>" target="_blank">View in a separate tab</a></button></br></br>
+													<iframe src="<?php echo $url ?>" style="width:100%; height:700px;"></iframe>
+												<?php } ?>
+            						         							
 								</div>
 						</div>
 					</div><!-- row -->

@@ -42,7 +42,7 @@ $route['explr'] = "explr";
 $route['dashboard'] = 'explr';
 $route['default_controller'] = "exploro";
 $route['404_override'] = '';
-
+$route['translate_uri_dashes'] = FALSE;
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
