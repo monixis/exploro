@@ -26,7 +26,7 @@
 		<script type="text/javascript" src="http://library.marist.edu/crrs/js/jquery-ui.js"></script>
 		<link rel="stylesheet" href="http://library.marist.edu/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="../styles/dashboard.css" />
+    <link rel="stylesheet" href="./styles/dashboard.css" />
 
     <script>
           // This is the folderlocation for testing on localhost
@@ -212,8 +212,7 @@
                             //   alert("Success:Total number of documents converted :" message);
                         } else {
                             $('#requestStatus').empty();
-                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert EAD to Solr XML").delay(3000).fadeOut();
-                            // $('#requestStatus').empty();
+                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert EAD to Solr XML. Check the Excel file to make sure it is properly formatted.");
                         }
                     }
                 });
@@ -234,7 +233,7 @@
                             //   alert("Success:Total number of documents converted :" message);
                         } else {
                             $('#requestStatus').empty();
-                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert EAD to Solr XML").delay(3000).fadeOut();
+                            $('#requestStatus').show().css('background', '#b31b1b').append("Failed to convert EAD to Solr XML. Check the Excel file to make sure it is properly formatted.").delay(3000).fadeOut();
                             // $('#requestStatus').empty();
                         }
                     }
@@ -265,25 +264,27 @@
                 success: function (timeToWait) {
                     if (timeToWait > 0) {
                       $('#requestStatus').empty();
-                      $('#requestStatus').show().css('background', '#66cc00').append("eXploro will need about " + timeToWait + " seconds to index the chosen file.");
+                      $('#requestStatus').show().css('background', '#66cc00').css('height', '40px').append("eXploro will need about " + timeToWait + " seconds to index the chosen file.");
 
                       $("#upload").prop("disabled", true);
 
                       setTimeout(function() {
                         $("#upload").prop("disabled", false);
                         $('#requestStatus').empty();
-                        $('#requestStatus').show().css('background', '#66cc00').append("eXploro is ready to index another file.");
+                        $('#requestStatus').show().css('background', '#66cc00').css('height', '40px').append("eXploro is likely ready to index another file.");
                       }, (timeToWait * 1000));
 
                     } else {
                         $('#requestStatus').empty();
-                        $('#requestStatus').show().css('background', '#b31b1b').append("Failed to upload files. The previous upload may have taken longer than expected! Try again.").delay(3000).fadeOut();
+                        $('#requestStatus').show().css('background', '#b31b1b').css('height', '100px').append("Failed to upload files. This could be because of a few reaons. The previous upload may have taken longer than expected. Wait thirty seconds and try again. If problem still persists there is likely an an indexing error. Check the <a target='_blank' href='http://35.162.165.138:8983/solr/#/~logging'>Solor Errror Logs</a> for more info. If you are unsure what the errors mean consult the eXploro Error section of the <a target='_blank' href='https://docs.google.com/document/d/1t2QuHyupHDgVTOPucBD6NO3d2aSJXdFPHsoJpUiVs6g/edit'>Documentation</a>");
                     }
 
                 }
             });
           }
 
+          // Used to publish multiple files to Solr... the time estimate is not always accurate so one fails and they all get messed up
+          // This is why we currently index them one at a time
           function publishBulkToSolr() {
             // Disable update button
             $("#upload").prop("disabled", true);

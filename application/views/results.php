@@ -154,7 +154,7 @@
        <a href="<?php echo $isShownAt ?>" target="_blank"><?php echo $title ?></a></br>
        <p style="font-size: 12pt; margin-top: -10px;">Data Provider: <?php echo $dataProvider ?></p>
        <p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
-       <p style="font-size: 12pt; margin-top: -10px;">Type: <?php echo $type ?></p>
+       <p style="font-size: 12pt; margin-top: -10px;">Type: <?php if (is_array($type)) { echo $type[0]; } else { echo $type; } ?></p>
        <p style="font-size: 12pt; margin-top: -10px;">Description: <?php echo $description ?></p>
        <!--p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p-->
      </div>
@@ -237,9 +237,8 @@
     
     $('a.tags').click(function(){
       var searchTerm = $('input#searchBox').val();
-      var selectedTag = ($(this).parents('div.panel').attr('id')) + ':"' + ($(this).text().substr(0, $(this).text().lastIndexOf('['))) + '"';
-      var selectedTagId = selectedTag.replace(/"/g, '');
-      $('#selectedFacet').append('<button class="taglist" id="'+ selectedTagId +'" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px;"><a href="#" class="remove" style="margin-left:10px;">'+ selectedTag +' X</a></button>');      
+      var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + '"' + ($(this).text().substr(0, $(this).text().lastIndexOf('-'))).trim() + '"';
+      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: ' +  selectedTag.length * 9 +'px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
       $('input#queryTag').val($('input#queryTag').val() + "fq=" + selectedTag);
       var queryTag = $('input#queryTag').val();
       searchTerm = searchTerm + queryTag;
