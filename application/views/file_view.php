@@ -32,6 +32,10 @@
 		$category = (isset($row -> category) ? $row -> category : FALSE);
 		$url = (isset($row -> link) ? $row -> link : FALSE);
 		$findingaid = (isset($row -> collectionLink) ? $row -> collectionLink : FALSE);
+		$tempstr = substr($findingaid, 59, strlen($findingaid));
+		$cid = substr($tempstr, 0 , strpos($tempstr,'&'));
+		$eadid = substr($tempstr, strpos($tempstr, '=') + 1, strlen($tempstr));
+		$findingaid = base_url("exploro/viewEAD"). "/" . $cid . "/" . $eadid ;
 		$rightsstatement = (isset($row -> userestrict[0]) ? $row -> userestrict[0] : FALSE);
 		$format = (isset($row -> format[0]) ? $row -> format[0] : FALSE);
 		$physdesc = (isset($row -> physdesc) ? $row -> physdesc : FALSE);

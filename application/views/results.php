@@ -25,7 +25,7 @@
 					<div class="panel" id="<?php echo $key ; ?>">
             <form class="form-horizontal">
 								<div class="form-group has-feedback">
-                        <input id="searchInput_<?php echo $key;?>" class="form-control hasclear" oninput="sFacet.filterHTML('#<?php echo $key ; ?>', 'li#<?php echo $key;?>', this.value)" type="text" placeholder="Search">
+                   <input id="searchInput_<?php echo $key;?>" class="form-control hasclear" oninput="sFacet.filterHTML('#<?php echo $key ; ?>', 'li#<?php echo $key;?>', this.value)" type="text" placeholder="Search">
 						<span></span>
 
 						</div>
@@ -41,7 +41,7 @@
                 if ($row == 0){
                   break;
                 }
-								$facetList = $facetList . "[" . $row . "]" ;
+								$facetList = $facetList . " -" . $row ;
 					?><li id="<?php echo $key;?>" style="margin-bottom:5px;"><a href="#" class='tags'><?php echo $facetList ; ?></a></li><?php
 							}
 							$i += 1;
@@ -66,6 +66,9 @@
       //$title = (isset($row -> unittitle[0]) ? $row -> unittitle[0] : FALSE);
       $title = $row -> unittitle;
       $findingaid = (isset($row -> collectionLink) ? $row -> collectionLink : FALSE);
+      $tempstr = substr($findingaid, 59, strlen($findingaid));
+      $cid = substr($tempstr, 0 , strpos($tempstr,'&'));
+      $eadid = substr($tempstr, strpos($tempstr, '=') + 1, strlen($tempstr));
       $date = (isset($row -> datesingle) ? $row -> datesingle : FALSE) ;
       $level = $row -> category;
       if ($level == 'files'){
@@ -86,7 +89,7 @@
     <li class="results" style="height: auto; padding: 10px;">
       <img src="<?php echo $link ?>" style="width: 135px; height: 115px; float: left; margin-right: 10px;"/>
       <div style="margin-left: 120px; padding: 5px; height: auto;">
-        <a href="<?php if ($level == "Non-Digitized") { echo $findingaid; } else{ echo base_url("exploro/fileInfo"). "/" . $id ; }?>" target="_blank"><?php echo $title ?></a></br>
+        <a href="<?php if ($level == "Non-Digitized") { echo base_url("exploro/viewEAD"). "/" . $cid . "/" . $eadid ; } else{ echo base_url("exploro/fileInfo"). "/" . $id ; }?>" target="_blank"><?php echo $title ?></a></br>
         <p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
           <?php if ($level == "files"){ ?>
             <p style="font-size: 12pt; margin-top: -10px;">Box: <?php echo $box ?></p>
@@ -167,7 +170,6 @@
  </div>
 </div>
 
-
 <script>
   $(function(){
     document.getElementById("ma-link").click();
@@ -221,21 +223,7 @@
     		}
 		}
 
-		/*
-    This is the old results JS... I don't think it does anything
-    $('a.tags').click(function(){
-			var selectedTag = ($(this).parents('div.panel').attr('id')) + ' > ' + ($(this).text().substr(0, $(this).text().indexOf('-')));
-			$('#selectedFacet').append('<button class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px;">'+ selectedTag +'<a href="#" class="remove" style="margin-left:10px;"> X </a></button>');
-
-		});
-
-    $('#selectedFacet').on('click', '.remove', function() {
-          $(this).closest('button.taglist').remove();
-      });
-
-    */
-    
-    $('a.tags').click(function(){
+   $('a.tags').click(function(){
       var searchTerm = $('input#searchBox').val();
       var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + '"' + ($(this).text().substr(0, $(this).text().lastIndexOf('-'))).trim() + '"';
       $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: ' +  selectedTag.length * 9 +'px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
@@ -250,21 +238,21 @@
       NProgress.done();
     });
 
-    $('button.taglist').click(function() {
-      var searchTerm = $('input#searchBox').val();
-      var unselectedTag ='fq=' + $(this).attr('id');
-      unselectedTag = unselectedTag.replace(':',':"')+'"';
-       $(this).closest('button.taglist').remove();
-      $('input#queryTag').val($('input#queryTag').val().replace(unselectedTag, ' '));
-      var queryTag = $('input#queryTag').val();
-      searchTerm = searchTerm + queryTag;
-     searchTerm = encodeURIComponent(searchTerm);
-      NProgress.start();
-      NProgress.configure({ showSpinner: true });
-      var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
-      $('#searchResults').load(resultUrl);
-      NProgress.done();
-  });
+    $('#selectedFacet').on('click', '.remove', function() {
+        var searchTerm = $('input#searchBox').val();
+        var unselectedTag ="fq=" + $(this).attr('id');
+        $(this).closest('div.taglist').remove();
+        $('input#queryTag').val($('input#queryTag').val().replace(unselectedTag, ' '));
+        var queryTag = $('input#queryTag').val();
+        searchTerm = searchTerm + queryTag;
+        searchTerm = searchTerm.replace(/ /g,"%20");
+        NProgress.start();
+        NProgress.configure({ showSpinner: true });
+        var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
+        $('#searchResults').load(resultUrl);
+        NProgress.done();
+    });
+ 
 
     // Use easyPaginate to handle pagination of Marist Archives and DPLA
    $('#ma').easyPaginate({
@@ -293,7 +281,6 @@
      $(".easyPaginateNav:last").css('visibility', 'visible');
      $("#facets").hide();
    });
-
 
    /* Code taken from eaditor... handles the searching inside of facets */
    var sFacet = {};

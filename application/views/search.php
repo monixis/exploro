@@ -30,7 +30,6 @@
 		<script type="text/javascript" src="http://library.marist.edu/crrs/js/jquery-ui.js"></script>
 		<link rel="stylesheet" href="http://library.marist.edu/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
 	</head>
 
 	<body>
@@ -42,7 +41,6 @@
 			<div id="menuItems"></div>
 		</div>
 		<div id="miniMenu" style="width: 100%;border: 1px solid black; border-bottom: none;">
-
 		</div>
 
 		<!-- Main jumbotron for a primary marketing message or call to action -->

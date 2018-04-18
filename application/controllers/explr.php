@@ -159,29 +159,7 @@ class explr extends CI_Controller
 
       if($numFiles == 1) {
           echo 1;
-
-          // Success! send an email to Monish loggin what folders have been updated
-          $this->load->library('email');
-          $config['protocol'] = "sendmail";
-                    $config['smtp_host'] = "tls://smtp.googlemail.com";
-                    $config['smtp_port'] = "465";
-                    $config['smtp_user'] = "cannavinolibrary@gmail.com";
-                    $config['smtp_pass'] = "845@jac3419";
-                    $config['charset'] = "utf-8";
-                    $config['mailtype'] = "html";
-                    $config['newline'] = "\r\n";
-                    $this->email->initialize($config);
-        $this->email->from('cannavinolibrary@gmail.com', 'James A. Cannavino Library (Collaboration Room Reservation System)');
-
-        $this->email->to("danmopsick@gmail.com");
-        $this->email->subject('EAD3 files uploaded to Exploro');
-        $message = "<br/><p>Hi Monish, <br/>The following EAD3 file(s) were converted into SOLR XML and are ready to be uploaded to Explro.</p>
-                    <p>Collection: $collection</p>
-                    <ul><li>$fileName</li>";
-        $message .= "</ul>";
-
-        $this->email->message($message);
-        // COMMENTED OUT FOR TESTING PURPOSES ONLY $this->email->send();
+     
       }
       else {
           echo 0;

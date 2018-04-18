@@ -42,7 +42,8 @@
 
           $(document).ready(function() {
             // Dynamically creates a drop down consisting of folders of EAD collections that can be converted into SOLR XML
-            $.get("<?php echo base_url("?c=explr&m=getCollections&folderLocation=")?>" + folderLocation, function(response) {
+            $.get("<?php echo base_url("/explr/getCollections/folderLocation=")?>" + folderLocation, function(response) {
+                    
               //alert("FLAG " + response);
               $("#selectCollection").append(response);
             });
@@ -60,7 +61,7 @@
 
               $.ajax({
                 type: "POST",
-                url: "<?php echo base_url("?c=explr&m=getFileNames") ?>",
+                url: "<?php echo base_url("/explr/getFileNames") ?>",
                 data: postData,
                 dataType: "text",
                 success: function (message) {
@@ -77,77 +78,6 @@
                 },
               });
             });
-
-            /* This is the code that dynamically finds subcollection based on collection -- currently not being used but kept in
-            Dynamically load subcollections based on the collection selected by the user
-            $("#selectCollection").change(function() {
-              // Resets the sub collection dropdown
-              // $("#selectSubCollection").html('<option selected value="0">Please select a subcollection to upload</option>');
-              $("#selectFileName").html('<option selected value="0">You must select a subcollection before a file</option>');
-
-              var collection = $("#selectCollection").val();
-              if (collection == 0) {
-                return 0; // There are no sub collections of the default please select message
-              }
-
-              var postData = {
-                folderLocation: folderLocation,
-                collection: collection
-              };
-
-              $.ajax({
-                type: "POST",
-                url: "<?php // echo base_url("?c=explr&m=getSubCollections") ?>",
-                data: postData,
-                dataType: "text",
-                success: function (message) {
-                    // alert('Flag 1 ' + message.toString());
-                    if (message == 0) {
-                      // There are no subCollections
-                      $("#error-panel").show();
-                      $("#error-message").html("This collection does not have any valid subcollections.");
-                    }
-                    else {
-                      $("#selectSubCollection").append(message);
-                      // $("#selectFileName").html('<option selected value="0">Please select a file to </option>');
-                      lookForSubCollectionChanges = true;
-                    }
-                },
-              });
-            }); */
-
-
-            /* This gets a list of filenames based on chosen subcollection... not currently in use
-            $("#selectSubCollection").change(function() {
-              $("#selectFileName").html('<option selected value="0">Please select a file to upload</option>');
-              var collection = $("#selectCollection").val();
-              // var subCollection = $("#selectSubCollection").val();
-
-              var postData = {
-                folderLocation: folderLocation,
-                collection: collection
-                // subCollection: subCollection
-              };
-
-              $.ajax({
-                type: "POST",
-                url: "<?php //echo base_url("?c=explr&m=getFileNames") ?>",
-                data: postData,
-                dataType: "text",
-                success: function (message) {
-                  if (message == 0) {
-                    // There are no files
-                    $("#error-panel").show();
-                    $("#error-message").html("This collection does not have any valid subcollections.");
-                  }
-                  else {
-                    // $("#selectFileName").html('<option selected value="all">Convert all files in SubCollection</option>');
-                    $("#selectFileName").html('<option selected value="0">Choose a file to upload</option>');
-                    $("#selectFileName").append(message);
-                  }
-                },
-              });
-            });  */
 
             $("#collectionForm").submit(function(event) {
               event.preventDefault();
@@ -199,7 +129,7 @@
               if (fileName == "all") {
                 $.ajax({
                     type: "POST",
-                    url: "<?php echo base_url("?c=explr&m=convertEADs")?>",
+                    url: "<?php echo base_url("/explr/convertEADs")?>",
                     data: postData,
                     dataType: "text",
                     success: function (message) {
@@ -220,7 +150,7 @@
               else {
                 $.ajax({
                     type: "POST",
-                    url: "<?php echo base_url("?c=explr&m=convertSingleEAD")?>",
+                    url: "<?php echo base_url("/explr/convertSingleEAD")?>",
                     data: postData,
                     dataType: "text",
                     success: function (message) {
@@ -258,7 +188,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url("?c=explr&m=publishToSolr")?>",
+                url: "<?php echo base_url("/explr/publishToSolr")?>",
                 data: postData,
                 dataType: "text",
                 success: function (timeToWait) {
@@ -301,7 +231,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url("?c=explr&m=publishBulkToSolr")?>",
+                url: "<?php echo base_url("/explr/publishBulkToSolr")?>",
                 data: postData,
                 dataType: "text",
                 success: function (message) {
