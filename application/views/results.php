@@ -1,6 +1,5 @@
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="./js/nprogress.js?r=123"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -171,6 +170,8 @@
 </div>
 
 <script>
+$body =  $("body");
+$body.removeClass("loading");
   $(function(){
     document.getElementById("ma-link").click();
   });
@@ -252,7 +253,7 @@
         $('#searchResults').load(resultUrl);
         NProgress.done();
     });
- 
+
 
     // Use easyPaginate to handle pagination of Marist Archives and DPLA
    $('#ma').easyPaginate({

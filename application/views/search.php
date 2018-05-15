@@ -3,14 +3,16 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="apple-touch-icon" href="http://library.marist.edu/images/box.png"/>
 		<link rel="shortcut icon" href="http://library.marist.edu/images/box.png" />
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<title>eXploro</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 		<!-- Bootstrap core CSS -->
 		<link href="http://library.marist.edu/css/bootstrap.css" rel="stylesheet">
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -30,6 +32,33 @@
 		<script type="text/javascript" src="http://library.marist.edu/crrs/js/jquery-ui.js"></script>
 		<link rel="stylesheet" href="http://library.marist.edu/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<style>
+		.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+                url('http://i.stack.imgur.com/FhHRx.gif')
+                50% 50%
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading .modal {
+    overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}
+		</style>
 	</head>
 
 	<body>
@@ -43,10 +72,12 @@
 		<div id="miniMenu" style="width: 100%;border: 1px solid black; border-bottom: none;">
 		</div>
 
+
 		<!-- Main jumbotron for a primary marketing message or call to action -->
 		<div id="main-container" class="container">
-			<div class="jumbotron">
+			<div class="jumbotron" id="jumbotron">
 				<div class="container" style="margin-top: -36px;">
+
 					<!-- Example row of columns -->
 					<div class="row">
 						<div class="col-md-12">
@@ -62,6 +93,7 @@
 											<img src="./icons/search.png"  style="height: 25px;"/>
 										</button> </span>
 								</div>
+								<br /><br />
 							</div>
 
               <div id="selectedFacet"></div>
@@ -71,7 +103,7 @@
 				</div><!-- container -->
 			</div>
 			<!-- jumbotron -->
-
+			<div class="modal"><!-- Place at bottom of page --></div>
 			<br>
 
 		</div></br>
@@ -84,20 +116,32 @@
 
 				<a href="http://www.marist.edu/disclaimers.html" target="_blank">Disclaimers</a> | <a href="http://www.marist.edu/privacy.html" target="_blank" >Privacy Policy</a> | <a href="http://library.marist.edu/ack.html?iframe=true&width=50%&height=62%" rel="prettyphoto[iframes]">Acknowledgements</a>
 			</p>
-
 </div>
+<div class="modal"><!-- Place at bottom of page --></div>
 </body>
 <script type="text/javascript">
+$body = $("body");
+$(document).ajaxStop(function() {
+	$body.removeClass("loading");
+});
 		$('#initiateSearch').click(function(){
+
       // Clear the selected facets of the previous search
-      $("#selectedFacet").empty();
+			/*$(this).addClass('button_loader').attr("value","");
+			window.setTimeout(function(){
+				$('#initiateSearch').removeClass('button_loader').attr("value","\u2713");
+				$('#initiateSearch').prop('disabled', false);}, 5000);*/
+			$("#selectedFacet").empty();
 			var searchTerm = $('input#searchBox').val();
       if (searchTerm == "") {
         return -1;
       }
+			else {
+			$body.addClass("loading");
 			var searchTerm = searchTerm.replace(/ /g,"%20");
 			var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
 			$('#searchResults').load(resultUrl);
+		}
 		});
 
     // Start the search on the pressing of the enter key as well
@@ -105,6 +149,7 @@
      var key = e.which;
      // The enter key code
      if(key == 13) {
+			 $body.addClass("loading");
         // Clear the selected facets of the previous search
         $("#selectedFacet").empty();
   			var searchTerm = $('input#searchBox').val();
