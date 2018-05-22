@@ -116,7 +116,6 @@
       <div style="margin-left: 120px; padding: 5px; height: auto;">
         <a href="<?php if ($level == "Non-Digitized") { echo base_url("exploro/viewEAD"). "/" . $cid . "/" . $eadid ; } else{ echo base_url("exploro/fileInfo"). "/" . $id ; }?>" target="_blank"><?php echo $title ?></a></br>
         <p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
-        <p style="font-size: 12pt; margin-top: -10px;">ID: <?php echo $id ?></p>
           <?php if ($level == "files"){ ?>
             <p style="font-size: 12pt; margin-top: -10px;">Box: <?php echo $box ?></p>
           <?php }	?>
@@ -130,9 +129,9 @@
    </ol>
  </div>
 
- <!--div id="dpla" class="tabcontent">
+ <div id="dpla" class="tabcontent">
  <ol id="list-2">
- <!--?php
+ <?php
  foreach ($dplaResults -> docs as $row) {
      $title = $row -> sourceResource -> title;
      if (is_array($title)){
@@ -186,9 +185,9 @@
        <p style="font-size: 12pt; margin-top: -10px;">Type: <?php if (is_array($type)) { echo $type[0]; } else { echo $type; } ?></p>
        <p style="font-size: 12pt; margin-top: -10px;">Description: <?php echo $description ?></p>
        <!--p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p-->
-     <!--/div>
+     </div>
    </li>
- <!--?php
+ <?php
    }
  ?>
  </ol></br>
