@@ -12,7 +12,7 @@
 	<div id="selectedFacet">
 	</div>
 	<h2>Total <?php echo $results->response->numFound; ?> Results:</h2>
-		<div id="facets" style="width: 240px; height: auto; float: left; margin-left: -240px; margin">
+		<div id="facets">
 			<h4>Filter By:</h4>
 			<?php
 				$facets = (array) $results->facet_counts->facet_fields;
@@ -91,6 +91,7 @@
       <div style="margin-left: 120px; padding: 5px; height: auto;">
         <a href="<?php if ($level == "Non-Digitized") { echo base_url("exploro/viewEAD"). "/" . $cid . "/" . $eadid ; } else{ echo base_url("exploro/fileInfo"). "/" . $id ; }?>" target="_blank"><?php echo $title ?></a></br>
         <p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
+        <p style="font-size: 12pt; margin-top: -10px;">ID: <?php echo $id ?></p>
           <?php if ($level == "files"){ ?>
             <p style="font-size: 12pt; margin-top: -10px;">Box: <?php echo $box ?></p>
           <?php }	?>
@@ -104,9 +105,9 @@
    </ol>
  </div>
 
- <div id="dpla" class="tabcontent">
+ <!--div id="dpla" class="tabcontent">
  <ol id="list-2">
- <?php
+ <!--?php
  foreach ($dplaResults -> docs as $row) {
      $title = $row -> sourceResource -> title;
      if (is_array($title)){
@@ -160,15 +161,15 @@
        <p style="font-size: 12pt; margin-top: -10px;">Type: <?php if (is_array($type)) { echo $type[0]; } else { echo $type; } ?></p>
        <p style="font-size: 12pt; margin-top: -10px;">Description: <?php echo $description ?></p>
        <!--p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p-->
-     </div>
+     <!--/div>
    </li>
- <?php
+ <!--?php
    }
  ?>
  </ol></br>
   <div id="pagination" style="position:absolute; bottom:0;"></div>
  </div>
-</div>
+<!--/div-->
 
 <script>
   $(function(){
