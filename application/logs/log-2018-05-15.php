@@ -3539,3 +3539,61 @@ DEBUG - 2018-05-15 20:12:43 --> Controller Class Initialized
 DEBUG - 2018-05-15 20:12:45 --> File loaded: application/views/results.php
 DEBUG - 2018-05-15 20:12:45 --> Final output sent to browser
 DEBUG - 2018-05-15 20:12:45 --> Total execution time: 1.8907
+DEBUG - 2018-05-15 20:35:02 --> Config Class Initialized
+DEBUG - 2018-05-15 20:35:02 --> Hooks Class Initialized
+DEBUG - 2018-05-15 20:35:02 --> Utf8 Class Initialized
+DEBUG - 2018-05-15 20:35:02 --> UTF-8 Support Enabled
+DEBUG - 2018-05-15 20:35:02 --> URI Class Initialized
+DEBUG - 2018-05-15 20:35:02 --> Router Class Initialized
+DEBUG - 2018-05-15 20:35:02 --> No URI present. Default controller set.
+DEBUG - 2018-05-15 20:35:02 --> Output Class Initialized
+DEBUG - 2018-05-15 20:35:02 --> Security Class Initialized
+DEBUG - 2018-05-15 20:35:02 --> Input Class Initialized
+DEBUG - 2018-05-15 20:35:02 --> Global POST and COOKIE data sanitized
+DEBUG - 2018-05-15 20:35:02 --> Language Class Initialized
+DEBUG - 2018-05-15 20:35:02 --> Loader Class Initialized
+DEBUG - 2018-05-15 20:35:02 --> Helper loaded: url_helper
+DEBUG - 2018-05-15 20:35:02 --> Helper loaded: form_helper
+DEBUG - 2018-05-15 20:35:02 --> Database Driver Class Initialized
+DEBUG - 2018-05-15 20:35:02 --> Controller Class Initialized
+DEBUG - 2018-05-15 16:35:02 --> File loaded: application/views/search.php
+DEBUG - 2018-05-15 16:35:02 --> Final output sent to browser
+DEBUG - 2018-05-15 16:35:02 --> Total execution time: 0.1814
+DEBUG - 2018-05-15 20:35:07 --> Config Class Initialized
+DEBUG - 2018-05-15 20:35:07 --> Hooks Class Initialized
+DEBUG - 2018-05-15 20:35:07 --> Utf8 Class Initialized
+DEBUG - 2018-05-15 20:35:07 --> UTF-8 Support Enabled
+DEBUG - 2018-05-15 20:35:07 --> URI Class Initialized
+DEBUG - 2018-05-15 20:35:07 --> Router Class Initialized
+DEBUG - 2018-05-15 20:35:07 --> Output Class Initialized
+DEBUG - 2018-05-15 20:35:07 --> Security Class Initialized
+DEBUG - 2018-05-15 20:35:07 --> Input Class Initialized
+DEBUG - 2018-05-15 20:35:07 --> Global POST and COOKIE data sanitized
+DEBUG - 2018-05-15 20:35:07 --> Language Class Initialized
+DEBUG - 2018-05-15 20:35:07 --> Loader Class Initialized
+DEBUG - 2018-05-15 20:35:07 --> Helper loaded: url_helper
+DEBUG - 2018-05-15 20:35:07 --> Helper loaded: form_helper
+DEBUG - 2018-05-15 20:35:07 --> Database Driver Class Initialized
+DEBUG - 2018-05-15 20:35:07 --> Controller Class Initialized
+DEBUG - 2018-05-15 20:35:08 --> File loaded: application/views/results.php
+DEBUG - 2018-05-15 20:35:08 --> Final output sent to browser
+DEBUG - 2018-05-15 20:35:08 --> Total execution time: 1.1068
+DEBUG - 2018-05-15 20:35:47 --> Config Class Initialized
+DEBUG - 2018-05-15 20:35:47 --> Hooks Class Initialized
+DEBUG - 2018-05-15 20:35:47 --> Utf8 Class Initialized
+DEBUG - 2018-05-15 20:35:47 --> UTF-8 Support Enabled
+DEBUG - 2018-05-15 20:35:47 --> URI Class Initialized
+DEBUG - 2018-05-15 20:35:47 --> Router Class Initialized
+DEBUG - 2018-05-15 20:35:47 --> Output Class Initialized
+DEBUG - 2018-05-15 20:35:47 --> Security Class Initialized
+DEBUG - 2018-05-15 20:35:47 --> Input Class Initialized
+DEBUG - 2018-05-15 20:35:47 --> Global POST and COOKIE data sanitized
+DEBUG - 2018-05-15 20:35:47 --> Language Class Initialized
+DEBUG - 2018-05-15 20:35:47 --> Loader Class Initialized
+DEBUG - 2018-05-15 20:35:47 --> Helper loaded: url_helper
+DEBUG - 2018-05-15 20:35:47 --> Helper loaded: form_helper
+DEBUG - 2018-05-15 20:35:47 --> Database Driver Class Initialized
+DEBUG - 2018-05-15 20:35:47 --> Controller Class Initialized
+DEBUG - 2018-05-15 20:35:49 --> File loaded: application/views/results.php
+DEBUG - 2018-05-15 20:35:49 --> Final output sent to browser
+DEBUG - 2018-05-15 20:35:49 --> Total execution time: 1.9738

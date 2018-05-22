@@ -11,7 +11,7 @@
 		<meta name="author" content="">
 		<title>eXploro</title>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
 		<!-- Bootstrap core CSS -->
 		<link href="http://library.marist.edu/css/bootstrap.css" rel="stylesheet">
@@ -96,7 +96,7 @@ body.loading .modal {
 								<br /><br />
 							</div>
 
-              <div id="selectedFacet"></div>
+              <div id="selectedFacet" style="width:auto;"></div>
 							<div id="searchResults" style="position: relative;display: inline-block"></div>
 						</div>
 					</div><!-- row -->

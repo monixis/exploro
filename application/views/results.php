@@ -1,5 +1,5 @@
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="./js/nprogress.js?r=123"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -7,11 +7,37 @@
 <link rel="stylesheet" type="text/css" href="./styles/nprogress.css" />
 <link rel="stylesheet" type="text/css" href="./styles/results.css" />
 <link rel="stylesheet" type="text/css" href="./styles/main.css" />
+<style>
 
+	p.labelInfo {font-size: 10pt; margin-top: -10px;}
+	span.labelName {color: #b31b1b;font-weight:bold; }
+	.easyPaginateNav a {padding:5px;float: inherit}
+	.easyPaginateNav a.current {font-weight:bold;text-decoration:underline;}
+	/*@media all and (min-width:992px) {
+		#facets {
+			width: 240px;
+			height: auto;
+			margin-left: -240px;
+		}
+	}
+/*
+	@media all and (max-width:950px) {
+
+		#facets {
+
+			width: 100%;
+			float: left
+			height: 400px;
+		}
+	}
+*/
+
+
+</style>
 	<div id="selectedFacet">
 	</div>
 	<h2>Total <?php echo $results->response->numFound; ?> Results:</h2>
-		<div id="facets" style="width: 240px; height: auto; float: left; margin-left: -240px; margin">
+		<div id="facets" class="page-sidebar col-md-3">
 			<h4>Filter By:</h4>
 			<?php
 				$facets = (array) $results->facet_counts->facet_fields;
@@ -51,13 +77,13 @@
 				}
 			?>
 		</div>
-
+<div class="col-md-9">
 <div class="tab">
   <button id="ma-link" class="tablinks" onclick="displayResults(event, 'ma')">Marist Archives</button>
   <button id="dpla-link" class="tablinks" onclick="displayResults(event, 'dpla')">DPLA</button>
 </div>
 
-<div name="TabNation" style="width:825px;"> <!-- This empty div holds both tabs for the sake of pagination positioning -->
+<div name="TabNation"> <!-- This empty div holds both tabs for the sake of pagination positioning -->
 <div id="ma" class="tabcontent">
   <ol id="list-1">
     <?php
@@ -168,6 +194,7 @@
   <div id="pagination" style="position:absolute; bottom:0;"></div>
  </div>
 </div>
+</div>
 
 <script>
 $body =  $("body");
@@ -227,7 +254,8 @@ $body.removeClass("loading");
    $('a.tags').click(function(){
       var searchTerm = $('input#searchBox').val();
       var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + '"' + ($(this).text().substr(0, $(this).text().lastIndexOf('-'))).trim() + '"';
-      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: ' +  selectedTag.length * 9 +'px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
+//      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: ' +  selectedTag.length * 9 +'px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
+      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: auto;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
       $('input#queryTag').val($('input#queryTag').val() + "fq=" + selectedTag);
       var queryTag = $('input#queryTag').val();
       searchTerm = searchTerm + queryTag;
