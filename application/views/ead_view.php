@@ -110,7 +110,7 @@ $xml = simplexml_load_file($url);
  					<?php if (isset($item->did->unitdatestructured->datesingle)) { ?>
 	 					<td class="tableFont"><?php echo $item -> did -> unitdatestructured -> datesingle; ?></td>
  					<?php }elseif (isset($item->did->unitdatestructured->daterange)){ ?>
- 						<td class="tableFont"><?php echo $item -> did -> unitdatestructured -> fromdate; ?> - <?php echo $item -> did -> unitdatestructured -> todate; ?></td>
+ 						<td class="tableFont"><?php echo $item -> did -> unitdatestructured -> daterange -> fromdate; ?> - <?php echo $item -> did -> unitdatestructured -> daterange -> todate; ?></td>
  					<?php } ?>
  					<td class="tableFont"><?php echo $item -> physdescstructured -> dimensions; ?></td>
  				</tr>

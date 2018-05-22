@@ -287,9 +287,9 @@ class explr extends CI_Controller
     {
       // Need to directly link to the directory of EADs *Very important
      // $folders = scandir("C:/xampp/htdocs/exploro/eads");
-     $folderLocation = $_GET["folderLocation"];
-
-     $folders = scandir("$folderLocation/eads");
+    // $folderLocation = $_GET["folderLocation"];
+    //$folderLocation = "http://library.marist.edu/exploro";  
+     $folders = scandir("http://library.marist.edu/exploro/eads");
 
      //echo "FLAG " . var_dump($files);
 

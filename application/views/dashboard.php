@@ -42,9 +42,10 @@
 
           $(document).ready(function() {
             // Dynamically creates a drop down consisting of folders of EAD collections that can be converted into SOLR XML
-            $.get("<?php echo base_url("/explr/getCollections/folderLocation=")?>" + folderLocation, function(response) {
+           // $.get("<?php echo base_url("/explr/getCollections/folderLocation=")?>" + folderLocation, function(response) {
                     
-              //alert("FLAG " + response);
+            $.get("<?php echo base_url("/explr/getCollections")?>", function(response) {
+                
               $("#selectCollection").append(response);
             });
 
