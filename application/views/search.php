@@ -94,10 +94,12 @@ body.loading .modal {
 										</button> </span>
 								</div>
 								<br /><br />
+								<button type="button" id="browse" class="btn btn-primary">Browse</button>
 							</div>
 
               <div id="selectedFacet" style="width:auto;"></div>
 							<div id="searchResults" style="position: relative;display: inline-block"></div>
+							<div id="browseResults" style="position: relative;display: inline-block"></div>
 						</div>
 					</div><!-- row -->
 				</div><!-- container -->
@@ -142,6 +144,12 @@ $(document).ajaxStop(function() {
 			var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
 			$('#searchResults').load(resultUrl);
 		}
+		});
+
+		$('#browse').click(function(){
+			$('#searchResults').empty();
+			var resultUrl = "<?php echo base_url("exploro/browse")?>";
+			$('#browseResults').load(resultUrl);
 		});
 
     // Start the search on the pressing of the enter key as well

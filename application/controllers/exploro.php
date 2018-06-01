@@ -39,6 +39,28 @@ class exploro extends CI_Controller
 	 	$this->load->view('results', $data);
 	}
 
+	public function searchCollectionKeyWords($q)
+  	{
+		//$q = trim($q);
+		//$q = str_replace(" ","%20", $q);
+		//$q = str_replace("&","%26", $q);
+    	// Taken from repository search keywords
+    	//$solrQ = str_replace("fq","&fq", $q);
+    	
+    	// rows=2147483647 is the max value of an int... this returns all rows so that way they can all be viewed with pagination... will get a lot of uneeded data which is expensive..
+		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=" . $q."&facet=true&facet.field=datesingle&facet.field=category&facet.field=format&rows=100";
+		$json = file_get_contents($resultsLink);
+   		$data['results'] = json_decode($json);
+	 	$this->load->view('collectionresult', $data);
+	}
+
+	public function browse()
+	{
+		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?&facet=true&facet.field=collection&rows=100";
+		$json = file_get_contents($resultsLink);
+		$data['results'] = json_decode($json);
+		$this->load->view('browse', $data);
+	}
 	public function searchSubjects($q)
 	{
   		$q = str_replace(" ","%20", $q);
@@ -64,6 +86,13 @@ class exploro extends CI_Controller
 	public function viewEAD($cid, $id)
 	{
   		$data['url'] = 'http://library.marist.edu/exploro/eads/'.$cid.'/'.$id.'.xml';
+      	$data['cid'] = $cid;
+      	$this->load->view('ead_view', $data);
+	}
+	
+	public function viewCollections($cid)
+	{
+  		$data['url'] = 'http://library.marist.edu/exploro/eads/'.$cid;
       	$data['cid'] = $cid;
       	$this->load->view('ead_view', $data);
     }

@@ -49,3 +49,4 @@ Temporary Items
 # SOLR_XMLS and EADS do not need version control probably
 /solr_xmls
 /eads
+application/logs
