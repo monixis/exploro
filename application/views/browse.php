@@ -47,7 +47,7 @@
     <?php //echo $results->facet_counts->facet_fields->collection[2]; ?>
 			<!--h4>Filter By:</h4-->
             <br /><br />
-            <div id="browseList" class="grid" style="position: relative; height: 2530px;">
+            <div id="browseList" class="grid" style="position: relative; height: auto;">
 			<?php
                 $i=0;//to only print the list of collections
 				$facets = (array) $results->facet_counts->facet_fields->collection;//returns collection name, 0
@@ -96,23 +96,19 @@ $body.removeClass("loading");
 	}
 
    function showCollections(cname){
+       var batchcount = 0;//the result index starts from 0 and shows result upto 99. 
        var searchterm = document.getElementById("collections").getAttribute("value");
-       //alert((cname.split(' ').length));
-      /*var searchTerm = $('input#searchBox').val();
-      var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + '"' + ($(this).text().substr(0, $(this).text().lastIndexOf('-'))).trim() + '"';
-//      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: ' +  selectedTag.length * 9 +'px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
-      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: auto;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
-      $('input#queryTag').val($('input#queryTag').val() + "fq=" + selectedTag);
-      var queryTag = $('input#queryTag').val();
-      searchTerm = searchTerm + queryTag;
-      searchTerm = searchTerm.replace(/ /g,"%20");*/
-      if(cname.split(' ').length >3){
-          cname = cname.split(/\s+/).slice(0,3).join(" ");
-          cname = cname.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, "");
-      }
-      //alert((cname));
-      cname = cname.replace(/ /g,"%20");
-      var resultUrl = "<?php echo base_url("exploro/searchCollectionKeyWords")?>" + "/" + cname;
+       if(cname.includes('-')){
+        colName =  '"' + (cname.substr(0,cname.lastIndexOf('-'))).trim() + '"';
+           //cname = cname.split(/\s+/).slice(0,3).join(" ");
+           //cname = cname.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, "");
+        }
+      //colName =  '"' + (cname.substr(0,cname.lastIndexOf('-'))).trim() + '"';
+      
+      colName = cname.replace(/ /g,"%20");
+      colName = '"'+colName+'"';
+      alert((colName));
+      var resultUrl = "<?php echo base_url("exploro/searchCollectionKeyWords")?>" + "/" + colName + "/" + batchcount;
       NProgress.start();
       NProgress.configure({ showSpinner: true });
       $('#collectionList').empty();

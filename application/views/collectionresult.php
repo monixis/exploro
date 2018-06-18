@@ -77,9 +77,13 @@
 
 
 </style>
+
 	<div id="selectedFacet">
 	</div>
-	<h2>Total <?php echo $results->response->numFound; ?> Results:</h2>
+	<h2>Total <?php $_SESSION['totalresults'] = $results->response->numFound; echo $_SESSION['totalresults'] ;   ?> Results:</h2>
+    <input type="hidden" id="oq" name="oq" value="<?php echo $q; ?>">
+    <//?php echo $solrQ; ?>
+    <?php //echo $_SESSION['selectedCollection']; ?>
 		<div id="facets" class="page-sidebar col-md-3">
 			<h4>Filter By:</h4>
 			<?php
@@ -121,6 +125,7 @@
 			?>
 		</div>
 <div class="col-md-9">
+
 <div class="tab">
   <button id="ma-link" class="tablinks" onclick="displayResults(event, 'ma')">Marist Archives</button>
   <!--button id="dpla-link" class="tablinks" onclick="displayResults(event, 'dpla')">DPLA</button-->
@@ -128,6 +133,7 @@
 
 <div name="TabNation"> <!-- This empty div holds both tabs for the sake of pagination positioning -->
 <div id="ma" class="tabcontent">
+
   <ol id="list-1">
     <?php
     foreach ($results->response->docs as $row) {
@@ -171,75 +177,12 @@
      ?>
    </ol>
  </div>
-
- <div id="dpla" class="tabcontent">
- <ol id="list-2">
- <?php
- foreach ($dplaResults -> docs as $row) {
-     $title = $row -> sourceResource -> title;
-     if (is_array($title)){
-       $title = $row -> sourceResource -> title[0];
-     }else{
-       $title = $row -> sourceResource -> title;
-     }
-
-     $object = (isset($row -> object) ? $row -> object : FALSE);
-     if (is_array($object)){
-       $object = (isset($row -> object[0]) ? $row -> object[0] : FALSE);
-     }else{
-       $object = (isset($row -> object) ? $row -> object : FALSE);
-     }
-
-     $isShownAt = $row -> isShownAt;
-
-     $date = (isset($row -> sourceResource -> date -> displayDate) ? $row -> sourceResource -> date -> displayDate :FALSE);
-     if (is_array($date)){
-       $date = (isset($row -> sourceResource -> date[0] -> displayDate) ? $row -> sourceResource -> date[0] -> displayDate :FALSE);
-     }else{
-       $date = (isset($row -> sourceResource -> date -> displayDate) ? $row -> sourceResource -> date -> displayDate :FALSE);
-     }
-
-     $dataProvider  = (isset($row -> dataProvider) ? $row -> dataProvider : FALSE);
-     if (is_array($dataProvider)){
-       $dataProvider  = (isset($row -> dataProvider[0]) ? $row -> dataProvider[0] : FALSE);
-     }else{
-       $dataProvider  = (isset($row -> dataProvider) ? $row -> dataProvider : FALSE);
-     }
-
-     $type = (isset($row -> sourceResource -> type) ? $row -> sourceResource -> type : FALSE);
-
-     $description = (isset($row -> sourceResource -> description) ? $row -> sourceResource -> description : FALSE);
-     if (is_array($description)){
-       $description = (isset($row -> sourceResource -> description[0]) ? $row -> sourceResource -> description[0] : FALSE);
-     }else{
-       $description =  (isset($row -> sourceResource -> description) ? $row -> sourceResource -> description : FALSE);
-     }
-
-     if ($object == "") {
-       $object =  'http://148.100.181.189:8090/testing/images/folder-icon.png';
-     }
- ?>
-   <li class="results" style="height: auto; padding: 10px;">
-     <img src="<?php echo $object ?>" style="width: 135px; height: 115px; float: left; "/>
-     <div style="margin-left: 150px; padding: 5px; height: auto;">
-       <a href="<?php echo $isShownAt ?>" target="_blank"><?php echo $title ?></a></br>
-       <p style="font-size: 12pt; margin-top: -10px;">Data Provider: <?php echo $dataProvider ?></p>
-       <p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
-       <p style="font-size: 12pt; margin-top: -10px;">Type: <?php if (is_array($type)) { echo $type[0]; } else { echo $type; } ?></p>
-       <p style="font-size: 12pt; margin-top: -10px;">Description: <?php echo $description ?></p>
-       <!--p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p-->
-     </div>
-   </li>
- <?php
-   }
- ?>
- </ol></br>
-  <div id="pagination" style="position:absolute; bottom:0;"></div>
- </div>
-</div>
+<div id="pagination" style="position:absolute; bottom:0;width:600px;"></div> 
+</div><a class="nextbatch" id="nextbatch" href="javascript:showNextBatch('<?php echo $_SESSION['selectedCollection']; ?>')" style="float:right;display:inline">Next</a>
 </div>
 
 <script>
+var searchTerm='';
 $body =  $("body");
 $body.removeClass("loading");
   $(function(){
@@ -265,6 +208,31 @@ $body.removeClass("loading");
       // Show the current tab, and add an "active" class to the button that opened the tab
       document.getElementById(src).style.display = "block";
       evt.currentTarget.className += " active";
+  }
+//$_SESSION['totalresults'] = is saving the numFound value from the result of the eXploro.
+  function showNextBatch(){
+      var count = '<?php echo $_SESSION['totalresults']; ?>';
+      var selectedCollection = "<?php echo $_SESSION['selectedCollection']; ?>";
+      console.log(count);
+      console.log(selectedCollection);
+      var batchcount = "<?php echo $_SESSION['batchcount']; ?>";
+      if(count > 100 && batchcount < count){
+        batchcount = batchcount + 100;  
+        if(searchTerm!=''){
+            var resultUrl = "<?php echo base_url("exploro/searchtwoCollectionKeyWords")?>" + "/" + searchTerm + "/" + selectedCollection + "/" + batchcount;
+            console.log("ResultURL:"+resultUrl);
+        } else {
+            var resultUrl = "<?php echo base_url("exploro/searchCollectionKeyWords")?>" + "/" + selectedCollection + "/" + batchcount;
+            console.log("ResultURL:"+resultUrl);
+        }
+        NProgress.start();
+        NProgress.configure({ showSpinner: true });
+        $('#collectionList').empty();
+        $('#searchResults').load(resultUrl);
+        NProgress.done();
+    } else {
+        //add message that there are no more results to show.
+    }
   }
 
 	/*('a.subjects').click(function(){
@@ -295,15 +263,35 @@ $body.removeClass("loading");
 		}
 
    $('a.tags').click(function(){
-      var searchTerm = $('input#searchBox').val();
+      //var searchTerm = $('input#searchBox').val();
+      //console.log("SearchTerm:"+searchTerm);
+      var batchcount = 0;//the result index starts from 0 and shows result upto 99. 
       var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + '"' + ($(this).text().substr(0, $(this).text().lastIndexOf('-'))).trim() + '"';
+      console.log("SelectedTag:"+selectedTag);
 //      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: ' +  selectedTag.length * 9 +'px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
-      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: auto;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
+      $('#selectedFacet').append('<div id="taglist" class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: auto;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
       $('input#queryTag').val($('input#queryTag').val() + "fq=" + selectedTag);
       var queryTag = $('input#queryTag').val();
-      searchTerm = searchTerm + queryTag;
+      //console.log("queryTag:"+queryTag)
+      //searchTerm = searchTerm + queryTag;
+      var oq = document.getElementById("oq").value;
+      var searchTerm = oq + queryTag;
+      searchTerm = searchTerm.replace(/N\/A/g,"N-A");
+      console.log("searchTerm:"+searchTerm);
+      console.log("OQ:"+oq);
       searchTerm = searchTerm.replace(/ /g,"%20");
-      var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
+      var resultUrl = "<?php echo base_url("exploro/searchCollectionKeyWords")?>" + "/" + searchTerm + "/" + batchcount;
+          //encodeURIComponent(uri);
+      console.log("ResultURL:"+resultUrl);
+      /*if(oq!= ''){
+        var resultUrl = "<//?php echo base_url("exploro/searchtwoCollectionKeyWords")?>" + "/" + searchTerm + "/" + oq + "/" + batchcount;
+        //var resultUrl = encodeURIComponent(uri);
+        console.log("ResultURL:"+resultUrl);
+      } else {
+          var resultUrl = "<//?php echo base_url("exploro/searchCollectionKeyWords")?>" + "/" + searchTerm;
+          //encodeURIComponent(uri);
+          console.log("ResultURL:"+resultUrl);
+      }*/
       NProgress.start();
       NProgress.configure({ showSpinner: true });
       $('#searchResults').load(resultUrl);
@@ -311,7 +299,8 @@ $body.removeClass("loading");
     });
 
     $('#selectedFacet').on('click', '.remove', function() {
-        var searchTerm = $('input#searchBox').val();
+        var batchcount = 0;
+        var searchTerm = $('input#oq').val();
         var unselectedTag ="fq=" + $(this).attr('id');
         $(this).closest('div.taglist').remove();
         $('input#queryTag').val($('input#queryTag').val().replace(unselectedTag, ' '));
@@ -320,7 +309,8 @@ $body.removeClass("loading");
         searchTerm = searchTerm.replace(/ /g,"%20");
         NProgress.start();
         NProgress.configure({ showSpinner: true });
-        var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
+        var resultUrl = "<?php echo base_url("exploro/searchCollectionKeyWords")?>" + "/" + searchTerm + "/" + batchcount;
+        console.log('remove tag URL:'+resultUrl);
         $('#searchResults').load(resultUrl);
         NProgress.done();
     });
@@ -331,10 +321,16 @@ $body.removeClass("loading");
      paginateElement: 'li',
      elementsPerPage: 10
    });
-   $('#dpla').easyPaginate({
+   
+   $(".nextbatch").on('click', function(event){
+       //alert("last clicked");
+   });
+   
+
+   /*$('#dpla').easyPaginate({
      paginateElement: 'li',
      elementsPerPage: 10
-   });
+   });*/
    // Hiding the last makes sure that the both the pagination for Marist Archives and DPLA are not displayed at the same time
    $(".easyPaginateNav:last").css('visibility', 'hidden');
    // This is used to make sure facets do not hide the only pagination that is being shown
@@ -348,11 +344,11 @@ $body.removeClass("loading");
    });
 
    // Hide the pagination for Marist Library Archives when the DPLA is selected
-   $("#dpla-link").click(function(){
+   /*$("#dpla-link").click(function(){
      $(".easyPaginateNav:first").css('visibility', 'hidden');
      $(".easyPaginateNav:last").css('visibility', 'visible');
      $("#facets").hide();
-   });
+   });*/
 
    /* Code taken from eaditor... handles the searching inside of facets */
    var sFacet = {};

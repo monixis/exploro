@@ -87,7 +87,7 @@ body.loading .modal {
 							<div id="custom-search-input">
 								<div class="input-group col-md-12">
 									<input type="text" class="form-control input-lg" id="searchBox" placeholder="Search finding aids and digitized objects" autofocus/>
-                  <input type="hidden" class="form-control input-lg" id="queryTag" />
+                  <input type="text" class="form-control input-lg" id="queryTag" />
 									<span class="input-group-btn">
 										<button id="initiateSearch" class="btn btn-info btn-lg" type="button" style="background: #ffffff; border-color: #ccc;">
 											<img src="./icons/search.png"  style="height: 25px;"/>
@@ -127,27 +127,34 @@ $(document).ajaxStop(function() {
 	$body.removeClass("loading");
 });
 		$('#initiateSearch').click(function(){
-
+			
+			$('input#queryTag').val('');
       // Clear the selected facets of the previous search
 			/*$(this).addClass('button_loader').attr("value","");
 			window.setTimeout(function(){
 				$('#initiateSearch').removeClass('button_loader').attr("value","\u2713");
 				$('#initiateSearch').prop('disabled', false);}, 5000);*/
 			$("#selectedFacet").empty();
+			$("#collectionList").empty();
 			var searchTerm = $('input#searchBox').val();
+			$('#collectionList').empty();
       if (searchTerm == "") {
         return -1;
       }
 			else {
 			$body.addClass("loading");
 			var searchTerm = searchTerm.replace(/ /g,"%20");
-			var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
+			var batchcount = 0;
+			var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount;
 			$('#searchResults').load(resultUrl);
 		}
 		});
 
 		$('#browse').click(function(){
+			$('#searchBox').val("");
 			$('#searchResults').empty();
+			$("#selectedFacet").empty();
+			$('#queryTag').val("");
 			var resultUrl = "<?php echo base_url("exploro/browse")?>";
 			$('#browseResults').load(resultUrl);
 		});
@@ -155,6 +162,7 @@ $(document).ajaxStop(function() {
     // Start the search on the pressing of the enter key as well
     $('#searchBox').keypress(function (e) {
      var key = e.which;
+		 var batchcount = 0;
      // The enter key code
      if(key == 13) {
 			 $body.addClass("loading");
@@ -165,7 +173,7 @@ $(document).ajaxStop(function() {
           return -1;
         }
   			var searchTerm = searchTerm.replace(/ /g,"%20");
-  			var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
+  			var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount;
   			$('#searchResults').load(resultUrl);
       }
       else{

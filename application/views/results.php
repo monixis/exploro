@@ -36,7 +36,7 @@
 </style>
 	<div id="selectedFacet">
 	</div>
-	<h2>Total <?php echo $results->response->numFound; ?> Results:</h2>
+	<h2>Total <?php echo $results->response->numFound; $_SESSION['totalresults'] = $results->response->numFound; ?> Results:</h2>
 		<div id="facets" class="page-sidebar col-md-3">
 			<h4>Filter By:</h4>
 			<?php
@@ -191,7 +191,9 @@
    }
  ?>
  </ol></br>
-  <div id="pagination" style="position:absolute; bottom:0;"></div>
+ <div id="pagination" style="position:absolute; bottom:0;width:600px;"></div> 
+</div><a class="nextbatch" id="nextbatch" href="javascript:showNextBatch('<?php echo $_SESSION['selectedCollection']; ?>')" style="float:right;display:inline">Next</a>
+</div>
  </div>
 </div>
 </div>
@@ -252,35 +254,96 @@ $body.removeClass("loading");
 		}
 
    $('a.tags').click(function(){
-      var searchTerm = $('input#searchBox').val();
-      var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + '"' + ($(this).text().substr(0, $(this).text().lastIndexOf('-'))).trim() + '"';
+    var count = '<?php echo $_SESSION['totalresults']; ?>';
+    var searchTerm = $('input#searchBox').val();
+    var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + '"' + ($(this).text().substr(0, $(this).text().lastIndexOf('-'))).trim() + '"';
 //      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: ' +  selectedTag.length * 9 +'px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
-      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: auto;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
-      $('input#queryTag').val($('input#queryTag').val() + "fq=" + selectedTag);
-      var queryTag = $('input#queryTag').val();
-      searchTerm = searchTerm + queryTag;
-      searchTerm = searchTerm.replace(/ /g,"%20");
-      var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
-      NProgress.start();
-      NProgress.configure({ showSpinner: true });
+    //$('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: auto;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
+
+    $('#selectedFacet').append('<a href="#" class="remove" style="margin-left:10px;"><button class="taglist" id="'+ selectedTag +'" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px;">'+ selectedTag +' X</button></a>');
+   
+    //alert("selectedTag:"+selectedTag);
+    $('input#queryTag').val($('input#queryTag').val() + "fq=" + selectedTag);
+    
+    var queryTag = $('input#queryTag').val();
+    searchTerm = searchTerm + queryTag;
+    searchTerm = searchTerm.replace(/ /g,"%20");
+    searchTerm = searchTerm.replace(/N\/A/g,"N-A");
+    //var resultUrl = "<//?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
+    var batchcount = 0;
+    if(count > 100 && batchcount < count){ 
+      var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount;
+      console.log(resultUrl);
+      $('#collectionList').empty();
       $('#searchResults').load(resultUrl);
-      NProgress.done();
+      } else {
+        //add message that there are no more results to show.
+        }
     });
 
-    $('#selectedFacet').on('click', '.remove', function() {
-        var searchTerm = $('input#searchBox').val();
-        var unselectedTag ="fq=" + $(this).attr('id');
-        $(this).closest('div.taglist').remove();
+     $('button.taglist').click(function() {
+      var count = '<?php echo $_SESSION['totalresults']; ?>';
+      var searchTerm = $('input#searchBox').val();
+        var unselectedTag ='fq=' + $(this).attr('id');
+        unselectedTag = unselectedTag.replace(':',':"')+'"';
+       	$(this).closest('button.taglist').remove();
         $('input#queryTag').val($('input#queryTag').val().replace(unselectedTag, ' '));
         var queryTag = $('input#queryTag').val();
         searchTerm = searchTerm + queryTag;
-        searchTerm = searchTerm.replace(/ /g,"%20");
-        NProgress.start();
-        NProgress.configure({ showSpinner: true });
-        var resultUrl = "<?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
+        searchTerm = searchTerm.replace(/N\/A/g,"N-A");
+        var searchTerm = encodeURIComponent(searchTerm);
+      /*var searchTerm = $('input#searchBox').val();
+      var unselectedTag ="fq=" + $(this).attr('id');
+      var closingfacet = $(this).attr('id');
+      
+      $(this).closest('button.taglist').remove();
+      //alert("closest div taglist:"+$(this).closest('div.taglist').value());
+      $('input#queryTag').val($('input#queryTag').val().replace(unselectedTag, ' '));
+      var queryTag = $('input#queryTag').val();
+      searchTerm = searchTerm + queryTag;
+      searchTerm = searchTerm.replace(/ /g,"%20");
+      NProgress.start();
+      NProgress.configure({ showSpinner: true });
+      var resultUrl = "</?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
+      $('#searchResults').load(resultUrl);
+      NProgress.done();*/
+      var batchcount = 0;
+      if(count > 0 && batchcount < count){
+      var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount;
+      console.log(resultUrl);
+      $('#collectionList').empty();
+      $('#searchResults').load(resultUrl);
+      } else {
+        //add message that there are no more results to show.
+        }
+  });
+
+    function showNextBatch(){
+      //correct this method so it works with controller to get next 10 pages for the searched word in search box
+      var count = '<?php echo $_SESSION['totalresults']; ?>';
+      var searchTerm = $('input#searchBox').val();
+      console.log(count);
+      //console.log(selectedCollection);
+       if($('input#queryTag').val()!="")//to handle the situation when facet is selected and you want to go next page, need to pass the selected facet value as well
+      {
+        var queryTag = $('input#queryTag').val();
+        searchTerm = searchTerm + queryTag; 
+      }
+      
+      searchTerm = searchTerm.replace(/ /g,"%20");
+      searchTerm = searchTerm.replace(/N\/A/g,"N-A");
+      var batchcount = <?php echo $_SESSION['batchcount']; ?>;
+      if(count > 100 && batchcount < count){
+        batchcount = batchcount + 100;  
+        var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount;
+        console.log(resultUrl);
+        $('#collectionList').empty();
         $('#searchResults').load(resultUrl);
-        NProgress.done();
-    });
+        
+    } else {
+        //add message that there are no more results to show.
+    }
+  }
 
 
     // Use easyPaginate to handle pagination of Marist Archives and DPLA
@@ -344,4 +407,6 @@ $body.removeClass("loading");
             return document.querySelectorAll(id);
         }
     };
+
+    
 </script>
