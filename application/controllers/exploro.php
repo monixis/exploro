@@ -36,12 +36,12 @@ class exploro extends CI_Controller
 		$json = file_get_contents($resultsLink);
    		$data['results'] = json_decode($json);
 	    // Search the DPLA without Marist Archives facets
-    	$queryArray = explode("fq", $q);
+    /*	$queryArray = explode("fq", $q);
     	$dplaQ = $queryArray[0];
 	    // Code to query the Digital Public Library of America
 		$dplaResultsLink = "http://api.dp.la/v2/items?q=" . $dplaQ ."&page_size=13&facets=sourceResource.subject.name&page_size=50&api_key=96410fe9eab08488c9a3da4e9641669f";
 	 	$json1 = file_get_contents($dplaResultsLink);
-   		$data['dplaResults'] = json_decode($json1);
+   		$data['dplaResults'] = json_decode($json1);*/
 	 	$this->load->view('results', $data);
 	}
 

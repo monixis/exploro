@@ -407,6 +407,10 @@ $body.removeClass("loading");
             return document.querySelectorAll(id);
         }
     };
+<<<<<<< HEAD
 
     
 </script>
+=======
+</script>
+>>>>>>> c3e3f01429f37a506c074e61f0ae3271d6cde131
