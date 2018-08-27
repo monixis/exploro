@@ -16,13 +16,8 @@ class exploro extends CI_Controller
     	$date = date_default_timezone_set('US/Eastern');
     	$this->load->view('search');
 	}
-	 
-	public function test($val){
-		$date = date_default_timezone_set('US/Eastern');
-		echo $val;	
-	 }
 
-	public function searchKeyWords($q)
+	/*public function searchKeyWords($q)
   	{
 		$q = trim($q);
 		$q = str_replace(" ","%20", $q);
@@ -32,7 +27,7 @@ class exploro extends CI_Controller
 		$solrQ = str_replace("Date", "datesingle", $solrQ);
 		$solrQ = str_replace("N-A","\"N/A\"",$solrQ);
     	// rows=2147483647 is the max value of an int... this returns all rows so that way they can all be viewed with pagination... will get a lot of uneeded data which is expensive..
-		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=" . $solrQ."&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.field=format&rows=100";
+		$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?q=*:*" . $solrQ."&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.field=format&rows=100";
 		$json = file_get_contents($resultsLink);
    		$data['results'] = json_decode($json);
 	    // Search the DPLA without Marist Archives facets
@@ -42,38 +37,43 @@ class exploro extends CI_Controller
 		$dplaResultsLink = "http://api.dp.la/v2/items?q=" . $dplaQ ."&page_size=13&facets=sourceResource.subject.name&page_size=50&api_key=96410fe9eab08488c9a3da4e9641669f";
 	 	$json1 = file_get_contents($dplaResultsLink);
    		$data['dplaResults'] = json_decode($json1);*/
-	 	$this->load->view('results', $data);
-	}
+	 //	$this->load->view('results', $data);
+//	}
 
-	public function searchKeyWordsinBatches($q,$batchcount)
+	public function searchKeyWordsinBatches($q, $batchcount, $searchType)
   	{
+		$batchccount = $batchcount;
+		$_SESSION['batchcount'] = $batchccount;  
 		$q = trim($q);
 		$q = str_replace(" ","%20", $q);
 		$q = str_replace("&","%26", $q);
-    	// Taken from repository search keywords
-    	$solrQ = str_replace("fq","&fq", $q);
+		// Taken from repository search keywords
+		$solrQ = str_replace("fq","&fq", $q);
 		$solrQ = str_replace("Date", "datesingle", $solrQ);
 		$solrQ = str_replace("N-A","\"N/A\"",$solrQ);
-		$batchccount = $batchcount;
-		$_SESSION['batchcount'] = $batchccount;
-    	// rows=2147483647 is the max value of an int... this returns all rows so that way they can all be viewed with pagination... will get a lot of uneeded data which is expensive..
-		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=" . $solrQ."&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.field=format&rows=100&start=". $batchccount;
+		if($searchType == 0){
+			$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?q=*:*" . $solrQ."&facet=true&facet.field=collection&facet.field=category&facet.field=format&rows=100&start=". $batchccount;
+		}else{
+			// rows=2147483647 is the max value of an int... this returns all rows so that way they can all be viewed with pagination... will get a lot of uneeded data which is expensive..
+			$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?q=" . $solrQ."&facet=true&facet.field=collection&facet.field=category&facet.field=format&rows=100&start=". $batchccount;
+		}
 		$json = file_get_contents($resultsLink);
    		$data['results'] = json_decode($json);
 	    // Search the DPLA without Marist Archives facets
-    	$queryArray = explode("fq", $q);
-    	$dplaQ = $queryArray[0];
+    	//$queryArray = explode("fq", $q);
+    	//$dplaQ = $queryArray[0];
 	    // Code to query the Digital Public Library of America
-		$dplaResultsLink = "http://api.dp.la/v2/items?q=" . $dplaQ ."&page_size=13&facets=sourceResource.subject.name&page_size=50&api_key=96410fe9eab08488c9a3da4e9641669f";
-	 	$json1 = file_get_contents($dplaResultsLink);
-   		$data['dplaResults'] = json_decode($json1);
+		//$dplaResultsLink = "http://api.dp.la/v2/items?q=" . $dplaQ ."&page_size=13&facets=sourceResource.subject.name&page_size=50&api_key=96410fe9eab08488c9a3da4e9641669f";
+	 	//$json1 = file_get_contents($dplaResultsLink);
+   		//$data['dplaResults'] = json_decode($json1);
 	 	$this->load->view('results', $data);
 	}
 
+	//Returns EAD of a selected collection from the Browse Page.
 	public function searchCollectionKeyWords($q,$batchcount)
   	{
 		$q = trim($q);
-		$q = str_replace(" ","%20", $q);
+		//$q = str_replace(" ","%20", $q);
 		$q = str_replace("&","%26", $q);
     	// Taken from repository search keywords
     	$solrQ = str_replace("fq","&fq", $q);
@@ -81,20 +81,17 @@ class exploro extends CI_Controller
 		//$solrQ = urlencode($solrQ);
 		$solrQ = str_replace("N-A","\"N/A\"",$solrQ);
 		$batchccount = $batchcount;
-    	// rows=2147483647 is the max value of an int... this returns all rows so that way they can all be viewed with pagination... will get a lot of uneeded data which is expensive..
-		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=collection:" . $solrQ."&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.field=format&rows=100&start=". $batchccount;
+		$resultsLink = 'http://34.221.255.145:8983/solr/exploro/query?q=*:*&fq=collection:"' . $solrQ.'"&facet=true&facet.field=collection&facet.field=category&facet.field=format&rows=100&start='. $batchccount;
 		$json = file_get_contents($resultsLink);
 		$data['results'] = json_decode($json);
 		$data['q'] = $q;   
-		
 		$data['solrQ'] = $resultsLink;
 		$_SESSION['batchcount'] = $batchccount;
 		$_SESSION['selectedCollection'] = $q;
-		
-	 	$this->load->view('collectionresult', $data);
+		$this->load->view('results', $data);
 	}
 
-	public function searchtwoCollectionKeyWords($q1,$q2,$batchcount)
+/*	public function searchtwoCollectionKeyWords($q1,$q2,$batchcount)
   	{
 		$q1 = trim($q1);
 		$q1 = str_replace(" ","%20", $q1);
@@ -112,7 +109,7 @@ class exploro extends CI_Controller
 		$solrQ = str_replace("N-A","\"N/A\"",$solrQ);
 		$batchccount = $batchcount;
     	// rows=2147483647 is the max value of an int... this returns all rows so that way they can all be viewed with pagination... will get a lot of uneeded data which is expensive..
-		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=(" . $solrQ1."%20OR%20". $solrQ2 .")&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.field=format&rows=100&start=". $batchccount;
+		$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?q=(" . $solrQ1."%20OR%20". $solrQ2 .")&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.field=format&rows=100&start=". $batchccount;
 		$json = file_get_contents($resultsLink);
 		$data['results'] = json_decode($json);
 		$_SESSION['batchcount'] = $batchccount;
@@ -122,11 +119,11 @@ class exploro extends CI_Controller
 			$data['q'] = "DEEP";
 		}
 	 	$this->load->view('collectionresult', $data);
-	}
+	}*/
 
 	public function browse()
 	{
-		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?&facet=true&facet.field=collection&rows=1000";
+		$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?&facet=true&facet.field=collection&rows=1000";
 		$json = file_get_contents($resultsLink);
 		$data['results'] = json_decode($json);
 		$this->load->view('browse', $data);
@@ -134,7 +131,7 @@ class exploro extends CI_Controller
 	public function searchSubjects($q)
 	{
   		$q = str_replace(" ","%20", $q);
-		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=" . $q."&facet=true&facet.field=collection&facet.field=datesingle&facet.field=category&facet.field=format&facet.field=physdesc&facet.field=location";
+		$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?q=" . $q."&facet=true&facet.field=collection&facet.field=category&facet.field=format&facet.field=physdesc&facet.field=location";
  		$json = file_get_contents($resultsLink);
      	$data['results'] = json_decode($json);
 
@@ -147,7 +144,7 @@ class exploro extends CI_Controller
 
 	public function fileInfo($id)
 	{
-  		$resultsLink = "http://35.162.165.138:8983/solr/exploro/query?q=id:" . $id ;
+  		$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?q=id:" . $id ;
    		$json = file_get_contents($resultsLink);
      	$data['results'] = json_decode($json);
   	 	$this->load->view('file_view', $data);

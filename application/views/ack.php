@@ -16,7 +16,7 @@ body {font-family: Helvetica,Arial;}
 				Project Manager: Monish Singh
 			</li>
       <li>
-        Developer: Dan Mopsick
+        Developer: Dan Mopsick; Deep Dand
       </li>
 		</ul>
 	</body>

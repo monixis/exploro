@@ -18,7 +18,6 @@
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<link href="http://library.marist.edu/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 		<link href="http://library.marist.edu/css/library.css" rel="stylesheet">
-		<link href="http://library.marist.edu/css/menuStyle.css" rel="stylesheet">
 		<link href="./styles/main.css" rel="stylesheet">
     <script src="./js/nprogress.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
@@ -28,7 +27,6 @@
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		<script type="text/javascript" src="http://library.marist.edu/js/libraryMenu.js"></script>
 		<script type="text/javascript" src="http://library.marist.edu/crrs/js/jquery-ui.js"></script>
 		<link rel="stylesheet" href="http://library.marist.edu/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -42,10 +40,10 @@
     height:     100%;
     width:      100%;
     background: rgba( 255, 255, 255, .8 )
-                url('http://i.stack.imgur.com/FhHRx.gif')
+                url('./icons/spinner.gif')
                 50% 50%
                 no-repeat;
-}
+		}
 
 /* When the body has the loading class, we turn
    the scrollbar off with overflow:hidden */
@@ -62,7 +60,7 @@ body.loading .modal {
 	</head>
 
 	<body>
-		<div id="headerContainer">
+		<!--div id="headerContainer">
 			<a href="http://library.marist.edu/" target="_self"> <div id="header"></div> </a>
 		</div>
 		<a class="menu-link" href="#menu"><img src="http://library.marist.edu/images/r-menu.png" style="width: 20px; margin-top: 4px;" /></a>
@@ -70,7 +68,7 @@ body.loading .modal {
 			<div id="menuItems"></div>
 		</div>
 		<div id="miniMenu" style="width: 100%;border: 1px solid black; border-bottom: none;">
-		</div>
+		</div-->
 
 
 		<!-- Main jumbotron for a primary marketing message or call to action -->
@@ -83,23 +81,29 @@ body.loading .modal {
 						<div class="col-md-12">
 							<!--h2 style="text-align: center; margin: 30px; font-size: 40px;">Honor's Thesis Repository</h2-->
 							<!--input type="text" id="searchBox" placeholder="Search Honor's Thesis Repository" /-->
-							<div id="logo"></div>
+							<a href="<?php echo base_url()?>"><div id="logo"></div></a>
 							<div id="custom-search-input">
 								<div class="input-group col-md-12">
 									<input type="text" class="form-control input-lg" id="searchBox" placeholder="Search finding aids and digitized objects" autofocus/>
-                  <input type="text" class="form-control input-lg" id="queryTag" />
+                  <input type="hidden" class="form-control input-lg" id="queryTag" />
 									<span class="input-group-btn">
 										<button id="initiateSearch" class="btn btn-info btn-lg" type="button" style="background: #ffffff; border-color: #ccc;">
 											<img src="./icons/search.png"  style="height: 25px;"/>
 										</button> </span>
 								</div>
-								<br /><br />
+								<br />
 								<button type="button" id="browse" class="btn btn-primary">Browse</button>
 							</div>
 
               <div id="selectedFacet" style="width:auto;"></div>
 							<div id="searchResults" style="position: relative;display: inline-block"></div>
-							<div id="browseResults" style="position: relative;display: inline-block"></div>
+							<div class="col-md-3"></div>
+							<div id="nextResults" class="col-md-9">
+									<a id="nextbatch" href="javascript:showNextBatch(1)" style="float:right; font-size: 11pt; visibility:hidden;">Next 100 Results</a>
+									<a id="prevbatch" href="javascript:showNextBatch(0)" style="float:left; font-size: 11pt; visibility:hidden;">Previous 100 Results</a>
+							</div>
+						
+							<!--div id="browseResults" style="position: relative;display: inline-block"></div-->
 						</div>
 					</div><!-- row -->
 				</div><!-- container -->
@@ -114,9 +118,9 @@ body.loading .modal {
 			<p  class = "foot">
 				James A. Cannavino Library, 3399 North Road, Poughkeepsie, NY 12601; 845.575.3106
 				<br />
-				&#169; Copyright 2007-2017 Marist College. All Rights Reserved.
+				&#169; Copyright 2007-2018 Marist College. All Rights Reserved.
 
-				<a href="http://www.marist.edu/disclaimers.html" target="_blank">Disclaimers</a> | <a href="http://www.marist.edu/privacy.html" target="_blank" >Privacy Policy</a> | <a href="http://library.marist.edu/ack.html?iframe=true&width=50%&height=62%" rel="prettyphoto[iframes]">Acknowledgements</a>
+				<a href="http://www.marist.edu/disclaimers.html" target="_blank">Disclaimers</a> | <a href="http://www.marist.edu/privacy.html" target="_blank" >Privacy Policy</a> | <a href="<?php echo base_url("exploro/ack")?>" >Acknowledgements</a>
 			</p>
 </div>
 <div class="modal"><!-- Place at bottom of page --></div>
@@ -127,14 +131,8 @@ $(document).ajaxStop(function() {
 	$body.removeClass("loading");
 });
 		$('#initiateSearch').click(function(){
-			
 			$('input#queryTag').val('');
-      // Clear the selected facets of the previous search
-			/*$(this).addClass('button_loader').attr("value","");
-			window.setTimeout(function(){
-				$('#initiateSearch').removeClass('button_loader').attr("value","\u2713");
-				$('#initiateSearch').prop('disabled', false);}, 5000);*/
-			$("#selectedFacet").empty();
+    	$("#selectedFacet").empty();
 			$("#collectionList").empty();
 			var searchTerm = $('input#searchBox').val();
 			$('#collectionList').empty();
@@ -142,24 +140,16 @@ $(document).ajaxStop(function() {
         return -1;
       }
 			else {
-			$body.addClass("loading");
+			$body.addClass("loading").delay(1600);
 			var searchTerm = searchTerm.replace(/ /g,"%20");
 			var batchcount = 0;
-			var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount;
+			var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount + "/1";
+			$('#nextbatch').css('visibility','visible');
 			$('#searchResults').load(resultUrl);
 		}
 		});
 
-		$('#browse').click(function(){
-			$('#searchBox').val("");
-			$('#searchResults').empty();
-			$("#selectedFacet").empty();
-			$('#queryTag').val("");
-			var resultUrl = "<?php echo base_url("exploro/browse")?>";
-			$('#browseResults').load(resultUrl);
-		});
-
-    // Start the search on the pressing of the enter key as well
+		// Start the search on the pressing of the enter key as well
     $('#searchBox').keypress(function (e) {
      var key = e.which;
 		 var batchcount = 0;
@@ -173,12 +163,28 @@ $(document).ajaxStop(function() {
           return -1;
         }
   			var searchTerm = searchTerm.replace(/ /g,"%20");
-  			var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount;
+				var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount + "/1";
+				$('#nextbatch').css('visibility','visible');
   			$('#searchResults').load(resultUrl);
       }
       else{
         return 0;
       }
     });
+
+		$('#browse').click(function(){
+			$('#searchBox').val("");
+		//	$('#searchResults').empty().hide();
+		//	$("#selectedFacet").empty().hide();
+		//	$('#browseResults').show();
+			$('#queryTag').val("");
+			var resultUrl = "<?php echo base_url("exploro/browse")?>";
+			//	$('#browseResults').load(resultUrl);
+			$("#selectedFacet").empty();
+			$('#nextbatch, #prevbatch').css('visibility','hidden');
+ 			$('#searchResults').load(resultUrl);
+		});
+
+    
 </script>
 </html>

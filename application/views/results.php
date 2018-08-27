@@ -1,4 +1,3 @@
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="./js/nprogress.js?r=123"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.pagination.js/0.1.1/list.pagination.min.js"></script>
@@ -11,8 +10,9 @@
 
 	p.labelInfo {font-size: 10pt; margin-top: -10px;}
 	span.labelName {color: #b31b1b;font-weight:bold; }
-	.easyPaginateNav a {padding:5px;float: inherit}
+	.easyPaginateNav a {padding:5px;float: inherit; font-size: 13pt;}
 	.easyPaginateNav a.current {font-weight:bold;text-decoration:underline;}
+  .easyPaginateNav {text-align: center; margin-top: 15px; }
 	/*@media all and (min-width:992px) {
 		#facets {
 			width: 240px;
@@ -47,10 +47,10 @@
           }
 			?>
 					<button class="accordion"><?php echo ucfirst($key) ; ?></button>
-					<div class="panel" id="<?php echo $key ; ?>">
+					<div class="panel" id="<?php echo ucfirst($key) ; ?>">
             <form class="form-horizontal">
 								<div class="form-group has-feedback">
-                   <input id="searchInput_<?php echo $key;?>" class="form-control hasclear" oninput="sFacet.filterHTML('#<?php echo $key ; ?>', 'li#<?php echo $key;?>', this.value)" type="text" placeholder="Search">
+                   <input id="searchInput_<?php echo $key ;?>" class="form-control hasclear" oninput="sFacet.filterHTML('#<?php echo $key ; ?>', 'li#<?php echo $key;?>', this.value)" type="text" placeholder="Search">
 						<span></span>
 
 						</div>
@@ -66,7 +66,7 @@
                 if ($row == 0){
                   break;
                 }
-								$facetList = $facetList . " -" . $row ;
+								$facetList = $facetList . " [" . $row . "]";
 					?><li id="<?php echo $key;?>" style="margin-bottom:5px;"><a href="#" class='tags'><?php echo $facetList ; ?></a></li><?php
 							}
 							$i += 1;
@@ -80,7 +80,7 @@
 <div class="col-md-9">
 <div class="tab">
   <button id="ma-link" class="tablinks" onclick="displayResults(event, 'ma')">Marist Archives</button>
-  <button id="dpla-link" class="tablinks" onclick="displayResults(event, 'dpla')">DPLA</button>
+  <!--button id="dpla-link" class="tablinks" onclick="displayResults(event, 'dpla')">DPLA</button-->
 </div>
 
 <div name="TabNation"> <!-- This empty div holds both tabs for the sake of pagination positioning -->
@@ -113,7 +113,7 @@
   ?>
     <li class="results" style="height: auto; padding: 10px;">
       <img src="<?php echo $link ?>" style="width: 135px; height: 115px; float: left; margin-right: 10px;"/>
-      <div style="margin-left: 120px; padding: 5px; height: auto;">
+      <div style="margin-left: 120px; padding-left: 25px; height: auto;">
         <a href="<?php if ($level == "Non-Digitized") { echo base_url("exploro/viewEAD"). "/" . $cid . "/" . $eadid ; } else{ echo base_url("exploro/fileInfo"). "/" . $id ; }?>" target="_blank"><?php echo $title ?></a></br>
         <p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p>
           <?php if ($level == "files"){ ?>
@@ -127,11 +127,11 @@
       }
      ?>
    </ol>
- </div>
+ </div><!-- ma -->
 
- <div id="dpla" class="tabcontent">
+ <!--div id="dpla" class="tabcontent">
  <ol id="list-2">
- <?php
+ <!--?php
  foreach ($dplaResults -> docs as $row) {
      $title = $row -> sourceResource -> title;
      if (is_array($title)){
@@ -185,19 +185,19 @@
        <p style="font-size: 12pt; margin-top: -10px;">Type: <?php if (is_array($type)) { echo $type[0]; } else { echo $type; } ?></p>
        <p style="font-size: 12pt; margin-top: -10px;">Description: <?php echo $description ?></p>
        <!--p style="font-size: 12pt; margin-top: -10px;">Date: <?php echo $date ?></p-->
-     </div>
+     <!--/div>
    </li>
- <?php
+ <!--?php
    }
  ?>
  </ol></br>
  <div id="pagination" style="position:absolute; bottom:0;width:600px;"></div> 
-</div><a class="nextbatch" id="nextbatch" href="javascript:showNextBatch('<?php echo $_SESSION['selectedCollection']; ?>')" style="float:right;display:inline">Next</a>
-</div>
- </div>
-</div>
-</div>
+</div> <!-- dpla --> 
+<!--a id="nextbatch" href="javascript:showNextBatch(1)" style="float:right; font-size: 11pt;">Next 100 Results</a>
+<a id="prevbatch" href="javascript:showNextBatch(0)" style="float:left; font-size: 11pt;">Previous 100 Results</a-->
 
+</div> <!-- TabNation -->
+</div> <!-- col-md-9 -->
 <script>
 $body =  $("body");
 $body.removeClass("loading");
@@ -251,109 +251,108 @@ $body.removeClass("loading");
             		panel.style.display = "block";
         		}
     		}
-		}
+		} 
 
    $('a.tags').click(function(){
     var count = '<?php echo $_SESSION['totalresults']; ?>';
     var searchTerm = $('input#searchBox').val();
-    var selectedTag = ($(this).parents('div.panel').attr('id')) + ' : ' + '"' + ($(this).text().substr(0, $(this).text().lastIndexOf('-'))).trim() + '"';
-//      $('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: ' +  selectedTag.length * 9 +'px;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
-    //$('#selectedFacet').append('<div class="taglist" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px; width: auto;">'+ selectedTag +'<a href="#" class="remove" id="'+ selectedTag +'" style="margin-left:10px; float:right;"> X </a></div>');
-
-    $('#selectedFacet').append('<a href="#" class="remove" style="margin-left:10px;"><button class="taglist" id="'+ selectedTag +'" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px;">'+ selectedTag +' X</button></a>');
-   
-    //alert("selectedTag:"+selectedTag);
+    if (searchTerm == ''){
+      var searchType = 0;
+    }else{
+      searchType = 1;
+    }
+    var displaySelectedTag = $(this).parents('div.panel').attr('id');
+    var selectedTag = displaySelectedTag.toLowerCase() + ' :"' + ($(this).text().substr(0, $(this).text().lastIndexOf('['))).trim() + '"';
+    displaySelectedTag = displaySelectedTag + ' :"' + ($(this).text().substr(0, $(this).text().lastIndexOf('['))).trim() + '"';
+    var selectedTagId = selectedTag.replace(/"/g, '');
+    $('#selectedFacet').append('<a href="#" class="remove" style="margin-left:10px;"><button class="taglist" id="'+ selectedTagId +'" style="border: 1px solid #cccccc; background: #eeeeee; padding: 5px; margin-right: 10px; margin-top: 5px;">'+ displaySelectedTag +' X</button></a>');
     $('input#queryTag').val($('input#queryTag').val() + "fq=" + selectedTag);
-    
     var queryTag = $('input#queryTag').val();
     searchTerm = searchTerm + queryTag;
     searchTerm = searchTerm.replace(/ /g,"%20");
     searchTerm = searchTerm.replace(/N\/A/g,"N-A");
-    //var resultUrl = "<//?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
     var batchcount = 0;
-    if(count > 100 && batchcount < count){ 
-      var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount;
-      console.log(resultUrl);
-      $('#collectionList').empty();
-      $('#searchResults').load(resultUrl);
+      if(count > 100 && batchcount < count){ 
+        $body.addClass("loading");
+        var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount + "/" + searchType;
+        $('#collectionList').empty();
+        $('#searchResults').load(resultUrl);
       } else {
         //add message that there are no more results to show.
-        }
-    });
+      }
+  });
 
-     $('button.taglist').click(function() {
+  $('button.taglist').click(function() {
       var count = '<?php echo $_SESSION['totalresults']; ?>';
       var searchTerm = $('input#searchBox').val();
-        var unselectedTag ='fq=' + $(this).attr('id');
-        unselectedTag = unselectedTag.replace(':',':"')+'"';
-       	$(this).closest('button.taglist').remove();
-        $('input#queryTag').val($('input#queryTag').val().replace(unselectedTag, ' '));
-        var queryTag = $('input#queryTag').val();
-        searchTerm = searchTerm + queryTag;
-        searchTerm = searchTerm.replace(/N\/A/g,"N-A");
-        var searchTerm = encodeURIComponent(searchTerm);
-      /*var searchTerm = $('input#searchBox').val();
-      var unselectedTag ="fq=" + $(this).attr('id');
-      var closingfacet = $(this).attr('id');
-      
-      $(this).closest('button.taglist').remove();
-      //alert("closest div taglist:"+$(this).closest('div.taglist').value());
+      if (searchTerm == ''){
+        var searchType = 0;
+      }else{
+        searchType = 1;
+      }
+      var unselectedTag ='fq=' + $(this).attr('id');
+      unselectedTag = unselectedTag.replace(':',':"')+'"';
+     	$(this).closest('button.taglist').remove();
       $('input#queryTag').val($('input#queryTag').val().replace(unselectedTag, ' '));
       var queryTag = $('input#queryTag').val();
       searchTerm = searchTerm + queryTag;
       searchTerm = searchTerm.replace(/ /g,"%20");
-      NProgress.start();
-      NProgress.configure({ showSpinner: true });
-      var resultUrl = "</?php echo base_url("exploro/searchKeyWords")?>" + "/" + searchTerm;
-      $('#searchResults').load(resultUrl);
-      NProgress.done();*/
+      searchTerm = searchTerm.replace(/N\/A/g,"N-A");
       var batchcount = 0;
-      if(count > 0 && batchcount < count){
-      var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount;
-      console.log(resultUrl);
-      $('#collectionList').empty();
-      $('#searchResults').load(resultUrl);
-      } else {
-        //add message that there are no more results to show.
+        if(count > 0 && batchcount < count){
+          //$body.addClass("loading");
+          var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount + "/" + searchType;
+          $('#collectionList').empty();
+          $('#searchResults').load(resultUrl);
+        } else {
+          //add message that there are no more results to show.
         }
   });
 
-    function showNextBatch(){
-      //correct this method so it works with controller to get next 10 pages for the searched word in search box
+    function showNextBatch(type){
+     //correct this method so it works with controller to get next 10 pages for the searched word in search box
       var count = '<?php echo $_SESSION['totalresults']; ?>';
       var searchTerm = $('input#searchBox').val();
-      console.log(count);
-      //console.log(selectedCollection);
-       if($('input#queryTag').val()!="")//to handle the situation when facet is selected and you want to go next page, need to pass the selected facet value as well
+      if (searchTerm == ''){
+        var searchType = 0;
+      }else{
+        searchType = 1;
+      }
+      if($('input#queryTag').val()!="")//to handle the situation when facet is selected and you want to go next page, need to pass the selected facet value as well
       {
         var queryTag = $('input#queryTag').val();
         searchTerm = searchTerm + queryTag; 
       }
-      
       searchTerm = searchTerm.replace(/ /g,"%20");
       searchTerm = searchTerm.replace(/N\/A/g,"N-A");
       var batchcount = <?php echo $_SESSION['batchcount']; ?>;
       if(count > 100 && batchcount < count){
-        batchcount = batchcount + 100;  
-        var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount;
-        console.log(resultUrl);
-        $('#collectionList').empty();
-        $('#searchResults').load(resultUrl);
-        
-    } else {
-        //add message that there are no more results to show.
+        if(type == 1){
+          batchcount = batchcount + 100; 
+          $('#prevbatch').css('visibility', 'visible');
+        }else if (type == 0){
+          batchcount = batchcount - 100;  
+        }
+            if(batchcount >= 0){
+              var resultUrl = "<?php echo base_url("exploro/searchKeyWordsinBatches")?>" + "/" + searchTerm + "/" + batchcount + "/" + searchType;
+              $body.addClass("loading");
+              $('#collectionList').empty();
+              $('#searchResults').load(resultUrl);
+            }
+            if(batchcount == 0){
+              $('#prevbatch').css('visibility','hidden');
+            }
+      } 
     }
-  }
-
 
     // Use easyPaginate to handle pagination of Marist Archives and DPLA
    $('#ma').easyPaginate({
      paginateElement: 'li',
-     elementsPerPage: 10
+     elementsPerPage: 20
    });
    $('#dpla').easyPaginate({
      paginateElement: 'li',
-     elementsPerPage: 10
+     elementsPerPage: 20
    });
    // Hiding the last makes sure that the both the pagination for Marist Archives and DPLA are not displayed at the same time
    $(".easyPaginateNav:last").css('visibility', 'hidden');
@@ -407,10 +406,5 @@ $body.removeClass("loading");
             return document.querySelectorAll(id);
         }
     };
-<<<<<<< HEAD
 
-    
 </script>
-=======
-</script>
->>>>>>> c3e3f01429f37a506c074e61f0ae3271d6cde131

@@ -26,7 +26,7 @@ $.fn.easyPaginate = function (options) {
     var defaults = {
         paginateElement: 'li',
         hashPage: 'page',
-        elementsPerPage: 10,
+        elementsPerPage: 30,
         effect: 'default',
         slideOffset: 20,
         firstButton: true,
@@ -34,9 +34,9 @@ $.fn.easyPaginate = function (options) {
         lastButton: true,
         lastButtonText: '>>',        
         prevButton: true,
-        prevButtonText: '<',        
+        prevButtonText: 'Prev',        
         nextButton: true,
-        nextButtonText: '>'
+        nextButtonText: 'Next'
     }
         
     return this.each (function (instance) {        
