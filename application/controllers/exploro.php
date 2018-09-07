@@ -166,7 +166,7 @@ class exploro extends CI_Controller
 
 	public function viewCollectionEAD($cid)
 	{
-		$data['url'] = base_url('exploro/eads/'.$cid.'/index.xml');
+		$data['url'] = base_url('eads/'.$cid.'/index.xml');
       	$data['cid'] = $cid;
       	$this->load->view('collection_ead_view', $data);
     }
