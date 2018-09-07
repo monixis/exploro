@@ -65,7 +65,7 @@ $xml = simplexml_load_file($url);
 		<h2 class="heading"><?php echo $info -> did -> unitid; ?> - <?php echo $info -> did -> unittitle; ?></h2>
 		<p><label>Repository: </label><a href='http://library.marist.edu/archives' target='_blank'><?php echo $info -> did -> repository -> corpname -> part; ?></a></p>
 		<p><label>Creator: </label><?php echo $info -> did -> origination -> persname -> part; ?></p>
-		<button type="button" class="btn btn-primary"><a href='<?php echo base_url("?c=exploro&m=viewCollectionEAD&cid=$cid");?>' target='_blank' style='text-decoration: none; color: #ffffff;'>Collection Page</a></button>
+		<button type="button" class="btn btn-primary"><a href='<?php echo base_url("exploro/viewCollectionEAD"). "/".$cid ;?>' target='_blank' style='text-decoration: none; color: #ffffff;'>Collection Page</a></button>
 	<?php } ?>
 
 	<?php foreach ($xml->xpath("//filedesc") as $seriesInfo) { ?>
