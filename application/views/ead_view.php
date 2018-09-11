@@ -6,8 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="<?php echo base_url("/styles/bootstrap.css"); ?>">
   <link rel="stylesheet" href="<?php echo base_url("/styles/boxbuilder.css"); ?>">
+  
+ 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="<?php echo base_url("styles/prettyPhoto.css"); ?>">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript" type="text/javascript"></script>
+  <script src="<?php echo base_url("js/jquery.prettyPhoto.js"); ?>" type="text/javascript" charset="utf-8"></script>
   <script>
 	$(document).ready(function() {
 		var isOpen = false;
@@ -15,7 +20,14 @@
 		$tdata.find('tr.tbldata').hide();
 		$('tr.Box').click(function() {
 			$(this).parent().find('tr.tbldata').toggle();
-		});
+    });
+    $("a[rel^='prettyPhoto']").prettyPhoto({
+      overlay_gallery: true,
+      theme: 'facebook',
+      social_tools: '',
+      opacity: 0.20,
+      deeplinking: false
+    });
 	});
    </script>
 </head>
@@ -102,7 +114,8 @@ $xml = simplexml_load_file($url);
                 <td class="tableFont"><a title="<?php echo $item -> did -> unittitle; ?>" href="<?php echo $item -> dao['href']; ?>" target="_blank"><?php echo $item -> did -> unittitle; ?></a></td>
             <?php }
               else {?>
-       					<td class="tableFont"><a title="<?php echo $item -> did -> unittitle; ?>" name="<?php echo $item -> dao['href']; ?>" class="modal_link"><?php echo $item -> did -> unittitle; ?></a></td>
+       					<!--td class="tableFont"><a title="<//?php echo $item -> did -> unittitle; ?>" name="<//?php echo $item -> dao['href']; ?>" class="modal_link"><//?php echo $item -> did -> unittitle; ?></a></td-->
+                 <td class="tableFont"><a title="<?php echo $item -> did -> unittitle; ?>" name="<?php echo $item -> dao['href']; ?>" href="<?php echo $item -> dao['href']; ?>" rel="prettyPhoto[gallery]"><?php echo $item -> did -> unittitle; ?></a></td>
             <?php }
           } else{ ?>
  						<td class="tableFont"><?php echo $item -> did -> unittitle; ?></td>
@@ -141,9 +154,24 @@ $xml = simplexml_load_file($url);
     </div>
   </div>
 </div>
+<!--a href="" rel="prettyPhoto" id="imagepreview">
+<img src="" width="60" height="60" alt="" / id="imgsrc">
+</a-->
 <style>
   .modal_link {
     cursor: pointer;
+  }
+
+  @media(max-width: 640px) {
+    .modal-content {
+      text-align: center;
+      vertical-align: middle;
+    }
+    #imagepreview {
+      max-height: 250px;
+      max-width: 250px;
+      /*width: 100%;*/
+    }
   }
 
   @media(max-width: 1023px) {
@@ -154,7 +182,7 @@ $xml = simplexml_load_file($url);
     #imagepreview {
       max-height: 425px;
       max-width: 375px;
-      width: 100%;
+      /*width: 100%;*/
     }
   }
 
@@ -169,7 +197,7 @@ $xml = simplexml_load_file($url);
     #imagepreview {
       max-height: 450px;
       max-width: 600px;
-      width: 100%;
+      /*width: 100%;*/
     }
   }
     @media(min-width: 1600px) {
@@ -184,7 +212,7 @@ $xml = simplexml_load_file($url);
       #imagepreview {
         max-height: 700px;
         max-width: 700px;
-        width: 100%;
+        /*width: 100%;*/
       }
     }
 
@@ -202,6 +230,7 @@ $xml = simplexml_load_file($url);
 
       // Change the text and picture of modal
       $('#imagepreview').attr('src', $(".active td a").attr('name')); // here asign the image to the modal when the
+      
      $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
 
 
@@ -295,6 +324,5 @@ $xml = simplexml_load_file($url);
 <footer class="container-fluid text-center">
 	<?php $this->load->view('footer'); ?>
 </footer>
-
 </body>
 </html>
