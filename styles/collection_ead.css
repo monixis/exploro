@@ -1,9 +1,8 @@
 .container-wrapper {
   position: absolute;
-  top: 25%;
+  top: 60px;
 }
 .div-container-body {
-	margin: 32px auto;
   padding: 32px;
 	background-color: white;
   border-radius: 5px;

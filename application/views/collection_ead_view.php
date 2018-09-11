@@ -48,7 +48,7 @@
       global $cId;
       $cId = $cid;
     ?>
-    <div class="col-md-12 col-xs-12 section-sizing" style="background-image:url('http://148.100.181.189:8090/digitizedContents/LTP/1269/1269.26.jpg'); background-repeat: no-repeat; background-size: cover;"></div>
+    <div class="col-md-12 col-xs-12 section-sizing"></div>
 
     <div class="container-wrapper">
       <div class="col-md-2 col-xs-2"></div>
