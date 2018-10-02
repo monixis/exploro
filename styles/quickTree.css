@@ -1,0 +1,9 @@
+.tree * {margin:0; padding:0;}
+.tree li {list-style:none; padding-left:21px;}
+.tree li.root {padding-left:0;}
+    .tree li li {background:url('../images/rootNode.gif') no-repeat 17px center; margin-left:10px; padding-left:31px;}
+	.tree li li.root {padding-left:10px; background:url('../images/justOne.gif') repeat-y 17px 0;}
+.expand {background:url('../images/plusMinus.gif') no-repeat; width:15px;  height:16px; display:block; float:left; margin-top:2px; padding:0 5px 0 0; text-indent:-9999px; line-height:0; font-size:0;}
+.contract {background-position:0 -16px;}
+.expand:hover {cursor:pointer;}
+.expandAll {background:url(none) no-repeat; width:15px;  height:16px; display:block; float:left; margin-top:2px; padding:0 5px 0 0; text-indent:-9999px; line-height:0; font-size:0;}

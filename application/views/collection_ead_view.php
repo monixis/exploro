@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
     <title>eXploro EAD</title>
     <meta charset="utf-8">
@@ -8,15 +9,17 @@
   <link rel="stylesheet" href="<?php echo base_url("/styles/boxbuilder.css"); ?>">
   
     <link rel="stylesheet" href="<?php echo base_url("/styles/collection_ead.css"); ?>">
+    <link rel="stylesheet" href="<?php echo base_url("styles/quickTree.css"); ?>">
     <!-- Using a different library stylesheet to make collection info consistent with the old info formatting -->
     <link rel="stylesheet" href="http://library.marist.edu/archives/researchcart/styles/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="<?php echo base_url('/js/jquery.quickTree.js') ?>"></script>
 
-     </script>
+</head>
   <body>
-    
+  
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -111,40 +114,77 @@
         <p><?php echo $xml->archdesc->userestrict->p ?></p>
 
         <h2 class="indHeading"></h2>
-        <p>
+        
+          <a class="expand1" style="cursor : pointer;">Expand All</a>
+          <a class="collapse1" style="cursor : pointer;">Collapse All</a>
           <?php 
-          $parent = $xml->archdesc->dsc->c01;
-          echo "<ul>";
-          foreach($parent as $node)
-          {
-            getNodes($node);
-          }
-          echo "</ul>";
-
-          function getNodes($node){
-            global $cId;
-            if(isset($node->did->unittitle)){
-              echo "<li>", $node->did->unittitle;
-            } else if(isset($node->did->extref->unittitle)){
-              //echo "<li>", $node->did->extref->unittitle;
-              $attributes = $node->did->extref->attributes('xlink',true);
-              echo "<li><a href=".base_url("exploro/viewEAD") ."/". $cId ."/". $node->did->unitid." target=_blank>".$node->did->extref->unittitle ."</a>";
+            $parent = $xml->archdesc->dsc->c01;
+            global $subtags;
+            
+            foreach($parent as $node)
+            {
+              echo "<div class='makeTree'>";
+              echo "<ul class='quickTree' style='display:block;'>";      
+              getNodes($node);
+              echo "</ul></div>";
             }
-            if ($node->children()) {
-              echo "<ul>";
-              foreach ($node->children() as $child) {
-                  getNodes($child);
+            
+            function getNodes($node){
+              
+              $tagName =  $node->getName();
+              //echo $tagName."<br />";
+              global $cId;
+              $count=0;
+              $subtags = array();
+              foreach($node->children() as $n){
+                $checktagc = $n->getName();
+                //echo $checktagc."<br />";
+                if($checktagc[0] === "c"){
+                  $count++;
+                }
+              }              
+              if(isset($node->did->unittitle) || isset($node->did->extref->unittitle)){
+                // if($count!=0){echo $count;}
+                // if(($node['level']=="series") && (isset($node->did->unittitle)) && ($tagName == 'c01')){
+                if($tagName == 'c01'){  
+                  echo "<li class='heading'>";
+                  if(isset($node->did->unittitle)){
+                    echo $node->did->unittitle;
+                  } else if(isset($node->did->extref->unittitle)){
+                    //echo "<li>", $node->did->extref->unittitle;
+                    $attributes = $node->did->extref->attributes('xlink',true);
+                    echo "<a href=".base_url("exploro/viewEAD") ."/". $cId ."/". $node->did->unitid." target=_blank>".$node->did->extref->unittitle ."</a>";
+                  }
+                } else {
+                  echo "<ul><li class='list'>";
+                  if(isset($node->did->unittitle)){
+                    echo $node->did->unittitle;
+                  } else if(isset($node->did->extref->unittitle)){
+                    //echo "<li>", $node->did->extref->unittitle;
+                    $attributes = $node->did->extref->attributes('xlink',true);
+                    echo "<a href=".base_url("exploro/viewEAD") ."/". $cId ."/". $node->did->unitid." target=_blank>".$node->did->extref->unittitle ."</a>";
+                  }
+                }
               }
-              echo "</ul>";
+              if($count>0){
+                // echo "<ul>";
+                $parentname = $node->getName();
+                foreach ($node->children() as $child) {
+                  $checkc = $child->getName();
+                  if(substr($checkc, 0, 1) === 'c'){
+                    getNodes($child);
+                  } 
+                }
+                // echo "</ul>";
+              }
+              echo "</li></ul>";
+              // if($tagName == 'c01'){
+              //   echo "</li>";
+              // }
+              //if($count!=0){echo $count;}
             }
-          echo "</li>";
-          }
+            
           ?>
-        </p>
-
-        <h2 class="indHeading">Acknowledgements</h2>
-        <p></p>
-
       </div>
       <div class="col-md-2 col-xs-2"></div>
 
@@ -154,5 +194,31 @@
         </footer>
       </div>
     </div>
+    <script>
+	$(document).ready(function() {
+    $('.quickTree').quickTree();
+    
+    //alert("chekc");
+    $('.expand1').click(function() {
+      // $('span.expand').click();
+      
+      $('span.expand').addClass('contract').nextAll('ul').slideDown();
+    });
+    $('.collapse1').click(function() {
+      // $('span.expand').click();
+      $('span.expand').removeClass('contract').nextAll('ul').slideUp();
+    });
+    // $('span.expand').toggle(
+    //         //if it's clicked once, find all child lists and expand
+    //         function () {
+    //             $(this).toggleClass('contract').nextAll('ul').slideDown();
+    //         },
+    //         //if it's clicked again, find all child lists and contract
+    //         function () {
+    //             $(this).toggleClass('contract').nextAll('ul').slideUp();
+    //         }
+    //     );
+	});
+   </script>
   </body>
 </html>
