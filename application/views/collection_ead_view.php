@@ -16,6 +16,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="<?php echo base_url('/js/jquery.quickTree.js') ?>"></script>
+    <style>
+    li.heading
+    {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: inherit;
+      line-height: 1.42857143;
+      color: #333;
+    }
+    a{
+      font-size: x-small;
+    }
+    </style>
 
 </head>
   <body>
@@ -194,31 +206,31 @@
         </footer>
       </div>
     </div>
-    <script>
-	$(document).ready(function() {
-    $('.quickTree').quickTree();
-    
-    //alert("chekc");
-    $('.expand1').click(function() {
-      // $('span.expand').click();
+  <script>
+    $(document).ready(function() {
+      $('.quickTree').quickTree();
       
-      $('span.expand').addClass('contract').nextAll('ul').slideDown();
+      //alert("chekc");
+      $('.expand1').click(function() {
+        // $('span.expand').click();
+        
+        $('span.expand').addClass('contract').nextAll('ul').slideDown();
+      });
+      $('.collapse1').click(function() {
+        // $('span.expand').click();
+        $('span.expand').removeClass('contract').nextAll('ul').slideUp();
+      });
+      // $('span.expand').toggle(
+      //         //if it's clicked once, find all child lists and expand
+      //         function () {
+      //             $(this).toggleClass('contract').nextAll('ul').slideDown();
+      //         },
+      //         //if it's clicked again, find all child lists and contract
+      //         function () {
+      //             $(this).toggleClass('contract').nextAll('ul').slideUp();
+      //         }
+      //     );
     });
-    $('.collapse1').click(function() {
-      // $('span.expand').click();
-      $('span.expand').removeClass('contract').nextAll('ul').slideUp();
-    });
-    // $('span.expand').toggle(
-    //         //if it's clicked once, find all child lists and expand
-    //         function () {
-    //             $(this).toggleClass('contract').nextAll('ul').slideDown();
-    //         },
-    //         //if it's clicked again, find all child lists and contract
-    //         function () {
-    //             $(this).toggleClass('contract').nextAll('ul').slideUp();
-    //         }
-    //     );
-	});
-   </script>
+  </script>
   </body>
 </html>
