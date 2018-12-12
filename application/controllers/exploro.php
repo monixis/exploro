@@ -52,10 +52,10 @@ class exploro extends CI_Controller
 		$solrQ = str_replace("Date", "datesingle", $solrQ);
 		$solrQ = str_replace("N-A","\"N/A\"",$solrQ);
 		if($searchType == 0){
-			$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?q=*:*" . $solrQ."&facet=true&facet.field=collection&facet.field=category&facet.field=format&rows=100&start=". $batchccount;
+			$resultsLink = "http://52.36.133.49:8983/solr/exploro/query?q=*:*" . $solrQ."&facet=true&facet.field=collection&facet.field=category&facet.field=format&rows=100&start=". $batchccount;
 		}else{
 			// rows=2147483647 is the max value of an int... this returns all rows so that way they can all be viewed with pagination... will get a lot of uneeded data which is expensive..
-			$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?q=" . $solrQ."&facet=true&facet.field=collection&facet.field=category&facet.field=format&rows=100&start=". $batchccount;
+			$resultsLink = "http://52.36.133.49:8983/solr/exploro/query?q=" . $solrQ."&facet=true&facet.field=collection&facet.field=category&facet.field=format&rows=100&start=". $batchccount;
 		}
 		$json = file_get_contents($resultsLink);
    		$data['results'] = json_decode($json);
@@ -123,7 +123,7 @@ class exploro extends CI_Controller
 
 	public function browse()
 	{
-		$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?&facet=true&facet.field=collection&rows=1000";
+		$resultsLink = "http://52.36.133.49:8983/solr/exploro/query?&facet=true&facet.field=collection&rows=1000";
 		$json = file_get_contents($resultsLink);
 		$data['results'] = json_decode($json);
 		$this->load->view('browse', $data);
@@ -131,7 +131,7 @@ class exploro extends CI_Controller
 	public function searchSubjects($q)
 	{
   		$q = str_replace(" ","%20", $q);
-		$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?q=" . $q."&facet=true&facet.field=collection&facet.field=category&facet.field=format&facet.field=physdesc&facet.field=location";
+		$resultsLink = "http://52.36.133.49:8983/solr/exploro/query?q=" . $q."&facet=true&facet.field=collection&facet.field=category&facet.field=format&facet.field=physdesc&facet.field=location";
  		$json = file_get_contents($resultsLink);
      	$data['results'] = json_decode($json);
 
@@ -144,7 +144,7 @@ class exploro extends CI_Controller
 
 	public function fileInfo($id)
 	{
-  		$resultsLink = "http://34.221.255.145:8983/solr/exploro/query?q=id:" . $id ;
+  		$resultsLink = "http://52.36.133.49:8983/solr/exploro/query?q=id:" . $id ;
    		$json = file_get_contents($resultsLink);
      	$data['results'] = json_decode($json);
   	 	$this->load->view('file_view', $data);
